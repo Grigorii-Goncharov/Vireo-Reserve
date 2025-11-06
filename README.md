@@ -15,7 +15,7 @@
 
 1. **Клонируйте репозиторий:**
    ```bash
-   git clone https://github.com/Grigorii-Goncharov/H.git
+   git clone https://git@github.com:Grigorii-Goncharov/Vireo-Reserve.git
    cd 
    
 
