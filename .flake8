@@ -1,0 +1,23 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    venv,
+    env,
+    .venv,
+    .env,
+    .tox,
+    .mypy_cache,
+    .pytest_cache,
+    htmlcov,
+    *.egg-info,
+    migrations,
+    node_modules,
+    media,
+    staticfiles,
+    */migrations/*,
+    */venv/*,
+    */env/*
+
+max-line-length = 119
+extend-ignore = E203, W503
