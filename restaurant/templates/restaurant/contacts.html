@@ -1,0 +1,26 @@
+<!-- Контакты и обратная связь -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Контакты</h3>
+        <p><strong>Адрес:</strong> Maya Bay, Ko Phi Phi Don, Таиланд</p>
+        <p><strong>Телефон:</strong> +66 123 456 789</p>
+        <p><strong>Email:</strong> info@resortbistro.th</p>
+      </div>
+      <div class="col-md-6">
+        <h3>Обратная связь</h3>
+        <form method="post" action="#">
+          {% csrf_token %}
+          <div class="mb-3">
+            <input type="email" class="form-control" name="email" placeholder="Ваш email" required>
+          </div>
+          <div class="mb-3">
+            <textarea class="form-control" name="message" rows="3" placeholder="Сообщение" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-outline-dark">Отправить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

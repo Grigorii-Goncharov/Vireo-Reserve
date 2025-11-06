@@ -1,0 +1,85 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}Vireo Reserve — Бронирование столиков с видом на бухту{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section 
+  class="text-center text-white" 
+  style="
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ MEDIA_URL }}restaurant_photo/main_photo.png');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <div class="container">
+    <h1 class="display-4 fw-bold">Ужин с видом на бухту Phi-Phi</h1>
+    <p class="lead">Изысканная кухня, тропическая атмосфера и незабываемые впечатления</p>
+    <a href="#booking" class="btn btn-light btn-lg mt-3">Забронировать столик</a>
+  </div>
+</section>
+
+<!-- О ресторане -->
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>О нашем ресторане</h2>
+        <p>Vireo Reserve — это уникальное место на острове Phi Phi, вдохновлённое знаменитым фильмом «Пляж». Мы предлагаем гостям не просто ужин, а полное погружение в атмосферу тропического рая.</p>
+        <ul>
+          <li>Свежайшие морепродукты и тайская кухня</li>
+          <li>Экологичные практики и локальные ингредиенты</li>
+          <li>Вид на бухту с любого столика</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <img src="{{ MEDIA_URL }}restaurant_photo/Second_photo.png"
+             alt="Интерьер ресторана" class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Услуги -->
+<!--
+<section class="py-5">
+  <div class="container text-center">
+    <h2 class="mb-4">Наши услуги</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <div class="card-icon">🍽️</div>
+            <h5>Романтический ужин</h5>
+            <p>Идеальный вечер для двоих с закатом над бухтой.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <div class="card-icon">🎉</div>
+            <h5>Празднования</h5>
+            <p>Организуем дни рождения, свадьбы и корпоративы.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <div class="card-icon">🌅</div>
+            <h5>Завтраки у океана</h5>
+            <p>Начните день с экзотических фруктов и ароматного кофе.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+{% endblock %}
