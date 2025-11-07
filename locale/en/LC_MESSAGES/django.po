@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-07 18:41+0300\n"
+"PO-Revision-Date: 2025-11-08 00:00+0000\n"
+"Last-Translator: YOU <your.email@example.com>\n"
+"Language-Team: English <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\restaurant\templates\restaurant\about.html:23
+#: .\restaurant\templates\restaurant\includes\inc_header.html:14
+msgid "О ресторане"
+msgstr "About Us"
+
+#: .\restaurant\templates\restaurant\about.html:24
+msgid "Тропический рай, вдохновлённый легендарной бухтой Майя"
+msgstr "A tropical paradise inspired by the legendary Maya Bay"
+
+#: .\restaurant\templates\restaurant\about.html:33
+#: .\restaurant\templates\restaurant\about.html:36
+msgid "История ресторана"
+msgstr "History of the Restaurant"
+
+#: .\restaurant\templates\restaurant\about.html:38
+msgid ""
+"Vireo Reserve был открыт в 2018 году на острове Пхи-Пхи в Таиланде. Наше "
+"заведение стало данью уважения культовому фильму «Пляж» и уникальному "
+"природному наследию бухты Майя."
+msgstr ""
+"Vireo Reserve was opened in 2018 on Phi Phi Island in Thailand. Our "
+"establishment pays tribute to the iconic film 'The Beach' and the unique "
+"natural heritage of Maya Bay."
+
+#: .\restaurant\templates\restaurant\about.html:41
+msgid ""
+"С самого начала мы стремились создать не просто ресторан, а место силы — где "
+"гости могут насладиться уединением, красотой природы и вкусом, "
+"приготовленным с любовью."
+msgstr ""
+"From the very beginning, we aimed to create not just a restaurant, but a "
+"place of power — where guests can enjoy solitude, natural beauty, and flavors "
+"prepared with love."
+
+#: .\restaurant\templates\restaurant\about.html:53
+msgid "Миссия и ценности"
+msgstr "Mission and Values"
+
+#: .\restaurant\templates\restaurant\about.html:54
+msgid ""
+"Мы верим, что еда — это не только питание, но и эмоции, воспоминания и "
+"уважение к природе."
+msgstr ""
+"We believe that food is not only nourishment, but also emotions, memories, "
+"and respect for nature."
+
+#: .\restaurant\templates\restaurant\about.html:58
+msgid "Экологичность"
+msgstr "Sustainability"
+
+#: .\restaurant\templates\restaurant\about.html:58
+msgid ""
+"Минимизируем отходы, используем биоразлагаемую посуду и локальные продукты."
+msgstr ""
+"We minimize waste, use biodegradable tableware, and source local ingredients."
+
+#: .\restaurant\templates\restaurant\about.html:62
+msgid "Аутентичность"
+msgstr "Authenticity"
+
+#: .\restaurant\templates\restaurant\about.html:62
+msgid "Блюда готовятся по традиционным тайским рецептам с авторским подходом."
+msgstr ""
+"Our dishes are prepared using traditional Thai recipes with a creative twist."
+
+#: .\restaurant\templates\restaurant\about.html:66
+msgid "Гостеприимство"
+msgstr "Hospitality"
+
+#: .\restaurant\templates\restaurant\about.html:66
+msgid ""
+"Каждый гость — как член семьи. Мы заботимся о каждом моменте вашего визита."
+msgstr ""
+"Every guest is like family. We care about every moment of your visit."
+
+#: .\restaurant\templates\restaurant\about.html:71
+msgid "Миссия ресторана"
+msgstr "Restaurant Mission"
+
+#: .\restaurant\templates\restaurant\about.html:80
+msgid "Наша команда"
+msgstr "Our Team"
+
+#: .\restaurant\templates\restaurant\about.html:84
+#: .\restaurant\templates\restaurant\about.html:86
+msgid "Шеф-повар"
+msgstr "Head Chef"
+
+#: .\restaurant\templates\restaurant\about.html:87
+msgid "15 лет в гастрономии, работал в Мишленовских ресторанах Европы и Азии."
+msgstr ""
+"15 years in gastronomy, with experience in Michelin-starred restaurants across Europe and Asia."
+
+#: .\restaurant\templates\restaurant\about.html:92
+msgid "Сомелье"
+msgstr "Sommelier"
+
+#: .\restaurant\templates\restaurant\about.html:94
+msgid "Сомелье и менеджер"
+msgstr "Sommelier & Manager"
+
+#: .\restaurant\templates\restaurant\about.html:95
+msgid ""
+"Эксперт по тайским винам и тропическим коктейлям. Создаёт уникальные "
+"гастрономические пары."
+msgstr ""
+"An expert in Thai wines and tropical cocktails, crafting unique food and drink pairings."
+
+#: .\restaurant\templates\restaurant\about.html:100
+#: .\restaurant\templates\restaurant\about.html:102
+msgid "Основатель"
+msgstr "Founder"
+
+#: .\restaurant\templates\restaurant\about.html:103
+msgid "Путешественник и энтузиаст устойчивого туризма. Вдохновлён красотой "
+msgstr "A traveler and sustainable tourism enthusiast, inspired by beauty."
+
+#: .\restaurant\templates\restaurant\home.html:4
+msgid "Vireo Reserve — Бронирование столиков с видом на бухту"
+msgstr "Vireo Reserve — Table Reservations with a View of the Bay"
+
+#: .\restaurant\templates\restaurant\home.html:22
+msgid "Ужин с видом на бухту Phi-Phi"
+msgstr "Dinner with a View of Phi Phi Bay"
+
+#: .\restaurant\templates\restaurant\home.html:23
+msgid "Изысканная кухня, тропическая атмосфера и незабываемые впечатления"
+msgstr "Exquisite cuisine, tropical ambiance, and unforgettable experiences"
+
+#: .\restaurant\templates\restaurant\home.html:24
+msgid "Забронировать столик"
+msgstr "Book a Table"
+
+#: .\restaurant\templates\restaurant\home.html:33
+msgid "Описание ресторана"
+msgstr "Restaurant Description"
+
+#: .\restaurant\templates\restaurant\home.html:35
+msgid ""
+"Vireo Reserve — это уникальное место на острове Phi Phi, вдохновлённое "
+"знаменитым фильмом «Пляж». Мы предлагаем гостям не просто ужин, а полное "
+"погружение в атмосферу тропического рая."
+msgstr ""
+"Vireo Reserve is a unique venue on Phi Phi Island, inspired by the famous film 'The Beach'. "
+"We offer guests not just dinner, but a full immersion into a tropical paradise."
+
+#: .\restaurant\templates\restaurant\home.html:38
+msgid "Свежайшие морепродукты и тайская кухня"
+msgstr "Fresh seafood and authentic Thai cuisine"
+
+#: .\restaurant\templates\restaurant\home.html:39
+msgid "Экологичные практики и локальные ингредиенты"
+msgstr "Eco-friendly practices and locally sourced ingredients"
+
+#: .\restaurant\templates\restaurant\home.html:40
+msgid "Вид на бухту с любого столика"
+msgstr "Bay views from every table"
+
+#: .\restaurant\templates\restaurant\home.html:44
+msgid "Интерьер ресторана"
+msgstr "Restaurant Interior"
+
+#: .\restaurant\templates\restaurant\home.html:53
+msgid "Наши услуги"
+msgstr "Our Services"
+
+#: .\restaurant\templates\restaurant\home.html:58
+#: .\restaurant\templates\restaurant\home.html:60
+msgid "Романтический ужин"
+msgstr "Romantic Dinner"
+
+#: .\restaurant\templates\restaurant\home.html:61
+msgid ""
+"Идеальный вечер для двоих с закатом в видом на бухту с красивыми пляжами."
+msgstr ""
+"The perfect evening for two, with a sunset overlooking the bay and its beautiful beaches."
+
+#: .\restaurant\templates\restaurant\home.html:69
+#: .\restaurant\templates\restaurant\home.html:71
+msgid "Празднования"
+msgstr "Celebrations"
+
+#: .\restaurant\templates\restaurant\home.html:72
+msgid "Организуем дни рождения, свадьбы и корпоративы."
+msgstr "We organize birthdays, weddings, and corporate events."
+
+#: .\restaurant\templates\restaurant\home.html:80
+#: .\restaurant\templates\restaurant\home.html:82
+msgid "Завтраки у океана"
+msgstr "Oceanfront Breakfasts"
+
+#: .\restaurant\templates\restaurant\home.html:83
+msgid "Начните день с экзотических фруктов и ароматного кофе."
+msgstr "Start your day with exotic fruits and aromatic coffee."
+
+#: .\restaurant\templates\restaurant\home.html:133
+msgid "Контакты"
+msgstr "Contact"
+
+#: .\restaurant\templates\restaurant\home.html:134
+msgid "Адрес"
+msgstr "Address"
+
+#: .\restaurant\templates\restaurant\home.html:134
+msgid "Таиланд"
+msgstr "Thailand"
+
+#: .\restaurant\templates\restaurant\home.html:135
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\restaurant\templates\restaurant\home.html:136
+msgid "Email"
+msgstr "Email"
+
+#: .\restaurant\templates\restaurant\home.html:148
+msgid "Обратная связь"
+msgstr "Feedback"
+
+#: .\restaurant\templates\restaurant\home.html:152
+msgid "Ваш email"
+msgstr "Your email"
+
+#: .\restaurant\templates\restaurant\home.html:155
+msgid "Сообщение"
+msgstr "Message"
+
+#: .\restaurant\templates\restaurant\home.html:157
+msgid "Отправить"
+msgstr "Send"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:11
+msgid "Главная"
+msgstr "Home"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:17
+msgid "Бронирование"
+msgstr "Reservation"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:20
+msgid "Личный кабинет"
+msgstr "My Account"
+
+#: .\restaurant\templates\restaurant\includes\inc_footer.html:5
+msgid "Все права защищены."
+msgstr "All rights reserved."
