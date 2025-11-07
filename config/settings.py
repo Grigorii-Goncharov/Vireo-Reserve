@@ -49,18 +49,28 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+# настройки переключенияЯзыковых настроек сайта
+USE_I18N = True
+USE_L10N = True
+LANGUAGE_CODE = 'ru'
+LANGUAGES = [
+    ('ru', 'Русский'),
+    ('en', 'English'),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'django.middleware.locale.LocaleMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
 ]
 
 # CORS_ALLOWED_ORIGINS = [
@@ -123,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = "ru"
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = "Europe/Moscow"
 

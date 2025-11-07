@@ -1,7 +1,7 @@
 {% extends 'restaurant/base.html' %}
-{% load static %}
+{% load i18n static %}
 
-{% block title %}Vireo Reserve — О ресторане{% endblock %}
+{% block title %}Vireo Reserve — {% trans "О ресторане" %}{% endblock %}
 
 {% block content %}
 
@@ -20,8 +20,8 @@
 <!-- Hero Section -->
 <section class="text-center text-white about-hero">
   <div class="container">
-    <h1 class="display-4 fw-bold">О ресторане Vireo Reserve</h1>
-    <p class="lead">Тропический рай, вдохновлённый легендарной бухтой Майя</p>
+    <h1 class="display-4 fw-bold">{% trans "О ресторане" %} Vireo Reserve</h1>
+    <p class="lead">{% trans "Тропический рай, вдохновлённый легендарной бухтой Майя" %}</p>
   </div>
 </section>
 
@@ -30,15 +30,15 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-6 mb-4 mb-md-0">
-        <img src="{% static 'media/04.jpg' %}" alt="История ресторана" class="img-fluid rounded shadow">
+        <img src="{% static 'media/04.jpg' %}" alt="{История ресторана}" class="img-fluid rounded shadow">
       </div>
       <div class="col-md-6">
-        <h2 class="mb-4">История ресторана</h2>
+        <h2 class="mb-4">{% trans "История ресторана" %}</h2>
         <p>
-          Vireo Reserve был открыт в 2018 году на острове Пхи-Пхи в Таиланде. Наше заведение стало данью уважения культовому фильму «Пляж» и уникальному природному наследию бухты Майя.
+          {% trans "Vireo Reserve был открыт в 2018 году на острове Пхи-Пхи в Таиланде. Наше заведение стало данью уважения культовому фильму «Пляж» и уникальному природному наследию бухты Майя." %}
         </p>
         <p>
-          С самого начала мы стремились создать не просто ресторан, а место силы — где гости могут насладиться уединением, красотой природы и вкусом, приготовленным с любовью.
+          {% trans "С самого начала мы стремились создать не просто ресторан, а место силы — где гости могут насладиться уединением, красотой природы и вкусом, приготовленным с любовью." %}
         </p>
       </div>
     </div>
@@ -50,25 +50,25 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h2 class="mb-4">Миссия и ценности</h2>
-        <p>Мы верим, что еда — это не только питание, но и эмоции, воспоминания и уважение к природе.</p>
+        <h2 class="mb-4">{% trans "Миссия и ценности" %}</h2>
+        <p>{% trans "Мы верим, что еда — это не только питание, но и эмоции, воспоминания и уважение к природе." %}</p>
         <ul class="list-unstyled">
           <li class="d-flex mb-3">
             <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-            <span><strong>Экологичность:</strong> Минимизируем отходы, используем биоразлагаемую посуду и локальные продукты.</span>
+            <span><strong>{% trans "Экологичность" %}:</strong> {% trans "Минимизируем отходы, используем биоразлагаемую посуду и локальные продукты." %}</span>
           </li>
           <li class="d-flex mb-3">
             <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-            <span><strong>Аутентичность:</strong> Блюда готовятся по традиционным тайским рецептам с авторским подходом.</span>
+            <span><strong>{% trans "Аутентичность" %}:</strong> {% trans "Блюда готовятся по традиционным тайским рецептам с авторским подходом." %}</span>
           </li>
           <li class="d-flex mb-3">
             <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-            <span><strong>Гостеприимство:</strong> Каждый гость — как член семьи. Мы заботимся о каждом моменте вашего визита.</span>
+            <span><strong>{% trans "Гостеприимство" %}:</strong> {% trans "Каждый гость — как член семьи. Мы заботимся о каждом моменте вашего визита." %}</span>
           </li>
         </ul>
       </div>
       <div class="col-md-6 d-flex align-items-center justify-content-center">
-        <img src="{% static 'media/05.jpg' %}" alt="Миссия ресторана" class="img-fluid rounded shadow" style="max-height: 350px; object-fit: cover;">
+        <img src="{% static 'media/05.jpg' %}" alt="{% trans "Миссия ресторана" %}" class="img-fluid rounded shadow" style="max-height: 350px; object-fit: cover;">
       </div>
     </div>
   </div>
@@ -77,30 +77,30 @@
 <!-- Команда -->
 <section class="py-5 bg-light">
   <div class="container">
-    <h2 class="text-center mb-5">Наша команда</h2>
+    <h2 class="text-center mb-5">{% trans "Наша команда" %}</h2>
     <div class="row text-center g-4">
       <div class="col-md-4">
         <div class="p-3">
-          <img src="{% static 'media/team/Cook.jpg' %}" alt="Шеф-повар" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+          <img src="{% static 'media/team/Cook.jpg' %}" alt="{% trans "Шеф-повар" %}" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
           <h5>Антонио Ривера</h5>
-          <p class="text-muted">Шеф-повар</p>
-          <p class="small">15 лет в гастрономии, работал в Мишленовских ресторанах Европы и Азии.</p>
+          <p class="text-muted">{% trans "Шеф-повар" %}</p>
+          <p class="small">{% trans "15 лет в гастрономии, работал в Мишленовских ресторанах Европы и Азии." %}</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="p-3">
-          <img src="{% static 'media/team/Soomel.jpg' %}" alt="Сомелье" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+          <img src="{% static 'media/team/Soomel.jpg' %}" alt="{% trans "Сомелье" %}" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
           <h5>Лина Чан</h5>
-          <p class="text-muted">Сомелье и менеджер</p>
-          <p class="small">Эксперт по тайским винам и тропическим коктейлям. Создаёт уникальные гастрономические пары.</p>
+          <p class="text-muted">{% trans "Сомелье и менеджер" %}</p>
+          <p class="small">{% trans "Эксперт по тайским винам и тропическим коктейлям. Создаёт уникальные гастрономические пары." %}</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="p-3">
-          <img src="{% static 'media/team/Soomel.jpg' %}" alt="Основатель" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
+          <img src="{% static 'media/team/Soomel.jpg' %}" alt="{% trans "Основатель" %}" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;">
           <h5>Марк Девис</h5>
-          <p class="text-muted">Основатель</p>
-          <p class="small">Путешественник и энтузиаст устойчивого туризма. Вдохновлён красотой Пхи-Пхи.</p>
+          <p class="text-muted">{% trans "Основатель" %}</p>
+          <p class="small">{% trans "Путешественник и энтузиаст устойчивого туризма. Вдохновлён красотой "%} Phi-Phi.</p>
         </div>
       </div>
     </div>

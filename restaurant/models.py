@@ -65,8 +65,8 @@ class Table_reservation(models.Model):
 
 
 class Feedback(models.Model):
-    email = models.EmailField(verbose_name="Email")
-    message = models.TextField(verbose_name="Сообщение")
+    email = models.EmailField(verbose_name="Email", help_text="Электронная почта клиента")
+    message = models.TextField(verbose_name="Сообщение", help_text="Отзыв клиента")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата отправки")
 
     class Meta:

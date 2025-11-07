@@ -13,9 +13,9 @@ app_name = RestaurantConfig.name
 
 
 urlpatterns = [
-    path("", views.HomeView.as_view(), name="home"),
-    path("booking/", views.BookingView.as_view(), name="booking"),
-    path("about/", views.AboutView.as_view(), name="about"),
+    path("", views.HomeView.as_view(), name="home"),                  # Главная страница
+    path("booking/", views.BookingView.as_view(), name="booking"),    # Забронировать
+    path("about/", views.AboutView.as_view(), name="about"),          # О ресторане
 ]
     # path("product/<int:pk>/", cache_page(15)(ProductDetailView.as_view()), name="product"),
     # path("product/create/", ProductsCreateView.as_view(), name="create"),

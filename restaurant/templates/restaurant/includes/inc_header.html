@@ -1,17 +1,68 @@
 <!-- Навигация -->
+
+{% load i18n static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="{% url 'restaurant:home' %}">Vireo Reserve</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="{% url 'restaurant:home' %}">Главная</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'restaurant:about' %}">О ресторане</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'restaurant:booking' %}">Бронирование</a></li>
-        <li class="nav-item"><a class="nav-link" href="/login/">Личный кабинет</a></li>
-      </ul>
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'restaurant:home' %}">Vireo Reserve</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'restaurant:home' %}">{% trans "Главная" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'restaurant:about' %}">{% trans "О ресторане" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'restaurant:booking' %}">{% trans "Бронирование" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login/">{% trans "Личный кабинет" %}</a>
+                </li>
+
+                <!-- Переключатель языка -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languageSwitcher" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if request.LANGUAGE_CODE == 'en' %}
+                        <span class="fi fi-us me-1"></span> English
+                        {% else %}
+                        <span class="fi fi-ru me-1"></span> Русский
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageSwitcher">
+                        <li>
+                            <form id="lang-form-ru" method="post" action="{% url 'set_language' %}"
+                                  style="display: none;">
+                                {% csrf_token %}
+                                <input type="hidden" name="language" value="ru">
+                                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            </form>
+                            <a class="dropdown-item" href="#"
+                               onclick="event.preventDefault(); document.getElementById('lang-form-ru').submit();">
+                                <span class="fi fi-ru me-2"></span> Русский
+                            </a>
+                        </li>
+                        <li>
+                            <form id="lang-form-en" method="post" action="{% url 'set_language' %}"
+                                  style="display: none;">
+                                {% csrf_token %}
+                                <input type="hidden" name="language" value="en">
+                                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            </form>
+                            <a class="dropdown-item" href="#"
+                               onclick="event.preventDefault(); document.getElementById('lang-form-en').submit();">
+                                <span class="fi fi-us me-2"></span> English
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
+
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
