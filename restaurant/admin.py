@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Table, Table_reservation, Feedback
+from .models import Table, TableReservation, Feedback
 
 
 @admin.register(Table)
@@ -10,7 +10,7 @@ class TableAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-@admin.register(Table_reservation)
+@admin.register(TableReservation)
 class TableReservationAdmin(admin.ModelAdmin):
     list_display = (
         'user_full_name',

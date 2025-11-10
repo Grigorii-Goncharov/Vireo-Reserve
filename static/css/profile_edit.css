@@ -1,0 +1,155 @@
+/* static/css/profile_edit.css */
+
+body {
+  margin: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+              url('https://images.unsplash.com/photo-1507529158062-4e81a7c3d319?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.edit-profile-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+  text-align: center;
+  padding: 22px;
+  margin: -40px -40px 32px -40px;
+  border-radius: 20px 20px 0 0;
+}
+
+.card-header h2 {
+  font-weight: 700;
+  font-size: 24px;
+  margin: 0;
+}
+
+.input-group {
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.input-group label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #334155;
+  font-size: 15px;
+}
+
+.input-group label .text-danger {
+  margin-left: 4px;
+  font-weight: normal;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  transition: border-color 0.3s, box-shadow 0.2s;
+  background: #fff;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Особый стиль для файла (аватар) */
+.input-group input[type="file"] {
+  padding: 8px;
+  border: 1px dashed #cbd5e1;
+  background: #f8fafc;
+}
+
+.error-text {
+  color: #e11d48;
+  font-size: 14px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.help-text {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.non-field-errors {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+
+/* Кнопки */
+.form-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.btn-cancel {
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+  background: linear-gradient(135deg, #047857, #065f46);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+}
+
+@media (max-width: 576px) {
+  .edit-profile-card {
+    padding: 30px 20px;
+    margin: 0 16px;
+  }
+  .form-actions {
+    justify-content: center;
+  }
+}

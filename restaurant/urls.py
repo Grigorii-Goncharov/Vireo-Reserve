@@ -1,7 +1,3 @@
-
-from .views import (
-    HomeView, BookingView, AboutView,
-)
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
@@ -10,19 +6,14 @@ from . import views
 
 app_name = RestaurantConfig.name
 
-
-
 urlpatterns = [
     path("", views.HomeView.as_view(), name="home"),                  # Главная страница
     path("booking/", views.BookingView.as_view(), name="booking"),    # Забронировать
+    path("booking/success/<int:pk>/", views.BookingSuccessView.as_view(), name="booking_success"),  # Подтверждение бронирования
     path("about/", views.AboutView.as_view(), name="about"),          # О ресторане
+    path("profile/", views.ProfileView.as_view(), name="profile"),    # Личный кабинет
+    path("cancel/<int:pk>/", views.cancel_reservation, name="cancel_reservation"),  # Отменить бронь
 ]
-    # path("product/<int:pk>/", cache_page(15)(ProductDetailView.as_view()), name="product"),
-    # path("product/create/", ProductsCreateView.as_view(), name="create"),
-    # path("product/update/<int:pk>/", ProductsUpdateView.as_view(), name="update"),
-    # path("product/delete/<int:pk>/", ProductsDeleteView.as_view(), name="delete"),
-    # path("category/<int:category_id>/",ProductsByCategoryView.as_view(),name="products_by_category"),
-
 
 # Только для DEBUG-режима!
 if settings.DEBUG:

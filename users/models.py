@@ -56,7 +56,7 @@ class User(AbstractUser):
         help_text="Используется для временных операций, например, сброса пароля.",
     )
 
-    photo= models.ImageField(
+    photo = models.ImageField(
         upload_to="images/",
         verbose_name="Аватар",
         null=True,
@@ -79,7 +79,6 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата регистрации"
     )
-
 
     USERNAME_FIELD = "email"  # Используем email для аутентификации
     REQUIRED_FIELDS = (

@@ -1,14 +1,6 @@
 from django.urls import path
 
 from . import views
-from .views import (
-    UserRegisterView,
-    UserLoginView,
-    UserProfileEditView,
-    UserProfileView,
-    email_verification,
-    UserListView,
-)
 from django.contrib.auth.views import (
     PasswordResetCompleteView,
     PasswordResetConfirmView,
@@ -20,14 +12,14 @@ from django.contrib.auth.views import LogoutView
 app_name = "users"
 
 urlpatterns = [
-    path("login/", UserLoginView.as_view(), name="login"),
-    path("register/", UserRegisterView.as_view(), name="register"),
-    path("profile", UserProfileView.as_view(), name="profile"),
-    path("profile_edit/", UserProfileEditView.as_view(), name="profile_edit"),
+    path("login/", views.UserLoginView.as_view(), name="login"),
+    path("register/", views.UserRegisterView.as_view(), name="register"),
+    path("profile/", views.UserProfileView.as_view(), name="profile"),
+    path("profile_edit/", views.UserProfileEditView.as_view(), name="profile_edit"),
     path("logout/", LogoutView.as_view(), name="logout"),
-    path("email-confirm/<str:token>/", email_verification, name="email-confirm"),
-    path("users/", UserListView.as_view(), name="user_list"),
+    path("email-confirm/<str:token>/", views.email_verification, name="email-confirm"),
     path("users/toggle/<int:pk>/", views.toggle_user_active, name="toggle_user_active"),
+
     # Сброс и восстановление пароля:
     path(
         "password-reset/",

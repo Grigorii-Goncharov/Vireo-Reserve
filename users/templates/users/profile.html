@@ -1,54 +1,98 @@
-{% extends "mailservices/base.html" %}
-{% include 'mailservices/includes/inc_menu.html' %}
+{% extends "restaurant/base.html" %}
+{% load static %} <!-- Добавляем для использования static -->
+{% block title %}Профиль | Vireo Reserve{% endblock %}
 
-{% block title %}Профиль пользователя{% endblock %}
+{% block extra_css %}
+  <style>
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('/static/media/main_photo.png') center/cover no-repeat fixed;
+    }
+  </style>
+  <link rel="stylesheet" href="/static/css/profile.css">
+  <!-- Подключите Bootstrap Icons, если не подключены глобально -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+{% endblock %}
 
 {% block content %}
 
-<!-- Карточка профиля -->
-<div class="card mb-4">
-    <div class="card-body text-center">
-        <h3>Профиль пользователя {{ user.username }}</h3>
-        <p><strong>Почта:</strong> {{ user.email }}</p>
-        <p><strong>Никнейм:</strong> {{ user.username }}</p>
-        <p><strong>Номер телефона:</strong> {{ user.phone }}</p>
-
-        <a href="{% url 'users:profile_edit' %}" class="btn btn-warning">Редактировать Профиль</a>
-        <a href="{% url 'mailservices:attempt_list' %}" class="btn btn-info">История рассылок</a>
-    </div>
-</div>
-
-<!-- Статистика по попыткам рассылки -->
-<div class="row g-4 mb-5">
-    <!-- Всего попыток -->
-    <div class="col-md-4">
-        <div class="card text-white" style="background-color: #28a745;">
-            <div class="card-body">
-                <h5><i class="fas fa-envelope me-2"></i> Всего попыток</h5>
-                <p class="display-6 mb-0">{{ total_attempts }}</p>
-            </div>
-        </div>
+<div class="profile-container">
+  <!-- Карточка профиля -->
+  <div class="profile-card">
+    <div class="profile-header">
+      <h3>Профиль пользователя</h3>
     </div>
 
-    <!-- Успешные попытки -->
-    <div class="col-md-4">
-        <div class="card text-white" style="background-color: #20c997;">
-            <div class="card-body">
-                <h5><i class="fas fa-check-circle me-2"></i> Успешные</h5>
-                <p class="display-6 mb-0">{{ successful_attempts }}</p>
-            </div>
-        </div>
+    <!-- Блок с аватаркой -->
+    <div class="profile-avatar text-center mb-3">
+      {% if user_profile.photo %}
+        <img src="{{ user_profile.photo.url }}" alt="Аватар {{ user_profile.first_name|default:user_profile.username }}" class="rounded-circle border border-2" style="width: 120px; height: 120px; object-fit: cover;">
+      {% else %}
+        <!-- Заглушка: можно использовать любое изображение по умолчанию -->
+        <img src="{% static 'media/avatar_placeholder.jpg' %}" alt="Аватар по умолчанию" class="rounded-circle border border-2" style="width: 120px; height: 120px; object-fit: cover;">
+      {% endif %}
     </div>
 
-    <!-- Неудачные попытки -->
-    <div class="col-md-4">
-        <div class="card text-white" style="background-color: #d9534f;">
-            <div class="card-body">
-                <h5><i class="fas fa-times-circle me-2"></i> Ошибки</h5>
-                <p class="display-6 mb-0">{{ failed_attempts }}</p>
-            </div>
-        </div>
+    <div class="profile-body">
+      <div class="profile-info">
+        <p><strong>Email:</strong> {{ user_profile.email }}</p>
+        <p><strong>Имя:</strong> {{ user_profile.first_name|default:"— не указано" }}</p>
+        <p><strong>Фамилия:</strong> {{ user_profile.last_name|default:"— не указана" }}</p>
+        <p><strong>Телефон:</strong> {{ user_profile.phone|default:"— не указан" }}</p>
+        <p><strong>Город:</strong> {{ user_profile.city|default:"— не указан" }}</p>
+      </div>
+
+      <div class="profile-actions">
+        <a href="{% url 'users:profile_edit' %}" class="btn btn-primary">
+          <i class="bi bi-pencil me-1"></i> Редактировать профиль
+        </a>
+      </div>
     </div>
+  </div>
+
+  <!-- История бронирований (если есть) -->
+  {% if reservations %}
+  <div class="reservations-section">
+    <h4>Ваши бронирования</h4>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Дата</th>
+            <th>Время</th>
+            <th>Столики</th>
+            <th>Сумма</th>
+            <th>Статус</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reservation in reservations %}
+          <tr>
+            <td>{{ reservation.reservation_date }}</td>
+            <td>{{ reservation.reservation_time }}</td>
+            <td>
+              {% for table in reservation.tables.all %}
+                {{ table.number }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+            <td>{{ reservation.total_amount }} руб.</td>
+            <td>Подтверждено</td>
+            <td>
+              <a href="{% url 'restaurant:cancel_reservation' reservation.pk %}" class="btn btn-sm btn-outline-danger">Отменить</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="no-reservations">
+    <p>У вас пока нет бронирований.</p>
+  </div>
+  {% endif %}
+
 </div>
 
 {% endblock %}

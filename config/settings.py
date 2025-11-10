@@ -155,9 +155,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTH_USER_MODEL = "users.User"  # ← указываем, что User — из приложения users
 
-# LOGIN_REDIRECT_URL = 'users:profile'
-# LOGOUT_REDIRECT_URL = 'catalog:home'
-# LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'users:profile'
+LOGOUT_REDIRECT_URL = 'restaurant:home'
+LOGIN_URL = 'users:login'
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Настройки почты

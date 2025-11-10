@@ -8,6 +8,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('restaurant.urls')),
     path('i18n/', set_language, name='set_language'),
+    path('users/', include('users.urls')),
+
 ]
 
     # path("create/", BlogPostCreateView.as_view(), name="create"),

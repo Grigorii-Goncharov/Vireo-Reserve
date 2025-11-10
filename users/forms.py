@@ -2,14 +2,14 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from users.models import User
+from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ["first_name", "last_name",  "email", "phone",  "telegram_chat_id", "city", "photo"]
+        fields = ["first_name", "last_name", "email", "phone", "telegram_chat_id", "city", "photo"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -63,7 +63,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name",  "email", "phone",  "telegram_chat_id", "city", "photo"]
+        fields = ["first_name", "last_name", "email", "phone", "telegram_chat_id", "city", "photo"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
