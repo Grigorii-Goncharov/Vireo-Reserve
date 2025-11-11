@@ -1,17 +1,32 @@
 {% extends "restaurant/base.html" %}
+{% load i18n %}
+{% load static %}
 {% block title %}Вход | Vireo Reserve{% endblock %}
 {% include 'restaurant/includes/header.html' %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="/static/css/auth_common.css">
-  <!-- Если есть уникальные стили для логина -->
-  <!-- <link rel="stylesheet" href="/static/css/login.css"> -->
+<style>
+    body {
+      margin: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('{% static 'media/main_photo.png' %}') center/cover no-repeat fixed;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'css/auth_common.css' %}">
+<!-- Если есть уникальные стили для логина -->
+<!-- <link rel="stylesheet" href="/static/css/login.css"> -->
+
 {% endblock %}
 
 {% block content %}
 
 <!-- Добавлены классы py-4 py-md-5 -->
 <div class="container d-flex justify-content-center align-items-center min-vh-100 py-4 py-md-5">
+
+  <div class="auth-card">
+    <div class="card-header">
+      <h2>Vireo Reserve</h2>
+
   {% if messages %}
     {% for message in messages %}
       <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert" style="max-width: 440px; width: 100%;">
@@ -20,37 +35,33 @@
       </div>
     {% endfor %}
   {% endif %}
-
-  <div class="auth-card">
-    <div class="card-header">
-      <h2>Vireo Reserve</h2>
-      <p>Войдите в свой аккаунт</p>
+      <p>{% trans "Войдите в свой аккаунт" %}</p>
     </div>
 
     <form method="post">
       {% csrf_token %}
       <div class="input-group">
-        <label for="{{ form.username.id_for_label }}">Ваша почта</label>
+        <label for="{{ form.username.id_for_label }}">{% trans "Ваша почта" %}</label>
         {{ form.username }}
       </div>
       <div class="input-group">
-        <label for="{{ form.password.id_for_label }}">Пароль</label>
+        <label for="{{ form.password.id_for_label }}">{% trans "Пароль" %}</label>
         {{ form.password }}
       </div>
 
-      <button type="submit" class="btn-auth">Войти</button>
+      <button type="submit" class="btn-auth">{% trans "Войти" %}</button>
     </form>
 
-    <div class="divider">Или</div>
+    <div class="divider">{% trans "или" %}</div>
 
     <div class="links">
-      <a href="{% url 'users:register' %}">Создать аккаунт</a>
+      <a href="{% url 'users:register' %}">{% trans "Создать аккаунт" %}</a>
       <span>•</span>
-      <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>
+      <a href="{% url 'users:password_reset' %}">{% trans "Забыли пароль?" %}</a>
     </div>
 
     <div class="footer-note">
-      Остров Пхи-Пхи, Таиланд
+      {% trans "Остров Phi-Phi, Таиланд" %}
     </div>
   </div>
 </div>

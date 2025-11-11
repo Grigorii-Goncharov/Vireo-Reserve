@@ -157,7 +157,7 @@ AUTH_USER_MODEL = "users.User"  # ← указываем, что User — из �
 
 LOGIN_REDIRECT_URL = 'users:profile'
 LOGOUT_REDIRECT_URL = 'restaurant:home'
-LOGIN_URL = 'users:login'
+LOGIN_URL = 'users:register'
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Настройки почты
@@ -269,3 +269,4 @@ CELERY_BEAT_SCHEDULE = {
 
 TELEGRAM_URL = "https://api.telegram.org/bot"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+

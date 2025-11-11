@@ -1,11 +1,98 @@
 {% extends "restaurant/base.html" %}
-{% block title %}Редактирование профиля | Vireo Reserve{% endblock %}
+{% load i18n %}
+{% block title %} {% trans "Редактирование профиля"%} | Vireo Reserve{% endblock %}
 {% include 'restaurant/includes/header.html' %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="/static/css/profile_edit.css">
   <!-- Подключите Bootstrap Icons, если не подключены глобально -->
+
+
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<style>
+
+    body {
+    margin: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('/static/media/main_photo.png') center/cover no-repeat fixed;
+  }
+
+/* Тропические стили для кнопок */
+.btn-group {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-group > * {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Кнопка "Сохранить" — тропический стиль */
+.btn-tropical-save {
+  background: linear-gradient(135deg, #059669, #10b981); /* Зелёный тропический */
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-tropical-save:hover {
+  background: linear-gradient(135deg, #047857, #065f46);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+}
+
+/* Кнопка "Удалить" — тропический стиль */
+.btn-tropical-delete {
+  background: linear-gradient(135deg, #dc2626, #b91c1c); /* Красный тропический */
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-tropical-delete:hover {
+  background: linear-gradient(135deg, #991b1b, #7f1d1d);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
+}
+
+/* Кнопка "Отмена" — тропический стиль */
+.btn-tropical-cancel {
+  background: linear-gradient(135deg, #f59e0b, #d97706); /* Жёлтый тропический */
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-tropical-cancel:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +100,7 @@
 <div class="container d-flex justify-content-center align-items-start min-vh-100 py-4 py-md-5">
   <div class="edit-profile-card">
     <div class="card-header">
-      <h2><i class="bi bi-person-gear me-2"></i> Редактирование профиля</h2>
+      <h2><i class="bi bi-person-gear me-2"></i>{% trans "Редактирование профиля" %}</h2>
     </div>
 
     <form method="post" enctype="multipart/form-data">
@@ -49,13 +136,25 @@
         </div>
       {% endfor %}
 
-      <div class="form-actions">
-        <a href="{% url 'users:profile' %}" class="btn-cancel">
-          <i class="bi bi-x-circle me-1"></i> Отмена
-        </a>
-        <button type="submit" class="btn-save">
-          <i class="bi bi-save2 me-1"></i> Сохранить изменения
+      <div class="form-actions d-flex flex-column gap-2">
+        <!-- Кнопка "Сохранить" -->
+        <button type="submit" class="btn-tropical-save">
+          <i class="bi bi-save2 me-1"></i> {% trans "Сохранить изменения" %}
         </button>
+
+        <!-- Кнопка "Удалить" (только для суперпользователя, редактирующего другого) -->
+        {% if user.pk == user.pk %}
+          <a href="{% url 'users:delete_user' form.instance.pk %}"
+             class="btn-tropical-delete"
+             onclick="return confirm('{% trans "Вы уверены, что хотите удалить пользователя" %} {{ form.instance.username }}?');">
+            <i class="bi bi-trash me-1"></i> {% trans "Удалить пользователя "%}
+          </a>
+        {% endif %}
+
+        <!-- Кнопка "Отмена" -->
+        <a href="{% url 'users:profile' %}" class="btn-tropical-cancel ">
+          <i class="bi bi-x-circle me-1"></i> {% trans "Отмена" %}
+        </a>
       </div>
     </form>
   </div>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-07 18:41+0300\n"
-"PO-Revision-Date: 2025-11-08 00:00+0000\n"
+"POT-Creation-Date: 2025-11-11 14:01+0300\n"
+"PO-Revision-Date: 2025-11-11 14:30+0300\n"
 "Last-Translator: YOU <your.email@example.com>\n"
 "Language-Team: English <LL@li.org>\n"
 "Language: en\n"
@@ -17,8 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: .\restaurant\templates\restaurant\about.html:4
 #: .\restaurant\templates\restaurant\about.html:23
-#: .\restaurant\templates\restaurant\includes\inc_header.html:14
+#: .\restaurant\templates\restaurant\includes\inc_header.html:16
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:16
 msgid "О ресторане"
 msgstr "About Us"
 
@@ -26,7 +28,6 @@ msgstr "About Us"
 msgid "Тропический рай, вдохновлённый легендарной бухтой Майя"
 msgstr "A tropical paradise inspired by the legendary Maya Bay"
 
-#: .\restaurant\templates\restaurant\about.html:33
 #: .\restaurant\templates\restaurant\about.html:36
 msgid "История ресторана"
 msgstr "History of the Restaurant"
@@ -48,8 +49,8 @@ msgid ""
 "приготовленным с любовью."
 msgstr ""
 "From the very beginning, we aimed to create not just a restaurant, but a "
-"place of power — where guests can enjoy solitude, natural beauty, and flavors "
-"prepared with love."
+"place of power — where guests can enjoy solitude, natural beauty, and "
+"flavors prepared with love."
 
 #: .\restaurant\templates\restaurant\about.html:53
 msgid "Миссия и ценности"
@@ -89,8 +90,7 @@ msgstr "Hospitality"
 #: .\restaurant\templates\restaurant\about.html:66
 msgid ""
 "Каждый гость — как член семьи. Мы заботимся о каждом моменте вашего визита."
-msgstr ""
-"Every guest is like family. We care about every moment of your visit."
+msgstr "Every guest is like family. We care about every moment of your visit."
 
 #: .\restaurant\templates\restaurant\about.html:71
 msgid "Миссия ресторана"
@@ -108,7 +108,8 @@ msgstr "Head Chef"
 #: .\restaurant\templates\restaurant\about.html:87
 msgid "15 лет в гастрономии, работал в Мишленовских ресторанах Европы и Азии."
 msgstr ""
-"15 years in gastronomy, with experience in Michelin-starred restaurants across Europe and Asia."
+"15 years in gastronomy, with experience in Michelin-starred restaurants "
+"across Europe and Asia."
 
 #: .\restaurant\templates\restaurant\about.html:92
 msgid "Сомелье"
@@ -123,7 +124,8 @@ msgid ""
 "Эксперт по тайским винам и тропическим коктейлям. Создаёт уникальные "
 "гастрономические пары."
 msgstr ""
-"An expert in Thai wines and tropical cocktails, crafting unique food and drink pairings."
+"An expert in Thai wines and tropical cocktails, crafting unique food and "
+"drink pairings."
 
 #: .\restaurant\templates\restaurant\about.html:100
 #: .\restaurant\templates\restaurant\about.html:102
@@ -160,8 +162,9 @@ msgid ""
 "знаменитым фильмом «Пляж». Мы предлагаем гостям не просто ужин, а полное "
 "погружение в атмосферу тропического рая."
 msgstr ""
-"Vireo Reserve is a unique venue on Phi Phi Island, inspired by the famous film 'The Beach'. "
-"We offer guests not just dinner, but a full immersion into a tropical paradise."
+"Vireo Reserve is a unique venue on Phi Phi Island, inspired by the famous "
+"film 'The Beach'. We offer guests not just dinner, but a full immersion into "
+"a tropical paradise."
 
 #: .\restaurant\templates\restaurant\home.html:38
 msgid "Свежайшие морепродукты и тайская кухня"
@@ -192,7 +195,8 @@ msgstr "Romantic Dinner"
 msgid ""
 "Идеальный вечер для двоих с закатом в видом на бухту с красивыми пляжами."
 msgstr ""
-"The perfect evening for two, with a sunset overlooking the bay and its beautiful beaches."
+"The perfect evening for two, with a sunset overlooking the bay and its "
+"beautiful beaches."
 
 #: .\restaurant\templates\restaurant\home.html:69
 #: .\restaurant\templates\restaurant\home.html:71
@@ -225,10 +229,12 @@ msgid "Таиланд"
 msgstr "Thailand"
 
 #: .\restaurant\templates\restaurant\home.html:135
+#: .\users\templates\users\profile.html:42
 msgid "Телефон"
 msgstr "Phone"
 
 #: .\restaurant\templates\restaurant\home.html:136
+#: .\users\templates\users\profile.html:39
 msgid "Email"
 msgstr "Email"
 
@@ -248,18 +254,344 @@ msgstr "Message"
 msgid "Отправить"
 msgstr "Send"
 
-#: .\restaurant\templates\restaurant\includes\inc_header.html:11
-msgid "Главная"
-msgstr "Home"
-
-#: .\restaurant\templates\restaurant\includes\inc_header.html:17
-msgid "Бронирование"
-msgstr "Reservation"
-
-#: .\restaurant\templates\restaurant\includes\inc_header.html:20
-msgid "Личный кабинет"
-msgstr "My Account"
-
 #: .\restaurant\templates\restaurant\includes\inc_footer.html:5
 msgid "Все права защищены."
 msgstr "All rights reserved."
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:13
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:13
+msgid "Главная"
+msgstr "Home"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:19
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:19
+msgid "Бронирование"
+msgstr "Reservation"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:23
+#: .\users\templates\users\profile.html:4
+msgid "Профиль"
+msgstr "Profile"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:25
+msgid "Авторизация"
+msgstr "Authorization"
+
+#: .\users\templates\users\login.html:38
+msgid "Войдите в свой аккаунт"
+msgstr "Log into your account"
+
+#: .\users\templates\users\login.html:44
+#: .\users\templates\users\password_reset.html:33
+#, fuzzy
+#| msgid "Наша команда"
+msgid "Ваша почта"
+msgstr "Your email"
+
+#: .\users\templates\users\login.html:48
+msgid "Пароль"
+msgstr "Password"
+
+#: .\users\templates\users\login.html:52
+#: .\users\templates\users\password_reset_complete.html:9
+#: .\users\templates\users\register.html:77
+msgid "Войти"
+msgstr "Log In"
+
+#: .\users\templates\users\login.html:55
+msgid "или"
+msgstr "or"
+
+#: .\users\templates\users\login.html:58
+#: .\users\templates\users\register.html:3
+#: .\users\templates\users\register.html:31
+msgid "Создать аккаунт"
+msgstr "Create Account"
+
+#: .\users\templates\users\login.html:60
+msgid "Забыли пароль?"
+msgstr "Forgot password?"
+
+#: .\users\templates\users\login.html:64
+msgid "Остров Phi-Phi, Таиланд"
+msgstr "Phi Phi Island, Thailand"
+
+#: .\users\templates\users\password_reset.html:3
+#: .\users\templates\users\password_reset.html:26
+#: .\users\templates\users\password_reset_email.html:17
+msgid "Восстановление пароля"
+msgstr "Password Recovery"
+
+#: .\users\templates\users\password_reset.html:27
+msgid "Введите вашу электронную почту, и мы вышлем инструкции"
+msgstr "Enter your email and we will send instructions"
+
+#: .\users\templates\users\password_reset.html:37
+#, fuzzy
+#| msgid "Отправить"
+msgid "Отправить инструкции"
+msgstr "Send Instructions"
+
+#: .\users\templates\users\password_reset.html:41
+msgid "← Назад к входу"
+msgstr "← Back to Login"
+
+#: .\users\templates\users\password_reset_complete.html:3
+#: .\users\templates\users\password_reset_complete.html:7
+msgid "Пароль успешно изменен"
+msgstr "Password changed successfully"
+
+#: .\users\templates\users\password_reset_complete.html:8
+msgid "Вы можете теперь войти в систему с новым паролем."
+msgstr "You can now log in with your new password."
+
+#: .\users\templates\users\password_reset_confirm.html:3
+#: .\users\templates\users\password_reset_confirm.html:6
+msgid "Создание нового пароля"
+msgstr "Creating a New Password"
+
+#: .\users\templates\users\password_reset_confirm.html:10
+msgid "Сохранить новый пароль"
+msgstr "Save New Password"
+
+#: .\users\templates\users\password_reset_done.html:3
+msgid "Письмо отправлено"
+msgstr "Email Sent"
+
+#: .\users\templates\users\password_reset_done.html:17
+msgid "Проверьте вашу почту"
+msgstr "Check Your Email"
+
+#: .\users\templates\users\password_reset_done.html:18
+msgid "На указанный email было отправлено письмо с инструкциями по восстановлению "
+"пароля."
+msgstr "An email with instructions for password recovery has been sent to the "
+"specified email address."
+
+
+#: .\users\templates\users\password_reset_done.html:21
+msgid "← Вернуться к входу"
+msgstr "← Return to Login"
+
+#: .\users\templates\users\password_reset_email.html:7
+msgid "Сброс пароля"
+msgstr "Password Reset"
+
+#: .\users\templates\users\password_reset_email.html:13
+msgid "Остров Пхи-Пхи, Таиланд"
+msgstr "Phi Phi Island, Thailand"
+
+#: .\users\templates\users\password_reset_email.html:19
+msgid ""
+"Кто-то запросил сброс пароля для аккаунта, связанного с этим email-адресом."
+msgstr ""
+"Someone requested a password reset for an account associated with this email address."
+
+#: .\users\templates\users\password_reset_email.html:21
+msgid "Для сброса пароля перейдите по следующей ссылке:"
+msgstr "To reset your password, click the following link:"
+
+#: .\users\templates\users\password_reset_email.html:25
+msgid "Сбросить пароль"
+msgstr "Reset Password"
+
+#: .\users\templates\users\password_reset_email.html:28
+msgid "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо."
+msgstr "If you did not request a password reset, simply ignore this email."
+
+#: .\users\templates\users\password_reset_email.html:32
+msgid "Это автоматическое сообщение от"
+msgstr "This is an automated message from"
+
+#: .\users\templates\users\password_reset_email.html:33
+msgid "Пожалуйста, не отвечайте на него."
+msgstr "Please do not reply to it."
+
+#: .\users\templates\users\profile.html:24
+msgid "Профиль пользователя"
+msgstr "User Profile"
+
+#: .\users\templates\users\profile.html:30
+#, python-format
+msgid "Аватар %(name)s"
+msgstr "%(name)s's Avatar"
+
+#: .\users\templates\users\profile.html:33
+msgid "Аватар по умолчанию"
+msgstr "Default Avatar"
+
+#: .\users\templates\users\profile.html:40
+msgid "Имя"
+msgstr "First Name"
+
+#: .\users\templates\users\profile.html:40
+msgid "не указано"
+msgstr "not specified"
+
+#: .\users\templates\users\profile.html:41
+msgid "Фамилия"
+msgstr "Last Name"
+
+#: .\users\templates\users\profile.html:41
+msgid "не указана"
+msgstr "not specified"
+
+#: .\users\templates\users\profile.html:42
+#: .\users\templates\users\profile.html:43
+msgid "не указан"
+msgstr "not specified"
+
+#: .\users\templates\users\profile.html:43
+msgid "Город"
+msgstr "City"
+
+#: .\users\templates\users\profile.html:48
+#, fuzzy
+#| msgid "Забронировать столик"
+msgid "Редактировать профиль"
+msgstr "Edit Profile"
+
+#: .\users\templates\users\profile.html:57
+#, fuzzy
+#| msgid "Бронирование"
+msgid "Ваши бронирования"
+msgstr "Your Reservations"
+
+#: .\users\templates\users\profile.html:62
+msgid "Дата"
+msgstr "Date"
+
+#: .\users\templates\users\profile.html:63
+msgid "Время"
+msgstr "Time"
+
+#: .\users\templates\users\profile.html:64
+msgid "Столики"
+msgstr "Tables"
+
+#: .\users\templates\users\profile.html:65
+msgid "Сумма"
+msgstr "Amount"
+
+#: .\users\templates\users\profile.html:66
+#: .\users\templates\users\user_list.html:29
+msgid "Статус"
+msgstr "Status"
+
+#: .\users\templates\users\profile.html:67
+msgid "Действия"
+msgstr "Actions"
+
+#: .\users\templates\users\profile.html:80
+msgid "руб."
+msgstr "RUB"
+
+#: .\users\templates\users\profile.html:81
+msgid "Подтверждено"
+msgstr "Confirmed"
+
+#: .\users\templates\users\profile.html:83
+msgid "Отменить"
+msgstr "Cancel"
+
+#: .\users\templates\users\profile.html:93
+msgid "У вас пока нет бронирований."
+msgstr "You have no reservations yet."
+
+#: .\users\templates\users\profile_edit.html:3
+msgid "Редактирование профиля "
+msgstr "Profile Editing"
+
+#: .\users\templates\users\profile_edit.html:103
+msgid "Редактирование профиля"
+msgstr "Profile Editing"
+
+#: .\users\templates\users\profile_edit.html:142
+#, fuzzy
+#| msgid "Сомелье и менеджер"
+msgid "Сохранить изменения"
+msgstr "Save Changes"
+
+#: .\users\templates\users\profile_edit.html:149
+msgid "Вы уверены, что хотите удалить пользователя"
+msgstr "Are you sure you want to delete the user"
+
+#: .\users\templates\users\profile_edit.html:150
+msgid "Удалить пользователя "
+msgstr "Delete User"
+
+#: .\users\templates\users\profile_edit.html:156
+msgid "Отмена"
+msgstr "Cancel"
+
+#: .\users\templates\users\register.html:72
+#, fuzzy
+#| msgid "Забронировать столик"
+msgid "Зарегистрироваться"
+msgstr "Register"
+
+#: .\users\templates\users\register.html:77
+msgid "Уже есть аккаунт?"
+msgstr "Already have an account?"
+
+#: .\users\templates\users\user_list.html:3
+#: .\users\templates\users\user_list.html:16
+msgid "Управление пользователями"
+msgstr "User Management"
+
+#: .\users\templates\users\user_list.html:25
+#, fuzzy
+#| msgid "Основатель"
+msgid "Пользователь"
+msgstr "User"
+
+#: .\users\templates\users\user_list.html:26
+msgid "Клиенты"
+msgstr "Customers"
+
+#: .\users\templates\users\user_list.html:27
+#, fuzzy
+#| msgid "Сообщение"
+msgid "Сообщения"
+msgstr "Messages"
+
+#: .\users\templates\users\user_list.html:28
+msgid "Рассылки"
+msgstr "Newsletters"
+
+#: .\users\templates\users\user_list.html:30
+msgid "Действие"
+msgstr "Action"
+
+#: .\users\templates\users\user_list.html:65
+msgid "Активен"
+msgstr "Active"
+
+#: .\users\templates\users\user_list.html:67
+#, fuzzy
+#| msgid "Бронирование"
+msgid "Заблокирован"
+msgstr "Blocked"
+
+#: .\users\templates\users\user_list.html:77
+#, fuzzy
+#| msgid "Забронировать столик"
+msgid "Заблокировать"
+msgstr "Block"
+
+#: .\users\templates\users\user_list.html:79
+#, fuzzy
+#| msgid "Забронировать столик"
+msgid "Разблокировать"
+msgstr "Unblock"
+
+#: .\users\templates\users\user_list.html:93
+msgid "Нет пользователей"
+msgstr "No Users"
+
+#: .\users\templates\users\user_list.html:94
+msgid "В системе пока не зарегистрировано ни одного пользователя."
+msgstr "No users are registered in the system yet."
+
+#~ msgid "Личный кабинет"
+#~ msgstr "My Account"

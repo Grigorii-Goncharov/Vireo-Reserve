@@ -1,5 +1,6 @@
 {% extends "restaurant/base.html" %}
-{% block title %}Создать аккаунт | Vireo Reserve{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Создать аккаунт" %}| Vireo Reserve{% endblock %}
 {% include 'restaurant/includes/header.html' %}
 
 {% block extra_css %}
@@ -10,66 +11,71 @@
 
 {% block content %}
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100 py-4 py-md-5">
+<div class="container py-4 py-md-5">
+  <!-- Сообщения отображаются ровно над формой, не влияя на её центрирование -->
   {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert" style="max-width: 460px; width: 100%;">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-  {% endif %}
-
-  <div class="register-card">
-    <div class="card-header">
-      <h2>Создать аккаунт</h2>
-    </div>
-
-    <form method="post">
-      {% csrf_token %}
-
-      {% if form.non_field_errors %}
-        <div class="non-field-errors">
-          <i class="bi bi-exclamation-triangle-fill me-1"></i>
-          {{ form.non_field_errors }}
-        </div>
-      {% endif %}
-
-      {% for field in form %}
-        <div class="input-group">
-          <!-- Обёртка с flex и отступом -->
-          <div class="d-flex align-items-start">
-            <label for="{{ field.id_for_label }}" class="me-3">
-              {{ field.label }}
-              {% if field.field.required %}
-                <span class="text-danger">*</span>
-              {% endif %}
-            </label>
-            <div>
-              {{ field }}
-            </div>
-          </div>
-
-          {% if field.errors %}
-            <div class="error-text">
-              <i class="bi bi-exclamation-circle me-1"></i>
-              {{ field.errors|first }}
-            </div>
-          {% endif %}
-
-          {% if field.help_text %}
-            <small class="help-text">{{ field.help_text|safe }}</small>
-          {% endif %}
+    <div class="d-flex justify-content-center mb-4">
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert" style="max-width: 460px; width: 100%;">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       {% endfor %}
+    </div>
+  {% endif %}
 
-      <button type="submit" class="btn-register">
-        Зарегистрироваться
-      </button>
-    </form>
+  <!-- Форма центрируется независимо от наличия сообщений -->
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="register-card">
+      <div class="card-header">
+        <h2>{% trans "Создать аккаунт" %}</h2>
+      </div>
 
-    <div class="login-link">
-      Уже есть аккаунт? <a href="{% url 'users:login' %}">Войти</a>
+      <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <div class="non-field-errors">
+            <i class="bi bi-exclamation-triangle-fill me-1"></i>
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        {% for field in form %}
+          <div class="input-group">
+            <div class="d-flex align-items-start">
+              <label for="{{ field.id_for_label }}" class="me-3">
+                {{ field.label }}
+                {% if field.field.required %}
+                  <span class="text-danger">*</span>
+                {% endif %}
+              </label>
+              <div>
+                {{ field }}
+              </div>
+            </div>
+
+            {% if field.errors %}
+              <div class="error-text">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                {{ field.errors|first }}
+              </div>
+            {% endif %}
+
+            {% if field.help_text %}
+              <small class="help-text">{{ field.help_text|safe }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-register">
+          {% trans "Зарегистрироваться" %}
+        </button>
+      </form>
+
+      <div class="login-link">
+        {% trans "Уже есть аккаунт?" %} <a href="{% url 'users:login' %}">{% trans "Войти" %}</a>
+      </div>
     </div>
   </div>
 </div>

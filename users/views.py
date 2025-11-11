@@ -1,5 +1,6 @@
 import secrets
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
@@ -103,3 +104,21 @@ def toggle_user_active(request, pk):
         messages.warning(request, f"Пользователь {user.username} заблокирован.")
 
     return redirect("users:user_list")
+
+@login_required
+def delete_user(request, pk):
+
+    user = get_object_or_404(User, pk=pk)
+    if user.pk == request.user.pk:
+        username = request.user.get_full_name() or request.user.username
+        request.user.delete()
+
+        # Важно: разлогиниваемся ПОСЛЕ удаления, но до редиректа
+        logout(request)
+
+    # username = user.username
+    # user.delete()
+
+        messages.success(request, f"Пользователь {username} успешно удалён.")
+        # return redirect("users:user_list")
+        return redirect("users:login")

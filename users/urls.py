@@ -19,6 +19,7 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="logout"),
     path("email-confirm/<str:token>/", views.email_verification, name="email-confirm"),
     path("users/toggle/<int:pk>/", views.toggle_user_active, name="toggle_user_active"),
+    path("delete/<int:pk>/", views.delete_user, name="delete_user"),
 
     # Сброс и восстановление пароля:
     path(

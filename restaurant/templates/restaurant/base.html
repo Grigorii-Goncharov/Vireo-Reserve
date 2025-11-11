@@ -28,7 +28,18 @@
 </head>
 <body>
 
-{% include 'restaurant/includes/inc_header.html' %}
+<!-- Условный заголовок -->
+    {% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'profile_edit' %}
+        {% if user.is_authenticated %}
+            {% include 'restaurant/includes/inc_header_auth.html' %}
+        {% else %}
+            {% include 'restaurant/includes/inc_header.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'restaurant/includes/inc_header.html' %}
+    {% endif %}
+
+
 
 <main>
   {% block content %}

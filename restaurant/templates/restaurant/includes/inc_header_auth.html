@@ -18,12 +18,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'restaurant:booking' %}">{% trans "Бронирование" %}</a>
                 </li>
+
+                <!-- Кнопка "Выход" в едином стиле -->
                 <li class="nav-item">
-                    {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'users:profile' %}">{% trans "Профиль" %}</a>
-                    {% else %}
-                    <a class="nav-link" href="{% url 'users:login' %}">{% trans "Авторизация" %}</a>
-                    {% endif %}
+                    <form id="logout-form" method="post" action="{% url 'users:logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link text-white border-0 bg-transparent">
+                            Выход
+                        </button>
+                    </form>
                 </li>
 
                 <!-- Переключатель языка -->
@@ -63,10 +66,11 @@
                         </li>
                     </ul>
                 </li>
-
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
-
             </ul>
         </div>
     </div>
+    <!-- Убрана ссылка на флаги из body -->
 </nav>
+
+<!-- Подключение стилей флагов -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">

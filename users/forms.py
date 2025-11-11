@@ -1,3 +1,5 @@
+import uuid
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import validate_email
@@ -57,6 +59,19 @@ class CustomUserCreationForm(UserCreationForm):
                     "Пользователь с таким email уже существует."
                 )
         return email
+
+    def save(self, commit=True):
+        '''Метод сохранения username (если в модели нет поля, то нужно использовать метод для записи
+        т.к. AbstractUser всегда должен иметь username)'''
+        user = super().save(commit=False)
+        # Генерируем уникальный username из email или UUID
+        if not user.username:
+            user.username = str(uuid.uuid4()).replace("-", "")[:200]
+
+        if commit:
+            user.save()
+        return user
+
 
 
 class UserProfileForm(forms.ModelForm):
