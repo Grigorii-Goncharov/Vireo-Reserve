@@ -1,149 +1,139 @@
+<!-- restaurant/templates/restaurant/booking.html -->
 {% extends 'restaurant/base.html' %}
-{% block title %}Бронирование столика | Vireo Reserve{% endblock %}
+
 {% load static %}
-{% include 'restaurant/includes/header.html' %}
+
+{% block title %}Забронировать столик{% endblock %}
+
+{% block extra_css %}
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+{% endblock %}
 
 {% block content %}
-<style>
-  body {
-    margin: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                  url('/static/media/main_photo.png') center/cover no-repeat fixed;
-  }
+<div class="container mt-4">
+  <h1>Забронировать столик</h1>
 
-  .booking-card {
-    background: rgba(255, 255, 255, 0.94);
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 560px;
-    width: 100%;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-  }
+  <form method="post" id="booking-form">
+    {% csrf_token %}
 
-  .card-header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
-  .card-header h2 {
-    font-weight: 700;
-    color: #065f46;
-    font-size: 28px;
-    margin: 0;
-  }
-
-  .card-header p {
-    color: #64748b;
-    font-size: 16px;
-    margin-top: 8px;
-  }
-
-  .input-group {
-    margin-bottom: 20px;
-  }
-
-  .input-group label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: #334155;
-    font-size: 15px;
-  }
-
-  .input-group input {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 12px;
-    transition: border-color 0.3s, box-shadow 0.2s;
-    background: #fff;
-  }
-
-  .input-group input:focus {
-    outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-  }
-
-  .btn-book {
-    width: 100%;
-    padding: 14px;
-    font-size: 18px;
-    font-weight: 600;
-    color: white;
-    background: linear-gradient(135deg, #059669, #047857);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 0.5px;
-    margin-top: 8px;
-  }
-
-  .btn-book:hover {
-    background: linear-gradient(135deg, #047857, #065f46);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
-  }
-
-  @media (max-width: 576px) {
-    .booking-card {
-      padding: 30px 20px;
-      margin: 0 16px;
-    }
-  }
-</style>
-
-<div class="container d-flex justify-content-center align-items-start min-vh-100 py-4 py-md-5">
-  <div class="booking-card">
-    <div class="card-header">
-      <h2>Забронировать столик</h2>
-      <p>С видом на бухту Пхи-Пхи</p>
-    </div>
-
-    <form method="post" action="#">
-      {% csrf_token %}
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="input-group">
-            <label for="first_name">Имя</label>
-            <input type="text" class="form-control" id="first_name" name="first_name" required>
-          </div>
+    <div class="row">
+      <!-- Левая колонка: дата, время, продолжительность -->
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label for="{{ form.reservation_date.id_for_label }}">Дата:</label>
+          {{ form.reservation_date }}
+          {% if form.reservation_date.errors %}
+            <div class="text-danger">{{ form.reservation_date.errors }}</div>
+          {% endif %}
         </div>
-        <div class="col-md-6">
-          <div class="input-group">
-            <label for="phone">Телефон</label>
-            <input type="tel" class="form-control" id="phone" name="phone" required>
-          </div>
+
+        <div class="form-group mb-3">
+          <label for="{{ form.reservation_time.id_for_label }}">Время:</label>
+          {{ form.reservation_time }}
+          {% if form.reservation_time.errors %}
+            <div class="text-danger">{{ form.reservation_time.errors }}</div>
+          {% endif %}
         </div>
-        <div class="col-md-6">
-          <div class="input-group">
-            <label for="date">Дата</label>
-            <input type="date" class="form-control" id="date" name="date" required>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="input-group">
-            <label for="time">Время</label>
-            <input type="time" class="form-control" id="time" name="time" required>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="input-group">
-            <label for="guests">Количество гостей</label>
-            <input type="number" min="1" max="20" class="form-control" id="guests" name="guests" required>
-          </div>
-        </div>
-        <div class="col-12">
-          <button type="submit" class="btn-book">
-            Забронировать
-          </button>
+
+        <div class="form-group mb-3">
+          <label for="{{ form.reservation_period.id_for_label }}">Продолжительность (часы:минуты):</label>
+          {{ form.reservation_period }}
+          {% if form.reservation_period.errors %}
+            <div class="text-danger">{{ form.reservation_period.errors }}</div>
+          {% endif %}
         </div>
       </div>
-    </form>
-  </div>
+
+      <!-- Правая колонка: доступные столики -->
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label>Доступные столики:</label><br>
+          {% for table in tables %}
+            <div class="form-check">
+              <input class="form-check-input table-checkbox" type="checkbox" name="tables" value="{{ table.id }}" id="table_{{ table.id }}">
+              <label class="form-check-label" for="table_{{ table.id }}">
+                <!-- Пример использования иконки (если подключен способ 1) -->
+                {% comment %} {% icon 'table' %} {% endcomment %}
+                <!-- Пример использования иконки (если подключен способ 2) -->
+                <i class="bi bi-table"></i>
+                Стол #{{ table.number }} ({{ table.capacity }} мест, {{ table.price }} руб.)
+              </label>
+            </div>
+          {% empty %}
+            <p class="text-muted">Нет доступных столов на выбранное время.</p>
+          {% endfor %}
+          {% if form.tables.errors %}
+            <div class="text-danger">{{ form.tables.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">
+      <!-- Пример иконки для кнопки (способ 1) -->
+      {% comment %} {% icon 'calendar-check' %} {% endcomment %}
+      <!-- Пример иконки для кнопки (способ 2) -->
+      <i class="bi bi-calendar-check"></i>
+      Забронировать
+    </button>
+  </form>
+
+  <!-- Отображение сообщений Django -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mt-3">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
 </div>
+
+<script>
+// Пример: Проверка доступности столиков при изменении даты/времени
+document.getElementById('id_reservation_date').addEventListener('change', checkAvailability);
+document.getElementById('id_reservation_time').addEventListener('change', checkAvailability);
+
+function checkAvailability() {
+  const date = document.getElementById('id_reservation_date').value;
+  const time = document.getElementById('id_reservation_time').value;
+
+  // Проверяем, заполнены ли оба поля
+  if (date && time) {
+    // Отправляем AJAX-запрос на сервер для проверки доступности
+    fetch(`/restaurant/check_availability/?date=${date}&time=${time}`)
+      .then(response => response.json())
+      .then(data => {
+        // Отключаем недоступные чекбоксы, включаем доступные
+        document.querySelectorAll('.table-checkbox').forEach(checkbox => {
+          const tableId = parseInt(checkbox.value);
+          if (data.available_table_ids.includes(tableId)) {
+            checkbox.disabled = false;
+            // Опционально: можно снять галочку с недоступного, если он был выбран ранее
+            // checkbox.checked = false; // Уберите, если хотите сохранять выбор при переключении дат
+          } else {
+            checkbox.disabled = true;
+            checkbox.checked = false; // Снимаем галочку с недоступного
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Ошибка при проверке доступности:', error);
+        // Опционально: можно включить все чекбоксы при ошибке, чтобы пользователь не застрял
+        // document.querySelectorAll('.table-checkbox').forEach(checkbox => checkbox.disabled = false);
+      });
+  } else {
+    // Если дата или время не выбраны, включаем все чекбоксы
+    document.querySelectorAll('.table-checkbox').forEach(checkbox => {
+      checkbox.disabled = false;
+      // checkbox.checked = false; // Опционально: снять выбор при очистке полей
+    });
+  }
+}
+
+// Вызов checkAvailability при загрузке страницы, чтобы сразу отобразить все столы как доступные (или нет, если поля даты/времени уже заполнены)
+// checkAvailability(); // Раскомментируйте, если хотите проверить при загрузке, но обычно не нужно, если поля пустые
+
+</script>
+
 {% endblock %}

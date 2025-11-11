@@ -12,11 +12,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 <style>
 
-    body {
-    margin: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                  url('/static/media/main_photo.png') center/cover no-repeat fixed;
-  }
+
 
 /* Тропические стили для кнопок */
 .btn-group {
@@ -118,7 +114,7 @@
           <label for="{{ field.id_for_label }}">
             {{ field.label }}
             {% if field.field.required %}
-              <span class="text-danger">*</span>
+              <span class="text-danger">* </span>
             {% endif %}
           </label>
           {{ field }}

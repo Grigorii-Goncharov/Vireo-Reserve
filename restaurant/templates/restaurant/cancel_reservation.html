@@ -1,0 +1,24 @@
+{% extends 'restaurant/base.html' %}
+{% load i18n static %}
+{% block title %}Отменить бронирование{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Подтверждение отмены</h1>
+  <p>Вы уверены, что хотите отменить бронирование столиков на <strong>{{ reservation.reservation_date }}</strong> в <strong>{{ reservation.reservation_time }}</strong>?</p>
+
+  <p><strong>Забронированные столы:</strong></p>
+  <ul>
+    {% for table in reservation.tables.all %}
+      <li>Стол #{{ table.number }} ({{ table.capacity }} мест)</li>
+    {% endfor %}
+  </ul>
+  <p><strong>Сумма:</strong> {{ reservation.total_amount }} руб.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, отменить</button>
+    <a href="{% url 'restaurant:profile' %}" class="btn btn-secondary">Назад</a>
+  </form>
+</div>
+{% endblock %}

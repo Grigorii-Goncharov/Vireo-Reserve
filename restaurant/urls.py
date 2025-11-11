@@ -13,6 +13,7 @@ urlpatterns = [
     path("about/", views.AboutView.as_view(), name="about"),          # О ресторане
     path("profile/", views.ProfileView.as_view(), name="profile"),    # Личный кабинет
     path("cancel/<int:pk>/", views.cancel_reservation, name="cancel_reservation"),  # Отменить бронь
+
 ]
 
 # Только для DEBUG-режима!

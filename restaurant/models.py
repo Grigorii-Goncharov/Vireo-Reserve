@@ -36,10 +36,10 @@ class TableReservation(models.Model):
         max_digits=10,
         decimal_places=2,
         verbose_name="Сумма",
-        editable=False  # будет считаться автоматически
+        editable=False  # будет считаться автоматически вручную в views.py
     )
     screenshot = models.ImageField(
-        upload_to='reservation/screenshots/',  # Убрана лишняя 'media/'
+        upload_to='reservation/screenshots/',
         blank=True,
         null=True,
         verbose_name="Скриншот карты зала"
@@ -55,11 +55,10 @@ class TableReservation(models.Model):
     def __str__(self):
         return f"Бронь {self.user.first_name} на {self.reservation_date} в {self.reservation_time}"
 
+    # --- ЗАМЕНИТЬ метод save на ЭТОТ ---
     def save(self, *args, **kwargs):
-        # Обновляем total_amount только при обновлении (если объект уже сохранён)
-        if self.pk:
-            total = sum(table.price for table in self.tables.all())
-            self.total_amount = total
+        # Вызываем родительский save без дополнительной логики при создании
+        # Вычисление total_amount происходит вручную в views.py
         super().save(*args, **kwargs)
 
 

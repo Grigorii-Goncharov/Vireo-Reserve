@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-11 14:01+0300\n"
+"POT-Creation-Date: 2025-11-11 17:25+0300\n"
 "PO-Revision-Date: 2025-11-11 14:30+0300\n"
 "Last-Translator: YOU <your.email@example.com>\n"
 "Language-Team: English <LL@li.org>\n"
@@ -275,44 +275,52 @@ msgstr "Profile"
 
 #: .\restaurant\templates\restaurant\includes\inc_header.html:25
 msgid "Авторизация"
-msgstr "Authorization"
+msgstr "Authorisation"
 
-#: .\users\templates\users\login.html:38
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:27
+msgid "Выход"
+msgstr "Logout"
+
+#: .\users\templates\users\login.html:4
+msgid "Вход"
+msgstr "Futorisation"
+
+#: .\users\templates\users\login.html:24
 msgid "Войдите в свой аккаунт"
 msgstr "Log into your account"
 
-#: .\users\templates\users\login.html:44
+#: .\users\templates\users\login.html:39
 #: .\users\templates\users\password_reset.html:33
 #, fuzzy
 #| msgid "Наша команда"
 msgid "Ваша почта"
 msgstr "Your email"
 
-#: .\users\templates\users\login.html:48
+#: .\users\templates\users\login.html:43
 msgid "Пароль"
 msgstr "Password"
 
-#: .\users\templates\users\login.html:52
+#: .\users\templates\users\login.html:47
 #: .\users\templates\users\password_reset_complete.html:9
 #: .\users\templates\users\register.html:77
 msgid "Войти"
 msgstr "Log In"
 
-#: .\users\templates\users\login.html:55
+#: .\users\templates\users\login.html:50
 msgid "или"
 msgstr "or"
 
-#: .\users\templates\users\login.html:58
+#: .\users\templates\users\login.html:53
 #: .\users\templates\users\register.html:3
 #: .\users\templates\users\register.html:31
 msgid "Создать аккаунт"
 msgstr "Create Account"
 
-#: .\users\templates\users\login.html:60
+#: .\users\templates\users\login.html:55
 msgid "Забыли пароль?"
 msgstr "Forgot password?"
 
-#: .\users\templates\users\login.html:64
+#: .\users\templates\users\login.html:59
 msgid "Остров Phi-Phi, Таиланд"
 msgstr "Phi Phi Island, Thailand"
 
@@ -363,11 +371,12 @@ msgid "Проверьте вашу почту"
 msgstr "Check Your Email"
 
 #: .\users\templates\users\password_reset_done.html:18
-msgid "На указанный email было отправлено письмо с инструкциями по восстановлению "
+msgid ""
+"На указанный email было отправлено письмо с инструкциями по восстановлению "
 "пароля."
-msgstr "An email with instructions for password recovery has been sent to the "
+msgstr ""
+"An email with instructions for password recovery has been sent to the "
 "specified email address."
-
 
 #: .\users\templates\users\password_reset_done.html:21
 msgid "← Вернуться к входу"
@@ -385,7 +394,8 @@ msgstr "Phi Phi Island, Thailand"
 msgid ""
 "Кто-то запросил сброс пароля для аккаунта, связанного с этим email-адресом."
 msgstr ""
-"Someone requested a password reset for an account associated with this email address."
+"Someone requested a password reset for an account associated with this email "
+"address."
 
 #: .\users\templates\users\password_reset_email.html:21
 msgid "Для сброса пароля перейдите по следующей ссылке:"
@@ -499,28 +509,25 @@ msgid "У вас пока нет бронирований."
 msgstr "You have no reservations yet."
 
 #: .\users\templates\users\profile_edit.html:3
-msgid "Редактирование профиля "
-msgstr "Profile Editing"
-
-#: .\users\templates\users\profile_edit.html:103
+#: .\users\templates\users\profile_edit.html:99
 msgid "Редактирование профиля"
 msgstr "Profile Editing"
 
-#: .\users\templates\users\profile_edit.html:142
+#: .\users\templates\users\profile_edit.html:138
 #, fuzzy
 #| msgid "Сомелье и менеджер"
 msgid "Сохранить изменения"
 msgstr "Save Changes"
 
-#: .\users\templates\users\profile_edit.html:149
+#: .\users\templates\users\profile_edit.html:145
 msgid "Вы уверены, что хотите удалить пользователя"
 msgstr "Are you sure you want to delete the user"
 
-#: .\users\templates\users\profile_edit.html:150
+#: .\users\templates\users\profile_edit.html:146
 msgid "Удалить пользователя "
 msgstr "Delete User"
 
-#: .\users\templates\users\profile_edit.html:156
+#: .\users\templates\users\profile_edit.html:152
 msgid "Отмена"
 msgstr "Cancel"
 
@@ -592,6 +599,9 @@ msgstr "No Users"
 #: .\users\templates\users\user_list.html:94
 msgid "В системе пока не зарегистрировано ни одного пользователя."
 msgstr "No users are registered in the system yet."
+
+#~ msgid "Редактирование профиля "
+#~ msgstr "Profile Editing"
 
 #~ msgid "Личный кабинет"
 #~ msgstr "My Account"

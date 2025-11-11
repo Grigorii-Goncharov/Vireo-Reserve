@@ -1,0 +1,29 @@
+{% extends 'restaurant/base.html' %}
+{% load i18n static %}
+
+{% block title %}Бронирование подтверждено{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Бронирование подтверждено!</h1>
+  <p>Спасибо за ваше бронирование, {{ reservation.user.get_full_name|default:reservation.user.username }}!</p>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Детали бронирования #{{ reservation.id }}</h5>
+      <p class="card-text"><strong>Дата:</strong> {{ reservation.reservation_date }}</p>
+      <p class="card-text"><strong>Время:</strong> {{ reservation.reservation_time }}</p>
+      <p class="card-text"><strong>Продолжительность:</strong> {{ reservation.reservation_period }}</p>
+      <p class="card-text"><strong>Столики:</strong>
+        {% for table in reservation.tables.all %}
+          #{{ table.number }} ({{ table.capacity }} мест){% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+      <p class="card-text"><strong>Сумма:</strong> {{ reservation.total_amount }} руб.</p>
+    </div>
+  </div>
+
+  <a href="{% url 'users:profile' %}" class="btn btn-primary mt-3">Перейти в мой профиль</a>
+  <a href="{% url 'restaurant:home' %}" class="btn btn-secondary mt-3">Вернуться на главную</a>
+</div>
+{% endblock %}

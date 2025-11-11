@@ -12,10 +12,11 @@ from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from django.views import View
 
 from config.settings import EMAIL_HOST_USER
+from restaurant.models import TableReservation
 from .forms import CustomUserCreationForm, UserProfileForm
 from .models import User
 
-
+# USER CRUD
 class UserRegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = "users/register.html"
@@ -42,7 +43,7 @@ class UserRegisterView(CreateView):
         )
         return redirect(self.success_url)
 
-
+# Подтверждение регистрации через почту:
 def email_verification(request, token):
     user = get_object_or_404(User, token=token)
 
@@ -50,7 +51,6 @@ def email_verification(request, token):
         # Уже активен — просто перенаправляем
         messages.info(request, "Ваш email уже подтверждён. Вы можете войти.")
         return redirect("users:login")
-
     # Активируем
     user.is_active = True
     user.token = None  # Обнуляем токен, чтобы можно было использовать его для сброса пароля позже
@@ -60,12 +60,19 @@ def email_verification(request, token):
     return redirect("users:login")
 
 
-class UserProfileView(DetailView):
+class UserProfileView(LoginRequiredMixin, DetailView):
     template_name = "users/profile.html"
     context_object_name = "user_profile"
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Получаем бронирования текущего пользователя
+        reservations = TableReservation.objects.filter(user=self.request.user).order_by('-created_at')
+        context['reservations'] = reservations
+        return context
 
 
 class UserLoginView(LoginView):
@@ -122,3 +129,6 @@ def delete_user(request, pk):
         messages.success(request, f"Пользователь {username} успешно удалён.")
         # return redirect("users:user_list")
         return redirect("users:login")
+
+
+#

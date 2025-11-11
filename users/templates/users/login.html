@@ -1,42 +1,37 @@
 {% extends "restaurant/base.html" %}
-{% load i18n %}
-{% load static %}
-{% block title %}Вход | Vireo Reserve{% endblock %}
+{% load i18n static %}
+
+{% block title %}{% trans "Вход" %} | Vireo Reserve{% endblock %}
+
 {% include 'restaurant/includes/header.html' %}
 
 {% block extra_css %}
 <style>
     body {
-      margin: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                  url('{% static 'media/main_photo.png' %}') center/cover no-repeat fixed;
+        margin: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                    url('/static/media/main_photo.png') center/cover no-repeat fixed;
     }
 </style>
 <link rel="stylesheet" href="{% static 'css/auth_common.css' %}">
-<!-- Если есть уникальные стили для логина -->
-<!-- <link rel="stylesheet" href="/static/css/login.css"> -->
-
 {% endblock %}
 
 {% block content %}
-
-<!-- Добавлены классы py-4 py-md-5 -->
 <div class="container d-flex justify-content-center align-items-center min-vh-100 py-4 py-md-5">
-
   <div class="auth-card">
     <div class="card-header">
       <h2>Vireo Reserve</h2>
-
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert" style="max-width: 440px; width: 100%;">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-  {% endif %}
       <p>{% trans "Войдите в свой аккаунт" %}</p>
     </div>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert" style="max-width: 440px; width: 100%;">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
 
     <form method="post">
       {% csrf_token %}
