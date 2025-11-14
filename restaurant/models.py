@@ -1,7 +1,10 @@
+# restaurant/models.py
+
 from django.db import models
-from django.contrib.auth.models import User  # или твоя кастомная модель
+from django.contrib.auth.models import User
 from config import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Table(models.Model):
@@ -20,17 +23,29 @@ class Table(models.Model):
 
 
 class TableReservation(models.Model):
+
+    STATUS = [
+        ("pending", "Ожидание"),
+        ("confirmed", "Подтверждено"),
+        ("canceled", "Отменено"),
+    ]
+
     '''Модель заказа столика'''
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        verbose_name="Клиент"
+        verbose_name="Клиент",
+        null=True, blank=True  # Для анонимных бронирований
     )
     tables = models.ManyToManyField(Table, verbose_name="Столики")
 
     reservation_date = models.DateField(verbose_name="Дата бронирования")
     reservation_time = models.TimeField(verbose_name="Время бронирования")
-    reservation_period = models.DurationField(verbose_name="Длительность бронирования")
+    reservation_duration_hours = models.PositiveSmallIntegerField(
+        verbose_name="Продолжительность бронирования (часы)",
+        validators=[MinValueValidator(1), MaxValueValidator(8)],  # Ограничение от 1 до 8 часов
+        help_text="Введите продолжительность бронирования в часах (от 1 до 8)"
+    )
 
     total_amount = models.DecimalField(
         max_digits=10,
@@ -45,6 +60,8 @@ class TableReservation(models.Model):
         verbose_name="Скриншот карты зала"
     )
 
+    status = models.CharField(max_length=20, choices=STATUS, default="pending")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -53,7 +70,7 @@ class TableReservation(models.Model):
         verbose_name_plural = "Бронирования"
 
     def __str__(self):
-        return f"Бронь {self.user.first_name} на {self.reservation_date} в {self.reservation_time}"
+        return f"Бронь {self.user.first_name if self.user else 'Аноним'} на {self.reservation_date} в {self.reservation_time}"
 
     # --- ЗАМЕНИТЬ метод save на ЭТОТ ---
     def save(self, *args, **kwargs):

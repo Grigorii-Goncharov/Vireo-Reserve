@@ -1,21 +1,17 @@
-# restaurant/views.py
-
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (
-    TemplateView, CreateView, DetailView, ListView, UpdateView
+    TemplateView, DetailView, ListView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
 from django.http import JsonResponse
-from django.core.exceptions import ValidationError
-from datetime import datetime, timedelta
-from django.db.models import Q
-
+from datetime import  timedelta
+from django.db.models import  ExpressionWrapper
+from django.db.models.functions import Cast
+from django.db import models as django_models
 from .models import Table, TableReservation, Feedback
 from .forms import BookingForm
-from config import settings
 from datetime import datetime, date, time
 
 
@@ -45,15 +41,15 @@ class AboutView(TemplateView):
     template_name = "restaurant/about.html"
 
 
-
-class BookingView(TemplateView):
+class BookingView(LoginRequiredMixin, TemplateView):
     template_name = "restaurant/booking.html"
+    #перевести на авторизацию благодаря LoginRequiredMixin
+    login_url = 'users:login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tables'] = Table.objects.filter(is_active=True)
 
-        # --- Установка начальных значений для формы ---
         now = datetime.now()
         rounded_hour = now.hour
         rounded_minute = 30 if now.minute >= 30 else 0
@@ -74,7 +70,6 @@ class BookingView(TemplateView):
             'reservation_date': date.today(),
             'reservation_time': rounded_time,
         }
-        # --- КОНЕЦ установки начальных значений ---
 
         context['form'] = BookingForm(initial=initial_data)
         return context
@@ -84,25 +79,61 @@ class BookingView(TemplateView):
         if form.is_valid():
             reservation_date = form.cleaned_data['reservation_date']
             reservation_time = form.cleaned_data['reservation_time']
-            reservation_period = form.cleaned_data['reservation_period']
-            selected_tables = form.cleaned_data['tables'] # <-- ВАЖНО: получаем из формы
+            reservation_duration_hours = form.cleaned_data['reservation_duration_hours']
+            selected_tables = form.cleaned_data['tables']
+
+            # --- Проверка ограничений времени работы ресторана ---
+            start_time = reservation_time
+            # Рассчитываем эффективное время окончания бронирования
+            # Если start_time.hour + duration_hours > 24, то время переносится на следующий день
+            effective_end_hour = start_time.hour + reservation_duration_hours
+            effective_end_minute = start_time.minute
+
+            # Проверяем, не выходит ли время за рамки работы ресторана
+            is_valid_time = False
+            if start_time >= time(18, 0): # Начинается с 18:00
+                if effective_end_hour <= 26: # 18 + 8 = 26 (02:00 следующего дня)
+                    is_valid_time = True
+            elif start_time < time(2, 0): # Начинается в начале следующего дня
+                if reservation_duration_hours <= (2 - start_time.hour):
+                    is_valid_time = True
+
+            if not is_valid_time:
+                messages.error(request, "Продолжительность бронирования выходит за рамки работы ресторана.")
+                context = self.get_context_data()
+                context['form'] = form
+                return self.render_to_response(context)
 
             # --- Проверка доступности ---
-            # Преобразуем period в timedelta, если он строка (например, "02:00:00")
-            if isinstance(reservation_period, str):
-                 h, m, s = map(int, reservation_period.split(':'))
-                 reservation_period = timedelta(hours=h, minutes=m, seconds=s)
-
             reservation_start_datetime = datetime.combine(reservation_date, reservation_time)
-            reservation_end_datetime = reservation_start_datetime + reservation_period
+            # Используем timedelta для вычисления окончания
+            reservation_end_datetime = reservation_start_datetime + timedelta(hours=reservation_duration_hours)
 
             # Найдем существующие бронирования, пересекающиеся по времени с выбранными столами
             conflicting_reservations = TableReservation.objects.filter(
                 reservation_date=reservation_date,
                 tables__in=selected_tables
             ).filter(
-                Q(reservation_time__lt=reservation_end_datetime.time(), reservation_time__gte=reservation_start_datetime.time()) |
-                Q(reservation_time__lt=reservation_start_datetime.time(), reservation_time__gte=(reservation_start_datetime - reservation_period).time())
+                # Пересечение интервалов: (start1 < end2) AND (start2 < end1)
+                reservation_time__lt=reservation_end_datetime.time(),
+                # Для вычисления времени окончания существующего бронирования используем F выражение
+                # (reservation_time + timedelta(hours=reservation_duration_hours)) > start_time
+                # Это сложнее сделать через ORM, поэтому используем более простой способ:
+                # Ищем брони, у которых время начала < нового_окончания И (время_начала + длительность) > нового_начала
+                # Это можно выразить как:
+                # reservation_time < end_new_time AND (reservation_time + duration) > start_new_time
+                # Выражение (reservation_time + duration) > start_new_time не поддерживается напрямую через F
+                # Поэтому используем фильтрацию по времени начала и предполагаем, что длительность <= 8 часов
+                # Или используем аннотацию для вычисления времени окончания в запросе
+            ).annotate(
+                existing_end_time=ExpressionWrapper(
+                    Cast(django_models.F('reservation_time'), output_field=django_models.TimeField()) +
+                    timedelta(hours=1) * django_models.F('reservation_duration_hours'),
+                    output_field=django_models.TimeField()
+                )
+            ).filter(
+                # Теперь можем использовать аннотированное поле
+                existing_end_time__gt=reservation_start_datetime.time()
             )
 
             if conflicting_reservations.exists():
@@ -110,29 +141,17 @@ class BookingView(TemplateView):
                 context = self.get_context_data()
                 context['form'] = form
                 return self.render_to_response(context)
+
             # --- Конец проверки доступности ---
 
-            # Создаем объект, но не сохраняем в БД (commit=False)
             reservation = form.save(commit=False)
             reservation.user = request.user if request.user.is_authenticated else None
-
-            # --- ГАРАНТИРУЕМ, что total_amount не None перед первым save() ---
-            # Устанавливаем временное значение 0, чтобы пройти NOT NULL
             reservation.total_amount = 0
-            # ---
-
-            reservation.save() # <-- Сохраняем основной объект, получаем ID, total_amount = 0
-
-            # Устанавливаем связи ManyToMany (таблицы)
+            reservation.save()
             reservation.tables.set(selected_tables)
 
-            # --- ВРУЧНУЮ вычисляем и устанавливаем total_amount ---
-            # Используем selected_tables, чтобы избежать проблем с кэшем ManyToMany
-            total = sum(table.price for table in selected_tables)
-            reservation.total_amount = total # <-- Устанавливаем правильную сумму
-            # ---
-
-            # СОХРАНЯЕМ объект снова, чтобы обновить total_amount
+            total = sum(table.price for table in selected_tables) * reservation_duration_hours # Цена за стол * часы
+            reservation.total_amount = total
             reservation.save()
 
             messages.success(request, "Ваше бронирование успешно оформлено!")
@@ -140,15 +159,9 @@ class BookingView(TemplateView):
         else:
             messages.error(request, "Ошибка при заполнении формы. Проверьте введённые данные.")
 
-        # При ошибке валидации передаем ту же форму с ошибками
         context = self.get_context_data()
         context['form'] = form
         return self.render_to_response(context)
-
-
-
-
-
 
 
 # --- Представления для аутентифицированных пользователей ---
@@ -159,17 +172,15 @@ class BookingSuccessView(DetailView):
     context_object_name = "reservation"
 
     def get_queryset(self):
-        # Пользователь может видеть только свои бронирования
         if self.request.user.is_authenticated:
             return TableReservation.objects.filter(user=self.request.user)
         else:
-            # Если пользователь не аутентифицирован, возвращаем пустой QuerySet
             return TableReservation.objects.none()
 
 
 class ProfileView(LoginRequiredMixin, ListView):
     model = TableReservation
-    template_name = "restaurant/profile.html" # Этот шаблон в приложении restaurant
+    template_name = "users/profile.html"
     context_object_name = "reservations"
     paginate_by = 10
 
@@ -182,51 +193,176 @@ class ProfileView(LoginRequiredMixin, ListView):
         return context
 
 
-# --- Вспомогательные функции и представления ---
 
+# КОД С УДАЛЕНИЕМ БРОНИ
+# @login_required
+# def cancel_reservation(request, pk):
+#     reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
+#     if request.method == "POST":
+#         # Устанавливаем статус на 'canceled' перед удалением
+#         reservation.status = 'canceled'
+#         reservation.save() # Сохраняем изменения статуса
+#         reservation.delete() # Удаляем бронь
+#         messages.success(request, "Бронирование успешно отменено.")
+#         return redirect('restaurant:profile')
+#     # Для GET запроса показываем страницу подтверждения (если таковая есть)
+#     # Если подтверждения нет, можно сразу вернуть 405 Method Not Allowed или redirect
+#     # Ниже код для страницы подтверждения
+#     return render(request, 'restaurant/cancel_reservation.html', {'reservation': reservation})
+
+# КОД С ОТМЕНОЙ, НО НЕ УДАЛЕНИЕМ
 @login_required
 def cancel_reservation(request, pk):
-    # Получаем бронь, принадлежащую текущему пользователю
     reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
     if request.method == "POST":
-        reservation.delete()
+        reservation.status = 'canceled'
+        reservation.save()
         messages.success(request, "Бронирование успешно отменено.")
-        return redirect('users:profile') # Редиректим в профиль restaurant
-    # Для GET запроса показываем страницу подтверждения
+        return redirect('restaurant:profile')
+    # Для GET запроса показываем страницу подтверждения (если таковая есть)
+    # Ниже код для страницы подтверждения
     return render(request, 'restaurant/cancel_reservation.html', {'reservation': reservation})
 
 
+
 def check_availability(request):
-    date = request.GET.get('date')
+    date_str = request.GET.get('date')
     time_str = request.GET.get('time')
+    duration_str = request.GET.get('duration')
 
-    if date and time_str:
+    if date_str and time_str and duration_str:
         try:
-            reservation_date = datetime.strptime(date, '%Y-%m-%d').date()
+            reservation_date = datetime.strptime(date_str, '%Y-%m-%d').date()
             reservation_time = datetime.strptime(time_str, '%H:%M').time()
-            reservation_period = timedelta(hours=2) # Пример: стандартная продолжительность 2 часа
+            reservation_duration_hours = int(duration_str)
             reservation_start_datetime = datetime.combine(reservation_date, reservation_time)
-            reservation_end_datetime = reservation_start_datetime + reservation_period
+            reservation_end_datetime = reservation_start_datetime + timedelta(hours=reservation_duration_hours)
 
-            # Найдем все активные столы
+            # Проверка ограничений времени работы ресторана
+            start_time = reservation_time
+            effective_end_hour = start_time.hour + reservation_duration_hours
+            is_valid_time = False
+
+            if start_time >= time(18, 0):
+                if effective_end_hour <= 26: # 18 + 8 = 26 (02:00)
+                    is_valid_time = True
+            elif start_time < time(2, 0):
+                if reservation_duration_hours <= (2 - start_time.hour):
+                    is_valid_time = True
+
+            if not is_valid_time:
+                return JsonResponse({'available_table_ids': []})
+
             all_active_tables = Table.objects.filter(is_active=True)
-            # Найдем забронированные столы на это время
-            booked_table_ids = TableReservation.objects.filter(
-                reservation_date=reservation_date,
+
+            # Проверяем пересечения
+            # Используем аннотацию для вычисления времени окончания в существующих бронированиях
+            conflicting_reservations = TableReservation.objects.filter(
+                reservation_date=reservation_date
+            ).annotate(
+                existing_end_time=ExpressionWrapper(
+                    Cast(django_models.F('reservation_time'), output_field=django_models.TimeField()) +
+                    timedelta(hours=1) * django_models.F('reservation_duration_hours'),
+                    output_field=django_models.TimeField()
+                )
+            ).filter(
                 reservation_time__lt=reservation_end_datetime.time(),
-                reservation_time__gte=reservation_start_datetime.time()
-            ).values_list('tables__id', flat=True)
+                existing_end_time__gt=reservation_start_datetime.time()
+            )
 
-            # Доступные столы - это активные минус забронированные
+            booked_table_ids = conflicting_reservations.values_list('tables__id', flat=True)
+
             available_table_ids = list(all_active_tables.exclude(id__in=booked_table_ids).values_list('id', flat=True))
-
             return JsonResponse({'available_table_ids': available_table_ids})
-        except ValueError:
-            pass # Игнорируем ошибки формата даты/времени
+        except (ValueError, TypeError):
+            pass
 
-    # Если что-то пошло не так, возвращаем пустой список
     return JsonResponse({'available_table_ids': []})
 
 
 
 
+@login_required
+def edit_reservation(request, pk):
+    reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        # Получаем данные из формы
+        reservation_date = request.POST.get('reservation_date')
+        reservation_time = request.POST.get('reservation_time')
+        reservation_duration_hours = request.POST.get('reservation_duration_hours')
+        selected_table_ids = request.POST.getlist('tables')
+
+        try:
+            reservation_date = datetime.strptime(reservation_date, '%Y-%m-%d').date()
+            reservation_time = datetime.strptime(reservation_time, '%H:%M').time()
+            reservation_duration_hours = int(reservation_duration_hours)
+        except (ValueError, TypeError):
+            messages.error(request, "Некорректные данные в форме.")
+            return redirect('restaurant:edit_reservation', pk=pk)
+
+        # Проверка ограничений времени работы ресторана (аналогично в BookingView)
+        start_time = reservation_time
+        effective_end_hour = start_time.hour + reservation_duration_hours
+        is_valid_time = False
+
+        if start_time >= time(18, 0):
+            if effective_end_hour <= 26:
+                is_valid_time = True
+        elif start_time < time(2, 0):
+            if reservation_duration_hours <= (2 - start_time.hour):
+                is_valid_time = True
+
+        if not is_valid_time:
+            messages.error(request, "Продолжительность бронирования выходит за рамки работы ресторана.")
+            return redirect('restaurant:edit_reservation', pk=pk)
+
+        # Проверка доступности (аналогично в BookingView)
+        reservation_start_datetime = datetime.combine(reservation_date, reservation_time)
+        reservation_end_datetime = reservation_start_datetime + timedelta(hours=reservation_duration_hours)
+
+        conflicting_reservations = TableReservation.objects.filter(
+            reservation_date=reservation_date,
+            tables__in=selected_table_ids
+        ).exclude(pk=reservation.pk).filter( # Исключаем текущую бронь из проверки
+            reservation_time__lt=reservation_end_datetime.time(),
+            # Используем аннотацию или более простой способ для проверки окончания
+            # Упрощаем проверку: ищем пересечения по времени
+            # (нов_старт < ст_окончание) AND (ст_старт < нов_окончание)
+            # reservation_time < end_new_time AND (reservation_time + duration) > start_new_time
+            # Это сложно через ORM, поэтому используем аннотацию или предварительный расчет
+        ).annotate(
+            existing_end_time=ExpressionWrapper(
+                Cast(django_models.F('reservation_time'), output_field=django_models.TimeField()) +
+                timedelta(hours=1) * django_models.F('reservation_duration_hours'),
+                output_field=django_models.TimeField()
+            )
+        ).filter(
+            existing_end_time__gt=reservation_start_datetime.time()
+        )
+
+        if conflicting_reservations.exists():
+            messages.error(request, "Некоторые из выбранных вами столов уже забронированы на это время.")
+            return redirect('restaurant:edit_reservation', pk=pk)
+
+        # Обновляем бронь
+        reservation.reservation_date = reservation_date
+        reservation.reservation_time = reservation_time
+        reservation.reservation_duration_hours = reservation_duration_hours
+        reservation.tables.set(selected_table_ids)
+
+        # Пересчитываем сумму
+        total = sum(Table.objects.get(id=table_id).price for table_id in selected_table_ids) * reservation_duration_hours
+        reservation.total_amount = total
+
+        reservation.save()
+        messages.success(request, "Бронирование успешно обновлено!")
+        return redirect('restaurant:profile')
+
+    else: # GET запрос
+        # Передаем текущие данные в шаблон редактирования
+        context = {
+            'reservation': reservation,
+            'tables': Table.objects.filter(is_active=True),
+        }
+        return render(request, 'restaurant/edit_reservation.html', context)

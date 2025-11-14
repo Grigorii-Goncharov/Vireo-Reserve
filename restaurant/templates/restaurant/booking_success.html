@@ -13,7 +13,7 @@
       <h5 class="card-title">Детали бронирования #{{ reservation.id }}</h5>
       <p class="card-text"><strong>Дата:</strong> {{ reservation.reservation_date }}</p>
       <p class="card-text"><strong>Время:</strong> {{ reservation.reservation_time }}</p>
-      <p class="card-text"><strong>Продолжительность:</strong> {{ reservation.reservation_period }}</p>
+      <p class="card-text"><strong>Продолжительность:</strong> {{ reservation.reservation_duration_hours }} часов</p>
       <p class="card-text"><strong>Столики:</strong>
         {% for table in reservation.tables.all %}
           #{{ table.number }} ({{ table.capacity }} мест){% if not forloop.last %}, {% endif %}

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-11 17:25+0300\n"
-"PO-Revision-Date: 2025-11-11 14:30+0300\n"
+"POT-Creation-Date: 2025-11-14 21:59+0300\n"
+"PO-Revision-Date: 2025-11-15 11:30+0300\n"
 "Last-Translator: YOU <your.email@example.com>\n"
 "Language-Team: English <LL@li.org>\n"
 "Language: en\n"
@@ -136,6 +136,61 @@ msgstr "Founder"
 msgid "Путешественник и энтузиаст устойчивого туризма. Вдохновлён красотой "
 msgstr "A traveler and sustainable tourism enthusiast, inspired by beauty."
 
+#: .\restaurant\templates\restaurant\booking.html:6
+#: .\restaurant\templates\restaurant\booking.html:171
+#: .\restaurant\templates\restaurant\home.html:24
+msgid "Забронировать столик"
+msgstr "Book a Table"
+
+#: .\restaurant\templates\restaurant\booking.html:179
+#, fuzzy
+#| msgid "Дата"
+msgid "Дата:"
+msgstr "Date:"
+
+#: .\restaurant\templates\restaurant\booking.html:187
+#, fuzzy
+#| msgid "Время"
+msgid "Время:"
+msgstr "Time:"
+
+#: .\restaurant\templates\restaurant\booking.html:195
+msgid "Продолжительность (часы):"
+msgstr "Duration (hours):"
+
+#: .\restaurant\templates\restaurant\booking.html:200
+msgid "Введите количество часов (от 1 до 8)"
+msgstr "Enter the number of hours (from 1 to 8)"
+
+#: .\restaurant\templates\restaurant\booking.html:205
+msgid "Доступные столики:"
+msgstr "Available tables:"
+
+#: .\restaurant\templates\restaurant\booking.html:212
+#, python-format
+msgid "Стол #%(table.number)s"
+msgstr "Table #%(table.number)s"
+
+#: .\restaurant\templates\restaurant\booking.html:217
+msgid "мест"
+msgstr "seats"
+
+#: .\restaurant\templates\restaurant\booking.html:218
+#, fuzzy
+#| msgid "руб."
+msgid "руб./час"
+msgstr "RUB/hour"
+
+#: .\restaurant\templates\restaurant\booking.html:224
+msgid "Нет доступных столов на выбранное время."
+msgstr "No tables available for the selected time."
+
+#: .\restaurant\templates\restaurant\booking.html:234
+#, fuzzy
+#| msgid "Забронировать столик"
+msgid "Забронировать"
+msgstr "Book"
+
 #: .\restaurant\templates\restaurant\home.html:4
 msgid "Vireo Reserve — Бронирование столиков с видом на бухту"
 msgstr "Vireo Reserve — Table Reservations with a View of the Bay"
@@ -147,10 +202,6 @@ msgstr "Dinner with a View of Phi Phi Bay"
 #: .\restaurant\templates\restaurant\home.html:23
 msgid "Изысканная кухня, тропическая атмосфера и незабываемые впечатления"
 msgstr "Exquisite cuisine, tropical ambiance, and unforgettable experiences"
-
-#: .\restaurant\templates\restaurant\home.html:24
-msgid "Забронировать столик"
-msgstr "Book a Table"
 
 #: .\restaurant\templates\restaurant\home.html:33
 msgid "Описание ресторана"
@@ -229,12 +280,12 @@ msgid "Таиланд"
 msgstr "Thailand"
 
 #: .\restaurant\templates\restaurant\home.html:135
-#: .\users\templates\users\profile.html:42
+#: .\users\templates\users\profile.html:53
 msgid "Телефон"
 msgstr "Phone"
 
 #: .\restaurant\templates\restaurant\home.html:136
-#: .\users\templates\users\profile.html:39
+#: .\users\templates\users\profile.html:50
 msgid "Email"
 msgstr "Email"
 
@@ -258,6 +309,10 @@ msgstr "Send"
 msgid "Все права защищены."
 msgstr "All rights reserved."
 
+#: .\restaurant\templates\restaurant\includes\inc_footer.html:6
+msgid "Время работы: Ежедневно с 18:00 до 02:00"
+msgstr "Opening Hours: Daily from 18:00 to 02:00"
+
 #: .\restaurant\templates\restaurant\includes\inc_header.html:13
 #: .\restaurant\templates\restaurant\includes\inc_header_auth.html:13
 msgid "Главная"
@@ -268,22 +323,19 @@ msgstr "Home"
 msgid "Бронирование"
 msgstr "Reservation"
 
-#: .\restaurant\templates\restaurant\includes\inc_header.html:23
-#: .\users\templates\users\profile.html:4
-msgid "Профиль"
-msgstr "Profile"
-
 #: .\restaurant\templates\restaurant\includes\inc_header.html:25
 msgid "Авторизация"
 msgstr "Authorisation"
 
 #: .\restaurant\templates\restaurant\includes\inc_header_auth.html:27
-msgid "Выход"
-msgstr "Logout"
+#, fuzzy
+#| msgid "Выход"
+msgid "  || Выход"
+msgstr "  || Logout"
 
 #: .\users\templates\users\login.html:4
 msgid "Вход"
-msgstr "Futorisation"
+msgstr "Login"
 
 #: .\users\templates\users\login.html:24
 msgid "Войдите в свой аккаунт"
@@ -417,94 +469,128 @@ msgstr "This is an automated message from"
 msgid "Пожалуйста, не отвечайте на него."
 msgstr "Please do not reply to it."
 
-#: .\users\templates\users\profile.html:24
+#: .\users\templates\users\profile.html:4
+msgid "Профиль"
+msgstr "Profile"
+
+#: .\users\templates\users\profile.html:35
 msgid "Профиль пользователя"
 msgstr "User Profile"
 
-#: .\users\templates\users\profile.html:30
+#: .\users\templates\users\profile.html:41
 #, python-format
 msgid "Аватар %(name)s"
 msgstr "%(name)s's Avatar"
 
-#: .\users\templates\users\profile.html:33
+#: .\users\templates\users\profile.html:44
 msgid "Аватар по умолчанию"
 msgstr "Default Avatar"
 
-#: .\users\templates\users\profile.html:40
+#: .\users\templates\users\profile.html:51
 msgid "Имя"
 msgstr "First Name"
 
-#: .\users\templates\users\profile.html:40
+#: .\users\templates\users\profile.html:51
 msgid "не указано"
 msgstr "not specified"
 
-#: .\users\templates\users\profile.html:41
+#: .\users\templates\users\profile.html:52
 msgid "Фамилия"
 msgstr "Last Name"
 
-#: .\users\templates\users\profile.html:41
+#: .\users\templates\users\profile.html:52
 msgid "не указана"
 msgstr "not specified"
 
-#: .\users\templates\users\profile.html:42
-#: .\users\templates\users\profile.html:43
+#: .\users\templates\users\profile.html:53
+#: .\users\templates\users\profile.html:54
 msgid "не указан"
 msgstr "not specified"
 
-#: .\users\templates\users\profile.html:43
+#: .\users\templates\users\profile.html:54
 msgid "Город"
 msgstr "City"
 
-#: .\users\templates\users\profile.html:48
+#: .\users\templates\users\profile.html:59
 #, fuzzy
 #| msgid "Забронировать столик"
 msgid "Редактировать профиль"
 msgstr "Edit Profile"
 
-#: .\users\templates\users\profile.html:57
+#: .\users\templates\users\profile.html:68
 #, fuzzy
 #| msgid "Бронирование"
 msgid "Ваши бронирования"
 msgstr "Your Reservations"
 
-#: .\users\templates\users\profile.html:62
+#: .\users\templates\users\profile.html:73
 msgid "Дата"
 msgstr "Date"
 
-#: .\users\templates\users\profile.html:63
+#: .\users\templates\users\profile.html:74
 msgid "Время"
 msgstr "Time"
 
-#: .\users\templates\users\profile.html:64
+#: .\users\templates\users\profile.html:75
+#, fuzzy
+#| msgid "Экологичность"
+msgid "Продолжительность"
+msgstr "Duration"
+
+#: .\users\templates\users\profile.html:76
 msgid "Столики"
 msgstr "Tables"
 
-#: .\users\templates\users\profile.html:65
+#: .\users\templates\users\profile.html:77
 msgid "Сумма"
 msgstr "Amount"
 
-#: .\users\templates\users\profile.html:66
+#: .\users\templates\users\profile.html:78
 #: .\users\templates\users\user_list.html:29
 msgid "Статус"
 msgstr "Status"
 
-#: .\users\templates\users\profile.html:67
+#: .\users\templates\users\profile.html:79
 msgid "Действия"
 msgstr "Actions"
 
-#: .\users\templates\users\profile.html:80
+#: .\users\templates\users\profile.html:87
+msgid "часов"
+msgstr "hours"
+
+#: .\users\templates\users\profile.html:93
 msgid "руб."
 msgstr "RUB"
 
-#: .\users\templates\users\profile.html:81
-msgid "Подтверждено"
-msgstr "Confirmed"
+#: .\users\templates\users\profile.html:99
+#, fuzzy
+#| msgid "Забронировать столик"
+msgid "Редактировать бронирование"
+msgstr "Edit Reservation"
 
-#: .\users\templates\users\profile.html:83
+#: .\users\templates\users\profile.html:101
+#, fuzzy
+#| msgid "Забронировать столик"
+msgid "Редактировать"
+msgstr "Edit"
+
+#: .\users\templates\users\profile.html:106
+#, fuzzy
+#| msgid "Бронирование"
+msgid "Отменить бронирование"
+msgstr "Cancel Reservation"
+
+#: .\users\templates\users\profile.html:107
+#, fuzzy
+#| msgid "Вы уверены, что хотите удалить пользователя"
+msgid "Вы уверены, что хотите отменить это бронирование?"
+msgstr "Are you sure you want to cancel this reservation?"
+
+#: .\users\templates\users\profile.html:109
 msgid "Отменить"
 msgstr "Cancel"
 
-#: .\users\templates\users\profile.html:93
+#: .\users\templates\users\profile.html:120
 msgid "У вас пока нет бронирований."
 msgstr "You have no reservations yet."
 
@@ -525,7 +611,7 @@ msgstr "Are you sure you want to delete the user"
 
 #: .\users\templates\users\profile_edit.html:146
 msgid "Удалить пользователя "
-msgstr "Delete User"
+msgstr "Delete User "
 
 #: .\users\templates\users\profile_edit.html:152
 msgid "Отмена"
@@ -600,8 +686,11 @@ msgstr "No Users"
 msgid "В системе пока не зарегистрировано ни одного пользователя."
 msgstr "No users are registered in the system yet."
 
+#~ msgid "Подтверждено"
+#~ msgstr "Confirmed"
+
 #~ msgid "Редактирование профиля "
-#~ msgstr "Profile Editing"
+#~ msgstr "Profile Editing "
 
 #~ msgid "Личный кабинет"
 #~ msgstr "My Account"

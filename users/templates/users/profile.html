@@ -1,4 +1,3 @@
-
 {% extends "restaurant/base.html" %}
 {% load i18n %}
 {% load static %}
@@ -9,6 +8,18 @@
     body {
       background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
                   url('/static/media/main_photo.png') center/cover no-repeat fixed;
+    }
+
+    /* Увеличиваем ширину карточки с бронированиями */
+    .reservations-section {
+      max-width: 600px; /* Соответствует ширине profile-card */
+      width: 100%;
+    }
+
+    /* Для случая, когда бронирований нет */
+    .no-reservations {
+      max-width: 600px;
+      width: 100%;
     }
   </style>
   <link rel="stylesheet" href="/static/css/profile.css">
@@ -53,42 +64,48 @@
 
   <!-- История бронирований (если есть) -->
   {% if reservations %}
-  <div class="reservations-section">
-    <h4>{% trans "Ваши бронирования" %}</h4>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
+  <div class="reservations-section" style="max-width: 100%; width: 100%; padding: 30px; box-sizing: border-box;">
+    <h4 style="color: #065f46; font-weight: 700; margin-bottom: 1.5rem; font-size: 24px; text-align: center;">{% trans "Ваши бронирования" %}</h4>
+    <div class="table-responsive" style="overflow-x: auto;">
+      <table class="table table-striped" style="width: 100%; border-collapse: collapse;">
+        <thead style="background-color: #f1f5f9; color: #0f766e; font-weight: 600;">
           <tr>
-            <th>{% trans "Дата" %}</th>
-            <th>{% trans "Время" %}</th>
-            <th>{% trans "Столики" %}</th>
-            <th>{% trans "Сумма" %}</th>
-            <th>{% trans "Статус" %}</th>
-            <th>{% trans "Действия" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Дата" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Время" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Продолжительность" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Столики" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Сумма" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Статус" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Действия" %}</th>
           </tr>
         </thead>
         <tbody>
           {% for reservation in reservations %}
-          <tr>
-            <td>{{ reservation.reservation_date }}</td>
-            <td>{{ reservation.reservation_time }}</td>
-            <td>
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 12px;">{{ reservation.reservation_date }}</td>
+            <td style="padding: 12px;">{{ reservation.reservation_time }}</td>
+            <td style="padding: 12px;">{{ reservation.reservation_duration_hours }} {% trans "часов" %}</td>
+            <td style="padding: 12px;">
               {% for table in reservation.tables.all %}
                 {{ table.number }}{% if not forloop.last %}, {% endif %}
               {% endfor %}
             </td>
-            <td>{{ reservation.total_amount }} {% trans "руб." %}</td>
-            <td>{% trans "Подтверждено" %}</td>
-            <td>
-              <!-- Кнопка редактирования (временно отключена или ведет на заглушку, см. шаг 4) -->
-              <!-- <a href="#" class="btn btn-sm btn-outline-warning" title="{% trans 'Редактировать бронирование' %}" disabled> -->
-              <!--     <i class="bi bi-pencil"></i> -->
-              <!-- </a> -->
+            <td style="padding: 12px;">{{ reservation.total_amount }} {% trans "руб." %}</td>
+            <td style="padding: 12px;">{{ reservation.get_status_display }}</td>
+            <td style="padding: 12px;">
+              <!-- Кнопка редактирования -->
+              <a href="{% url 'restaurant:edit_reservation' reservation.pk %}"
+                 class="btn btn-sm btn-outline-warning"
+                 title="{% trans 'Редактировать бронирование' %}"
+                 style="padding: 6px 12px; border-radius: 8px; font-weight: 500; transition: all 0.2s; text-decoration: none; display: inline-block; margin-right: 5px; background-color: transparent; color: #d97706; border: 1px solid #fbbf24;">
+                {% trans "Редактировать" %}
+              </a>
               <!-- Кнопка отмены с подтверждением -->
               <a href="{% url 'restaurant:cancel_reservation' reservation.pk %}"
                  class="btn btn-sm btn-outline-danger"
                  title="{% trans 'Отменить бронирование' %}"
-                 onclick="return confirm('{% trans "Вы уверены, что хотите отменить это бронирование?" %}');">
+                 onclick="return confirm('{% trans "Вы уверены, что хотите отменить это бронирование?" %}');"
+                 style="padding: 6px 12px; border-radius: 8px; font-weight: 500; transition: all 0.2s; text-decoration: none; display: inline-block; background-color: transparent; color: #e11d48; border: 1px solid #fecaca;">
                 {% trans "Отменить" %}
               </a>
             </td>

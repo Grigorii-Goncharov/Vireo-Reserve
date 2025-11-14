@@ -7,7 +7,9 @@ from django.contrib.auth.views import LoginView
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.utils.html import strip_tags
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from django.views import View
 
@@ -15,6 +17,8 @@ from config.settings import EMAIL_HOST_USER
 from restaurant.models import TableReservation
 from .forms import CustomUserCreationForm, UserProfileForm
 from .models import User
+from .services import send_telegram_message
+
 
 # USER CRUD
 class UserRegisterView(CreateView):
@@ -29,18 +33,35 @@ class UserRegisterView(CreateView):
         user.token = token
         user.save()
 
+        if user.telegram_chat_id:
+            try:
+                message = "Добро пожаловать в ресторан Vireo Reserve!"
+                send_telegram_message(chat_id=user.telegram_chat_id, message=message)
+            except Exception as e:
+                print(f"Ошибка отправки Telegram: {e}")
+
         host = self.request.get_host()
         url = f"http://{host}/users/email-confirm/{token}/"
+
+        # Рендерим HTML-письмо
+        html_message = render_to_string('users/email_confirmation.html', {
+            'protocol': 'http',
+            'domain': host,
+            'url': url,
+        })
+
+        # Текстовая версия (на случай, если клиент не поддерживает HTML)
+        plain_message = strip_tags(html_message)
+
         send_mail(
-            subject="Подтверждение почты при регистрации аккаунта",
-            message=f"Перейдите по ссылке {url} для завершения регистрации",
+            subject="Подтверждение почты",
+            message=plain_message,
             from_email=EMAIL_HOST_USER,
             recipient_list=[user.email],
+            html_message=html_message,  # ← ключевая строка!
         )
 
-        messages.info(
-            self.request, "Письмо подтверждения регистрации направлено на почту"
-        )
+        messages.info(self.request, "Проверьте почту для подтверждения email.")
         return redirect(self.success_url)
 
 # Подтверждение регистрации через почту:
@@ -129,6 +150,3 @@ def delete_user(request, pk):
         messages.success(request, f"Пользователь {username} успешно удалён.")
         # return redirect("users:user_list")
         return redirect("users:login")
-
-
-#

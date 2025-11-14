@@ -1,15 +1,14 @@
-<!-- restaurant/templates/restaurant/booking.html -->
+<!-- restaurant/templates/restaurant/edit_reservation.html -->
 {% extends 'restaurant/base.html' %}
-{% load i18n static %}
 {% load static %}
 
-{% block title %}{% trans "Забронировать столик" %}{% endblock %}
+{% block title %}Редактировать бронирование{% endblock %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
-    /* Стили из profile.css, адаптированные под форму бронирования */
-    .booking-container {
+    /* Стили из profile.css, адаптированные под форму редактирования */
+    .edit-container {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -18,7 +17,7 @@
       justify-content: center;
     }
 
-    .booking-card {
+    .edit-card {
       background: rgba(255, 255, 255, 0.94);
       border-radius: 20px;
       padding: 40px;
@@ -30,7 +29,7 @@
       text-align: center;
     }
 
-    .booking-header h2 {
+    .edit-header h2 {
       font-weight: 700;
       color: #065f46;
       margin-bottom: 1.5rem;
@@ -138,6 +137,31 @@
       box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
     }
 
+    .btn-secondary {
+      padding: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #64748b, #475569);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+      max-width: 250px;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #475569, #334155);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(100, 116, 139, 0.35);
+    }
+
     .text-danger {
       color: #dc2626;
       font-size: 0.875rem;
@@ -165,74 +189,65 @@
 {% endblock %}
 
 {% block content %}
-<div class="booking-container">
-  <div class="booking-card">
-    <div class="booking-header">
-      <h2><i class="bi bi-calendar-plus me-2"></i> {% trans "Забронировать столик" %}</h2>
+<div class="edit-container">
+  <div class="edit-card">
+    <div class="edit-header">
+      <h2><i class="bi bi-pencil me-2"></i>Редактировать бронирование #{{ reservation.id }}</h2>
     </div>
 
-    <form method="post" id="booking-form">
+    <form method="post" id="edit-reservation-form">
       {% csrf_token %}
 
       <div class="form-row">
         <div class="form-group">
-          <label for="{{ form.reservation_date.id_for_label }}">{% trans "Дата:" %}</label>
-          {{ form.reservation_date }}
-          {% if form.reservation_date.errors %}
-            <div class="text-danger">{{ form.reservation_date.errors }}</div>
-          {% endif %}
+          <label for="reservation_date">Дата:</label>
+          <input type="date" class="form-control" id="reservation_date" name="reservation_date" value="{{ reservation.reservation_date }}" required>
         </div>
 
         <div class="form-group">
-          <label for="{{ form.reservation_time.id_for_label }}">{% trans "Время:" %}</label>
-          {{ form.reservation_time }}
-          {% if form.reservation_time.errors %}
-            <div class="text-danger">{{ form.reservation_time.errors }}</div>
-          {% endif %}
+          <label for="reservation_time">Время:</label>
+          <input type="time" class="form-control" id="reservation_time" name="reservation_time" value="{{ reservation.reservation_time|time:'H:i' }}" required>
         </div>
 
         <div class="form-group">
-          <label for="{{ form.reservation_duration_hours.id_for_label }}">{% trans "Продолжительность (часы):" %}</label>
-          {{ form.reservation_duration_hours }}
-          {% if form.reservation_duration_hours.errors %}
-            <div class="text-danger">{{ form.reservation_duration_hours.errors }}</div>
-          {% endif %}
-          <div class="form-text">{% trans "Введите количество часов (от 1 до 8)" %}</div>
+          <label for="reservation_duration_hours">Продолжительность (часы):</label>
+          <input type="number" class="form-control" id="reservation_duration_hours" name="reservation_duration_hours" value="{{ reservation.reservation_duration_hours }}" min="1" max="8" required>
+          <div class="form-text">Введите количество часов (от 1 до 8)</div>
         </div>
       </div>
 
       <div class="form-group">
-        <h5>{% trans "Доступные столики:" %}</h5>
+        <h5>Доступные столики:</h5>
         <div class="tables-grid" id="tables-container">
           {% for table in tables %}
-            <div class="table-card available" data-table-id="{{ table.id }}">
+            <div class="table-card {% if table in reservation.tables.all %}selected{% else %}available{% endif %}" data-table-id="{{ table.id }}">
               <div class="form-check mb-0">
-                <input class="form-check-input table-checkbox" type="checkbox" name="tables" value="{{ table.id }}" id="table_{{ table.id }}">
+                <input class="form-check-input table-checkbox" type="checkbox" name="tables" value="{{ table.id }}" id="table_{{ table.id }}" {% if table in reservation.tables.all %}checked{% endif %}>
                 <label class="form-check-label fw-bold" for="table_{{ table.id }}">
-                  {% blocktrans %}Стол #{{ table.number }}{% endblocktrans %}
+                  Стол #{{ table.number }}
                 </label>
               </div>
               <div class="table-details mt-1">
                 <small class="text-muted">
-                  <i class="bi bi-people"></i> {{ table.capacity }} {% trans "мест" %}<br>
-                  <i class="bi bi-currency-ruble"></i> {{ table.price }} {% trans "руб./час" %}
+                  <i class="bi bi-people"></i> {{ table.capacity }} мест<br>
+                  <i class="bi bi-currency-ruble"></i> {{ table.price }} руб./час
                 </small>
               </div>
             </div>
           {% empty %}
             <div class="col-12">
-              <p class="text-muted">{% trans "Нет доступных столов на выбранное время." %}</p>
+              <p class="text-muted">Нет доступных столов.</p>
             </div>
           {% endfor %}
-          {% if form.tables.errors %}
-            <div class="text-danger">{{ form.tables.errors }}</div>
-          {% endif %}
         </div>
       </div>
 
       <button type="submit" class="btn btn-primary">
-        <i class="bi bi-calendar-check me-2"></i> {% trans "Забронировать" %}
+        <i class="bi bi-check2 me-2"></i>Сохранить изменения
       </button>
+      <a href="{% url 'restaurant:profile' %}" class="btn btn-secondary">
+        <i class="bi bi-x me-2"></i>Отмена
+      </a>
     </form>
 
     {% if messages %}
@@ -244,10 +259,10 @@
 </div>
 
 <script>
-// Обновляем скрипт для проверки доступности с учетом duration
-document.getElementById('id_reservation_date').addEventListener('change', checkAvailability);
-document.getElementById('id_reservation_time').addEventListener('change', checkAvailability);
-document.getElementById('id_reservation_duration_hours').addEventListener('change', checkAvailability);
+// Обновляем скрипт для проверки доступности с учетом duration (аналогично в booking.html)
+document.getElementById('reservation_date').addEventListener('change', checkAvailability);
+document.getElementById('reservation_time').addEventListener('change', checkAvailability);
+document.getElementById('reservation_duration_hours').addEventListener('change', checkAvailability);
 
 // Добавляем обработчик для переключения стилей карточек
 document.querySelectorAll('.table-checkbox').forEach(checkbox => {
@@ -264,17 +279,21 @@ document.querySelectorAll('.table-checkbox').forEach(checkbox => {
 });
 
 function checkAvailability() {
-  const date = document.getElementById('id_reservation_date').value;
-  const time = document.getElementById('id_reservation_time').value;
-  const duration = document.getElementById('id_reservation_duration_hours').value;
+  const date = document.getElementById('reservation_date').value;
+  const time = document.getElementById('reservation_time').value;
+  const duration = document.getElementById('reservation_duration_hours').value;
 
   if (date && time && duration) {
+    // Используем тот же URL, что и в бронировании
     fetch(`/restaurant/check_availability/?date=${date}&time=${time}&duration=${duration}`)
       .then(response => response.json())
       .then(data => {
         document.querySelectorAll('.table-card').forEach(card => {
           const tableId = parseInt(card.getAttribute('data-table-id'));
           const checkbox = card.querySelector('.table-checkbox');
+
+          // Проверяем, является ли стол выбранным в текущей брони
+          const isCurrentReservationTable = card.classList.contains('selected');
 
           if (data.available_table_ids.includes(tableId)) {
             card.classList.remove('unavailable');
@@ -285,10 +304,19 @@ function checkAvailability() {
               card.classList.remove('selected');
             }
           } else {
-            card.classList.remove('available', 'selected');
-            card.classList.add('unavailable');
-            checkbox.disabled = true;
-            checkbox.checked = false; // Снимаем галочку с недоступного
+            // Если стол недоступен, но он был выбран в текущей брони, разрешаем его оставить
+            if (isCurrentReservationTable) {
+              card.classList.remove('available');
+              card.classList.add('selected'); // Оставляем как выбранный
+              checkbox.disabled = false; // И не делаем его недоступным для выбора
+            } else {
+              card.classList.remove('available', 'selected');
+              card.classList.add('unavailable');
+              checkbox.disabled = true;
+              if (checkbox.checked) {
+                checkbox.checked = false; // Снимаем галочку, если была
+              }
+            }
           }
         });
       })
