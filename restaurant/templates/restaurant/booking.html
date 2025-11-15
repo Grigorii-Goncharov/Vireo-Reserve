@@ -252,8 +252,13 @@
               <div class="form-check mb-0">
                 <input class="form-check-input table-checkbox" type="checkbox" name="tables" value="{{ table.id }}" id="table_{{ table.id }}">
                 <label class="form-check-label fw-bold" for="table_{{ table.id }}">
-                  {% blocktrans with number=table.number capacity=table.capacity %}Стол №{{ number }} ({{ capacity }} мест){% endblocktrans %}
+                  {% blocktrans with number=table.number %}Стол №{{ number }}{% endblocktrans %}
                 </label>
+              </div>
+              <div class="table-details mt-1">
+                <small class="text-muted">
+                  <i class="bi bi-people"></i> {{ table.capacity }} {% trans "мест" %}
+                </small>
               </div>
             </div>
           {% empty %}

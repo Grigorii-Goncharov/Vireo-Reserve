@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-14 21:59+0300\n"
-"PO-Revision-Date: 2025-11-15 11:30+0300\n"
+"POT-Creation-Date: 2025-11-15 15:46+0300\n"
+"PO-Revision-Date: 2025-11-15 15:46+0300\n"
 "Last-Translator: YOU <your.email@example.com>\n"
 "Language-Team: English <LL@li.org>\n"
 "Language: en\n"
@@ -136,60 +136,191 @@ msgstr "Founder"
 msgid "Путешественник и энтузиаст устойчивого туризма. Вдохновлён красотой "
 msgstr "A traveler and sustainable tourism enthusiast, inspired by beauty."
 
-#: .\restaurant\templates\restaurant\booking.html:6
-#: .\restaurant\templates\restaurant\booking.html:171
+#: .\restaurant\templates\restaurant\booking.html:4
+#: .\restaurant\templates\restaurant\booking.html:216
 #: .\restaurant\templates\restaurant\home.html:24
 msgid "Забронировать столик"
 msgstr "Book a Table"
 
-#: .\restaurant\templates\restaurant\booking.html:179
-#, fuzzy
-#| msgid "Дата"
+#: .\restaurant\templates\restaurant\booking.html:224
+#: .\restaurant\templates\restaurant\booking_success.html:123
+#: .\restaurant\templates\restaurant\edit_reservation.html:219
 msgid "Дата:"
 msgstr "Date:"
 
-#: .\restaurant\templates\restaurant\booking.html:187
-#, fuzzy
-#| msgid "Время"
+#: .\restaurant\templates\restaurant\booking.html:229
+#: .\restaurant\templates\restaurant\booking_success.html:124
+#: .\restaurant\templates\restaurant\edit_reservation.html:224
 msgid "Время:"
 msgstr "Time:"
 
-#: .\restaurant\templates\restaurant\booking.html:195
+#: .\restaurant\templates\restaurant\booking.html:234
+#: .\restaurant\templates\restaurant\edit_reservation.html:229
 msgid "Продолжительность (часы):"
 msgstr "Duration (hours):"
 
-#: .\restaurant\templates\restaurant\booking.html:200
+#: .\restaurant\templates\restaurant\booking.html:236
+#: .\restaurant\templates\restaurant\edit_reservation.html:231
 msgid "Введите количество часов (от 1 до 8)"
 msgstr "Enter the number of hours (from 1 to 8)"
 
-#: .\restaurant\templates\restaurant\booking.html:205
+#: .\restaurant\templates\restaurant\booking.html:241
+#: .\restaurant\templates\restaurant\edit_reservation.html:236
 msgid "Доступные столики:"
 msgstr "Available tables:"
 
-#: .\restaurant\templates\restaurant\booking.html:212
+#: .\restaurant\templates\restaurant\booking.html:246
+#: .\restaurant\templates\restaurant\edit_reservation.html:241
 #, python-format
-msgid "Стол #%(table.number)s"
-msgstr "Table #%(table.number)s"
+msgid "Фото стола №%(number)s"
+msgstr "Photo of Table #%(number)s"
 
-#: .\restaurant\templates\restaurant\booking.html:217
+#: .\restaurant\templates\restaurant\booking.html:249
+#: .\restaurant\templates\restaurant\edit_reservation.html:244
+msgid "Фото отсутствует"
+msgstr "No photo available"
+
+#: .\restaurant\templates\restaurant\booking.html:255
+#: .\restaurant\templates\restaurant\edit_reservation.html:250
+#, python-format
+msgid "Стол №%(number)s"
+msgstr "Table #%(number)s"
+
+#: .\restaurant\templates\restaurant\booking.html:260
+#: .\restaurant\templates\restaurant\booking_success.html:128
+#: .\restaurant\templates\restaurant\edit_reservation.html:255
 msgid "мест"
 msgstr "seats"
 
-#: .\restaurant\templates\restaurant\booking.html:218
-#, fuzzy
-#| msgid "руб."
-msgid "руб./час"
-msgstr "RUB/hour"
-
-#: .\restaurant\templates\restaurant\booking.html:224
+#: .\restaurant\templates\restaurant\booking.html:266
 msgid "Нет доступных столов на выбранное время."
 msgstr "No tables available for the selected time."
 
-#: .\restaurant\templates\restaurant\booking.html:234
-#, fuzzy
-#| msgid "Забронировать столик"
+#: .\restaurant\templates\restaurant\booking.html:278
+msgid "Забронированные столики на сегодня:"
+msgstr "Tables booked today:"
+
+#: .\restaurant\templates\restaurant\booking.html:282
+#, python-format
+msgid "Стол №%(number)s (%(capacity)s мест)"
+msgstr "Table #%(number)s (%(capacity)s seats)"
+
+#: .\restaurant\templates\restaurant\booking.html:290
 msgid "Забронировать"
 msgstr "Book"
+
+#: .\restaurant\templates\restaurant\booking_success.html:114
+msgid "Бронирование подтверждено!"
+msgstr "Reservation Confirmed!"
+
+#: .\restaurant\templates\restaurant\booking_success.html:118
+#, python-format
+msgid "Спасибо за ваше бронирование, %(name)s!"
+msgstr "Thank you for your reservation, %(name)s!"
+
+#: .\restaurant\templates\restaurant\booking_success.html:122
+#, python-format
+msgid "Детали бронирования #%(id)s"
+msgstr "Reservation Details #%(id)s"
+
+#: .\restaurant\templates\restaurant\booking_success.html:125
+msgid "Продолжительность:"
+msgstr "Duration:"
+
+#: .\restaurant\templates\restaurant\booking_success.html:125
+#: .\users\templates\users\profile.html:87
+msgid "часов"
+msgstr "hours"
+
+#: .\restaurant\templates\restaurant\booking_success.html:126
+msgid "Столики:"
+msgstr "Tables:"
+
+#: .\restaurant\templates\restaurant\booking_success.html:131
+#: .\restaurant\templates\restaurant\cancel_reservation.html:158
+msgid "Сумма:"
+msgstr "Amount:"
+
+#: .\restaurant\templates\restaurant\booking_success.html:131
+#: .\restaurant\templates\restaurant\cancel_reservation.html:158
+#: .\users\templates\users\profile.html:93
+msgid "руб."
+msgstr "RUB"
+
+#: .\restaurant\templates\restaurant\booking_success.html:135
+msgid "Перейти в мой профиль"
+msgstr "Go to My Profile"
+
+#: .\restaurant\templates\restaurant\booking_success.html:138
+msgid "Вернуться на главную"
+msgstr "Return to Home"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:4
+#: .\users\templates\users\profile.html:106
+msgid "Отменить бронирование"
+msgstr "Cancel Reservation"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:139
+msgid "Подтверждение отмены"
+msgstr "Cancellation Confirmation"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:144
+#, python-format
+msgid ""
+"\n"
+"          Вы уверены, что хотите отменить бронирование столиков на "
+"<strong>%(date)s</strong> в <strong>%(time)s</strong>?\n"
+"        "
+msgstr ""
+"\n"
+"          Are you sure you want to cancel the table reservation for "
+"<strong>%(date)s</strong> at <strong>%(time)s</strong>?\n"
+"        "
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:151
+msgid "Информация о бронировании"
+msgstr "Reservation Information"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:152
+msgid "Забронированные столы:"
+msgstr "Reserved Tables:"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:155
+#, python-format
+msgid "Стол #%(number)s (%(capacity)s мест)"
+msgstr "Table #%(number)s (%(capacity)s seats)"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:165
+msgid "Да, отменить"
+msgstr "Yes, cancel"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:169
+msgid "Назад"
+msgstr "Back"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:5
+#: .\users\templates\users\profile.html:99
+msgid "Редактировать бронирование"
+msgstr "Edit Reservation"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:211
+#, python-format
+msgid "Редактировать бронирование №%(id)s"
+msgstr "Edit Reservation #%(id)s"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:261
+msgid "Нет доступных столов."
+msgstr "No tables available."
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:268
+#: .\users\templates\users\profile_edit.html:197
+msgid "Сохранить изменения"
+msgstr "Save Changes"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:271
+#: .\users\templates\users\profile_edit.html:211
+msgid "Отмена"
+msgstr "Cancel"
 
 #: .\restaurant\templates\restaurant\home.html:4
 msgid "Vireo Reserve — Бронирование столиков с видом на бухту"
@@ -328,89 +459,108 @@ msgid "Авторизация"
 msgstr "Authorisation"
 
 #: .\restaurant\templates\restaurant\includes\inc_header_auth.html:27
-#, fuzzy
-#| msgid "Выход"
 msgid "  || Выход"
 msgstr "  || Logout"
+
+#: .\users\templates\users\email_confirmation.html:7
+#: .\users\templates\users\email_confirmation.html:118
+msgid "Подтверждение email"
+msgstr "Email Confirmation"
+
+#: .\users\templates\users\email_confirmation.html:121
+msgid "Привет! Спасибо за регистрацию в ресторане \\"
+msgstr "Hello! Thank you for registering at the restaurant \\"
+
+#: .\users\templates\users\email_confirmation.html:125
+msgid "Для завершения регистрации перейдите по ссылке:"
+msgstr "To complete registration, click the following link:"
+
+#: .\users\templates\users\email_confirmation.html:130
+msgid "Подтвердить email"
+msgstr "Confirm Email"
+
+#: .\users\templates\users\email_confirmation.html:134
+msgid "Если вы не регистрировались — просто проигнорируйте это письмо."
+msgstr "If you did not register, simply ignore this email."
+
+#: .\users\templates\users\email_confirmation.html:138
+msgid "Это автоматическое сообщение. Пожалуйста, не отвечайте на него."
+msgstr "This is an automated message. Please do not reply to it."
 
 #: .\users\templates\users\login.html:4
 msgid "Вход"
 msgstr "Login"
 
-#: .\users\templates\users\login.html:24
+#: .\users\templates\users\login.html:39
 msgid "Войдите в свой аккаунт"
 msgstr "Log into your account"
 
-#: .\users\templates\users\login.html:39
-#: .\users\templates\users\password_reset.html:33
-#, fuzzy
-#| msgid "Наша команда"
+#: .\users\templates\users\login.html:54
+#: .\users\templates\users\password_reset.html:50
 msgid "Ваша почта"
 msgstr "Your email"
 
-#: .\users\templates\users\login.html:43
+#: .\users\templates\users\login.html:58
 msgid "Пароль"
 msgstr "Password"
 
-#: .\users\templates\users\login.html:47
-#: .\users\templates\users\password_reset_complete.html:9
-#: .\users\templates\users\register.html:77
+#: .\users\templates\users\login.html:62
+#: .\users\templates\users\password_reset_complete.html:79
+#: .\users\templates\users\register.html:108
 msgid "Войти"
 msgstr "Log In"
 
-#: .\users\templates\users\login.html:50
+#: .\users\templates\users\login.html:65
 msgid "или"
 msgstr "or"
 
-#: .\users\templates\users\login.html:53
+#: .\users\templates\users\login.html:68
 #: .\users\templates\users\register.html:3
-#: .\users\templates\users\register.html:31
+#: .\users\templates\users\register.html:60
 msgid "Создать аккаунт"
 msgstr "Create Account"
 
-#: .\users\templates\users\login.html:55
+#: .\users\templates\users\login.html:70
 msgid "Забыли пароль?"
 msgstr "Forgot password?"
 
-#: .\users\templates\users\login.html:59
+#: .\users\templates\users\login.html:74
 msgid "Остров Phi-Phi, Таиланд"
 msgstr "Phi Phi Island, Thailand"
 
 #: .\users\templates\users\password_reset.html:3
-#: .\users\templates\users\password_reset.html:26
-#: .\users\templates\users\password_reset_email.html:17
+#: .\users\templates\users\password_reset.html:43
+#: .\users\templates\users\password_reset_email.html:116
 msgid "Восстановление пароля"
 msgstr "Password Recovery"
 
-#: .\users\templates\users\password_reset.html:27
+#: .\users\templates\users\password_reset.html:44
 msgid "Введите вашу электронную почту, и мы вышлем инструкции"
 msgstr "Enter your email and we will send instructions"
 
-#: .\users\templates\users\password_reset.html:37
-#, fuzzy
-#| msgid "Отправить"
+#: .\users\templates\users\password_reset.html:54
 msgid "Отправить инструкции"
 msgstr "Send Instructions"
 
-#: .\users\templates\users\password_reset.html:41
+#: .\users\templates\users\password_reset.html:58
 msgid "← Назад к входу"
 msgstr "← Back to Login"
 
 #: .\users\templates\users\password_reset_complete.html:3
-#: .\users\templates\users\password_reset_complete.html:7
+#: .\users\templates\users\password_reset_complete.html:77
 msgid "Пароль успешно изменен"
 msgstr "Password changed successfully"
 
-#: .\users\templates\users\password_reset_complete.html:8
+#: .\users\templates\users\password_reset_complete.html:78
 msgid "Вы можете теперь войти в систему с новым паролем."
 msgstr "You can now log in with your new password."
 
 #: .\users\templates\users\password_reset_confirm.html:3
-#: .\users\templates\users\password_reset_confirm.html:6
+#: .\users\templates\users\password_reset_confirm.html:119
 msgid "Создание нового пароля"
 msgstr "Creating a New Password"
 
-#: .\users\templates\users\password_reset_confirm.html:10
+#: .\users\templates\users\password_reset_confirm.html:154
 msgid "Сохранить новый пароль"
 msgstr "Save New Password"
 
@@ -418,11 +568,11 @@ msgstr "Save New Password"
 msgid "Письмо отправлено"
 msgstr "Email Sent"
 
-#: .\users\templates\users\password_reset_done.html:17
+#: .\users\templates\users\password_reset_done.html:78
 msgid "Проверьте вашу почту"
 msgstr "Check Your Email"
 
-#: .\users\templates\users\password_reset_done.html:18
+#: .\users\templates\users\password_reset_done.html:79
 msgid ""
 "На указанный email было отправлено письмо с инструкциями по восстановлению "
 "пароля."
@@ -430,7 +580,7 @@ msgstr ""
 "An email with instructions for password recovery has been sent to the "
 "specified email address."
 
-#: .\users\templates\users\password_reset_done.html:21
+#: .\users\templates\users\password_reset_done.html:82
 msgid "← Вернуться к входу"
 msgstr "← Return to Login"
 
@@ -438,34 +588,34 @@ msgstr "← Return to Login"
 msgid "Сброс пароля"
 msgstr "Password Reset"
 
-#: .\users\templates\users\password_reset_email.html:13
+#: .\users\templates\users\password_reset_email.html:112
 msgid "Остров Пхи-Пхи, Таиланд"
 msgstr "Phi Phi Island, Thailand"
 
-#: .\users\templates\users\password_reset_email.html:19
+#: .\users\templates\users\password_reset_email.html:118
 msgid ""
 "Кто-то запросил сброс пароля для аккаунта, связанного с этим email-адресом."
 msgstr ""
 "Someone requested a password reset for an account associated with this email "
 "address."
 
-#: .\users\templates\users\password_reset_email.html:21
+#: .\users\templates\users\password_reset_email.html:120
 msgid "Для сброса пароля перейдите по следующей ссылке:"
 msgstr "To reset your password, click the following link:"
 
-#: .\users\templates\users\password_reset_email.html:25
+#: .\users\templates\users\password_reset_email.html:124
 msgid "Сбросить пароль"
 msgstr "Reset Password"
 
-#: .\users\templates\users\password_reset_email.html:28
+#: .\users\templates\users\password_reset_email.html:127
 msgid "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо."
 msgstr "If you did not request a password reset, simply ignore this email."
 
-#: .\users\templates\users\password_reset_email.html:32
+#: .\users\templates\users\password_reset_email.html:131
 msgid "Это автоматическое сообщение от"
 msgstr "This is an automated message from"
 
-#: .\users\templates\users\password_reset_email.html:33
+#: .\users\templates\users\password_reset_email.html:132
 msgid "Пожалуйста, не отвечайте на него."
 msgstr "Please do not reply to it."
 
@@ -512,14 +662,10 @@ msgid "Город"
 msgstr "City"
 
 #: .\users\templates\users\profile.html:59
-#, fuzzy
-#| msgid "Забронировать столик"
 msgid "Редактировать профиль"
 msgstr "Edit Profile"
 
 #: .\users\templates\users\profile.html:68
-#, fuzzy
-#| msgid "Бронирование"
 msgid "Ваши бронирования"
 msgstr "Your Reservations"
 
@@ -532,8 +678,6 @@ msgid "Время"
 msgstr "Time"
 
 #: .\users\templates\users\profile.html:75
-#, fuzzy
-#| msgid "Экологичность"
 msgid "Продолжительность"
 msgstr "Duration"
 
@@ -546,7 +690,7 @@ msgid "Сумма"
 msgstr "Amount"
 
 #: .\users\templates\users\profile.html:78
-#: .\users\templates\users\user_list.html:29
+#: .\users\templates\users\user_list.html:177
 msgid "Статус"
 msgstr "Status"
 
@@ -554,35 +698,11 @@ msgstr "Status"
 msgid "Действия"
 msgstr "Actions"
 
-#: .\users\templates\users\profile.html:87
-msgid "часов"
-msgstr "hours"
-
-#: .\users\templates\users\profile.html:93
-msgid "руб."
-msgstr "RUB"
-
-#: .\users\templates\users\profile.html:99
-#, fuzzy
-#| msgid "Забронировать столик"
-msgid "Редактировать бронирование"
-msgstr "Edit Reservation"
-
 #: .\users\templates\users\profile.html:101
-#, fuzzy
-#| msgid "Забронировать столик"
 msgid "Редактировать"
 msgstr "Edit"
 
-#: .\users\templates\users\profile.html:106
-#, fuzzy
-#| msgid "Бронирование"
-msgid "Отменить бронирование"
-msgstr "Cancel Reservation"
-
 #: .\users\templates\users\profile.html:107
-#, fuzzy
-#| msgid "Вы уверены, что хотите удалить пользователя"
 msgid "Вы уверены, что хотите отменить это бронирование?"
 msgstr "Are you sure you want to cancel this reservation?"
 
@@ -595,99 +715,79 @@ msgid "У вас пока нет бронирований."
 msgstr "You have no reservations yet."
 
 #: .\users\templates\users\profile_edit.html:3
-#: .\users\templates\users\profile_edit.html:99
+#: .\users\templates\users\profile_edit.html:158
 msgid "Редактирование профиля"
 msgstr "Profile Editing"
 
-#: .\users\templates\users\profile_edit.html:138
-#, fuzzy
-#| msgid "Сомелье и менеджер"
-msgid "Сохранить изменения"
-msgstr "Save Changes"
-
-#: .\users\templates\users\profile_edit.html:145
+#: .\users\templates\users\profile_edit.html:204
 msgid "Вы уверены, что хотите удалить пользователя"
 msgstr "Are you sure you want to delete the user"
 
-#: .\users\templates\users\profile_edit.html:146
+#: .\users\templates\users\profile_edit.html:205
 msgid "Удалить пользователя "
 msgstr "Delete User "
 
-#: .\users\templates\users\profile_edit.html:152
-msgid "Отмена"
-msgstr "Cancel"
-
-#: .\users\templates\users\register.html:72
-#, fuzzy
-#| msgid "Забронировать столик"
+#: .\users\templates\users\register.html:103
 msgid "Зарегистрироваться"
 msgstr "Register"
 
-#: .\users\templates\users\register.html:77
+#: .\users\templates\users\register.html:108
 msgid "Уже есть аккаунт?"
 msgstr "Already have an account?"
 
 #: .\users\templates\users\user_list.html:3
-#: .\users\templates\users\user_list.html:16
+#: .\users\templates\users\user_list.html:164
 msgid "Управление пользователями"
 msgstr "User Management"
 
-#: .\users\templates\users\user_list.html:25
-#, fuzzy
-#| msgid "Основатель"
+#: .\users\templates\users\user_list.html:173
 msgid "Пользователь"
 msgstr "User"
 
-#: .\users\templates\users\user_list.html:26
+#: .\users\templates\users\user_list.html:174
 msgid "Клиенты"
 msgstr "Customers"
 
-#: .\users\templates\users\user_list.html:27
-#, fuzzy
-#| msgid "Сообщение"
+#: .\users\templates\users\user_list.html:175
 msgid "Сообщения"
 msgstr "Messages"
 
-#: .\users\templates\users\user_list.html:28
+#: .\users\templates\users\user_list.html:176
 msgid "Рассылки"
 msgstr "Newsletters"
 
-#: .\users\templates\users\user_list.html:30
+#: .\users\templates\users\user_list.html:178
 msgid "Действие"
 msgstr "Action"
 
-#: .\users\templates\users\user_list.html:65
+#: .\users\templates\users\user_list.html:213
 msgid "Активен"
 msgstr "Active"
 
-#: .\users\templates\users\user_list.html:67
-#, fuzzy
-#| msgid "Бронирование"
+#: .\users\templates\users\user_list.html:215
 msgid "Заблокирован"
 msgstr "Blocked"
 
-#: .\users\templates\users\user_list.html:77
-#, fuzzy
-#| msgid "Забронировать столик"
+#: .\users\templates\users\user_list.html:225
 msgid "Заблокировать"
 msgstr "Block"
 
-#: .\users\templates\users\user_list.html:79
-#, fuzzy
-#| msgid "Забронировать столик"
+#: .\users\templates\users\user_list.html:227
 msgid "Разблокировать"
 msgstr "Unblock"
 
-#: .\users\templates\users\user_list.html:93
+#: .\users\templates\users\user_list.html:241
 msgid "Нет пользователей"
 msgstr "No Users"
 
-#: .\users\templates\users\user_list.html:94
+#: .\users\templates\users\user_list.html:242
 msgid "В системе пока не зарегистрировано ни одного пользователя."
 msgstr "No users are registered in the system yet."
 
-#~ msgid "Подтверждено"
-#~ msgstr "Confirmed"
+#, fuzzy
+#~| msgid "руб."
+#~ msgid "руб./час"
+#~ msgstr "RUB/hour"
 
 #~ msgid "Редактирование профиля "
 #~ msgstr "Profile Editing "
