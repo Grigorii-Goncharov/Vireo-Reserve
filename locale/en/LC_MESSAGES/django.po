@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-15 15:46+0300\n"
+"POT-Creation-Date: 2025-11-15 16:56+0300\n"
 "PO-Revision-Date: 2025-11-15 15:46+0300\n"
 "Last-Translator: YOU <your.email@example.com>\n"
 "Language-Team: English <LL@li.org>\n"
@@ -137,121 +137,124 @@ msgid "Путешественник и энтузиаст устойчивого
 msgstr "A traveler and sustainable tourism enthusiast, inspired by beauty."
 
 #: .\restaurant\templates\restaurant\booking.html:4
-#: .\restaurant\templates\restaurant\booking.html:216
+#: .\restaurant\templates\restaurant\booking.html:15
 #: .\restaurant\templates\restaurant\home.html:24
 msgid "Забронировать столик"
 msgstr "Book a Table"
 
-#: .\restaurant\templates\restaurant\booking.html:224
-#: .\restaurant\templates\restaurant\booking_success.html:123
-#: .\restaurant\templates\restaurant\edit_reservation.html:219
+#: .\restaurant\templates\restaurant\booking.html:23
+#: .\restaurant\templates\restaurant\booking_success.html:23
+#: .\restaurant\templates\restaurant\edit_reservation.html:23
 msgid "Дата:"
 msgstr "Date:"
 
-#: .\restaurant\templates\restaurant\booking.html:229
-#: .\restaurant\templates\restaurant\booking_success.html:124
-#: .\restaurant\templates\restaurant\edit_reservation.html:224
+#: .\restaurant\templates\restaurant\booking.html:28
+#: .\restaurant\templates\restaurant\booking_success.html:24
+#: .\restaurant\templates\restaurant\edit_reservation.html:28
 msgid "Время:"
 msgstr "Time:"
 
-#: .\restaurant\templates\restaurant\booking.html:234
-#: .\restaurant\templates\restaurant\edit_reservation.html:229
+#: .\restaurant\templates\restaurant\booking.html:33
+#: .\restaurant\templates\restaurant\edit_reservation.html:33
 msgid "Продолжительность (часы):"
 msgstr "Duration (hours):"
 
-#: .\restaurant\templates\restaurant\booking.html:236
-#: .\restaurant\templates\restaurant\edit_reservation.html:231
+#: .\restaurant\templates\restaurant\booking.html:35
+#: .\restaurant\templates\restaurant\edit_reservation.html:35
 msgid "Введите количество часов (от 1 до 8)"
 msgstr "Enter the number of hours (from 1 to 8)"
 
-#: .\restaurant\templates\restaurant\booking.html:241
-#: .\restaurant\templates\restaurant\edit_reservation.html:236
-msgid "Доступные столики:"
-msgstr "Available tables:"
+#: .\restaurant\templates\restaurant\booking.html:40
+msgid "Выбор столика:"
+msgstr "Table Selection:"
 
-#: .\restaurant\templates\restaurant\booking.html:246
-#: .\restaurant\templates\restaurant\edit_reservation.html:241
+#: .\restaurant\templates\restaurant\booking.html:45
+#: .\restaurant\templates\restaurant\edit_reservation.html:45
 #, python-format
 msgid "Фото стола №%(number)s"
 msgstr "Photo of Table #%(number)s"
 
-#: .\restaurant\templates\restaurant\booking.html:249
-#: .\restaurant\templates\restaurant\edit_reservation.html:244
+#: .\restaurant\templates\restaurant\booking.html:48
+#: .\restaurant\templates\restaurant\edit_reservation.html:48
 msgid "Фото отсутствует"
 msgstr "No photo available"
 
-#: .\restaurant\templates\restaurant\booking.html:255
-#: .\restaurant\templates\restaurant\edit_reservation.html:250
+#: .\restaurant\templates\restaurant\booking.html:54
+#: .\restaurant\templates\restaurant\edit_reservation.html:54
 #, python-format
 msgid "Стол №%(number)s"
 msgstr "Table #%(number)s"
 
-#: .\restaurant\templates\restaurant\booking.html:260
-#: .\restaurant\templates\restaurant\booking_success.html:128
-#: .\restaurant\templates\restaurant\edit_reservation.html:255
+#: .\restaurant\templates\restaurant\booking.html:59
+#: .\restaurant\templates\restaurant\booking_success.html:28
+#: .\restaurant\templates\restaurant\edit_reservation.html:59
 msgid "мест"
 msgstr "seats"
 
-#: .\restaurant\templates\restaurant\booking.html:266
+#: .\restaurant\templates\restaurant\booking.html:65
 msgid "Нет доступных столов на выбранное время."
 msgstr "No tables available for the selected time."
 
-#: .\restaurant\templates\restaurant\booking.html:278
+#: .\restaurant\templates\restaurant\booking.html:76
 msgid "Забронированные столики на сегодня:"
 msgstr "Tables booked today:"
 
-#: .\restaurant\templates\restaurant\booking.html:282
+#: .\restaurant\templates\restaurant\booking.html:80
 #, python-format
 msgid "Стол №%(number)s (%(capacity)s мест)"
 msgstr "Table #%(number)s (%(capacity)s seats)"
 
-#: .\restaurant\templates\restaurant\booking.html:290
+#: .\restaurant\templates\restaurant\booking.html:88
 msgid "Забронировать"
 msgstr "Book"
 
-#: .\restaurant\templates\restaurant\booking_success.html:114
+#: .\restaurant\templates\restaurant\booking_success.html:4
+msgid "Бронирование подтверждено"
+msgstr "Reservation Confirmed"
+
+#: .\restaurant\templates\restaurant\booking_success.html:14
 msgid "Бронирование подтверждено!"
 msgstr "Reservation Confirmed!"
 
-#: .\restaurant\templates\restaurant\booking_success.html:118
+#: .\restaurant\templates\restaurant\booking_success.html:18
 #, python-format
 msgid "Спасибо за ваше бронирование, %(name)s!"
 msgstr "Thank you for your reservation, %(name)s!"
 
-#: .\restaurant\templates\restaurant\booking_success.html:122
+#: .\restaurant\templates\restaurant\booking_success.html:22
 #, python-format
 msgid "Детали бронирования #%(id)s"
 msgstr "Reservation Details #%(id)s"
 
-#: .\restaurant\templates\restaurant\booking_success.html:125
+#: .\restaurant\templates\restaurant\booking_success.html:25
 msgid "Продолжительность:"
 msgstr "Duration:"
 
-#: .\restaurant\templates\restaurant\booking_success.html:125
+#: .\restaurant\templates\restaurant\booking_success.html:25
 #: .\users\templates\users\profile.html:87
 msgid "часов"
 msgstr "hours"
 
-#: .\restaurant\templates\restaurant\booking_success.html:126
+#: .\restaurant\templates\restaurant\booking_success.html:26
 msgid "Столики:"
 msgstr "Tables:"
 
-#: .\restaurant\templates\restaurant\booking_success.html:131
-#: .\restaurant\templates\restaurant\cancel_reservation.html:158
+#: .\restaurant\templates\restaurant\booking_success.html:31
+#: .\restaurant\templates\restaurant\cancel_reservation.html:33
 msgid "Сумма:"
 msgstr "Amount:"
 
-#: .\restaurant\templates\restaurant\booking_success.html:131
-#: .\restaurant\templates\restaurant\cancel_reservation.html:158
+#: .\restaurant\templates\restaurant\booking_success.html:31
+#: .\restaurant\templates\restaurant\cancel_reservation.html:33
 #: .\users\templates\users\profile.html:93
 msgid "руб."
 msgstr "RUB"
 
-#: .\restaurant\templates\restaurant\booking_success.html:135
+#: .\restaurant\templates\restaurant\booking_success.html:35
 msgid "Перейти в мой профиль"
 msgstr "Go to My Profile"
 
-#: .\restaurant\templates\restaurant\booking_success.html:138
+#: .\restaurant\templates\restaurant\booking_success.html:38
 msgid "Вернуться на главную"
 msgstr "Return to Home"
 
@@ -260,11 +263,11 @@ msgstr "Return to Home"
 msgid "Отменить бронирование"
 msgstr "Cancel Reservation"
 
-#: .\restaurant\templates\restaurant\cancel_reservation.html:139
+#: .\restaurant\templates\restaurant\cancel_reservation.html:14
 msgid "Подтверждение отмены"
 msgstr "Cancellation Confirmation"
 
-#: .\restaurant\templates\restaurant\cancel_reservation.html:144
+#: .\restaurant\templates\restaurant\cancel_reservation.html:19
 #, python-format
 msgid ""
 "\n"
@@ -277,47 +280,51 @@ msgstr ""
 "<strong>%(date)s</strong> at <strong>%(time)s</strong>?\n"
 "        "
 
-#: .\restaurant\templates\restaurant\cancel_reservation.html:151
+#: .\restaurant\templates\restaurant\cancel_reservation.html:26
 msgid "Информация о бронировании"
 msgstr "Reservation Information"
 
-#: .\restaurant\templates\restaurant\cancel_reservation.html:152
+#: .\restaurant\templates\restaurant\cancel_reservation.html:27
 msgid "Забронированные столы:"
 msgstr "Reserved Tables:"
 
-#: .\restaurant\templates\restaurant\cancel_reservation.html:155
+#: .\restaurant\templates\restaurant\cancel_reservation.html:30
 #, python-format
 msgid "Стол #%(number)s (%(capacity)s мест)"
 msgstr "Table #%(number)s (%(capacity)s seats)"
 
-#: .\restaurant\templates\restaurant\cancel_reservation.html:165
+#: .\restaurant\templates\restaurant\cancel_reservation.html:40
 msgid "Да, отменить"
 msgstr "Yes, cancel"
 
-#: .\restaurant\templates\restaurant\cancel_reservation.html:169
+#: .\restaurant\templates\restaurant\cancel_reservation.html:44
 msgid "Назад"
 msgstr "Back"
 
-#: .\restaurant\templates\restaurant\edit_reservation.html:5
+#: .\restaurant\templates\restaurant\edit_reservation.html:4
 #: .\users\templates\users\profile.html:99
 msgid "Редактировать бронирование"
 msgstr "Edit Reservation"
 
-#: .\restaurant\templates\restaurant\edit_reservation.html:211
+#: .\restaurant\templates\restaurant\edit_reservation.html:15
 #, python-format
 msgid "Редактировать бронирование №%(id)s"
 msgstr "Edit Reservation #%(id)s"
 
-#: .\restaurant\templates\restaurant\edit_reservation.html:261
+#: .\restaurant\templates\restaurant\edit_reservation.html:40
+msgid "Доступные столики:"
+msgstr "Available tables:"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:65
 msgid "Нет доступных столов."
 msgstr "No tables available."
 
-#: .\restaurant\templates\restaurant\edit_reservation.html:268
+#: .\restaurant\templates\restaurant\edit_reservation.html:72
 #: .\users\templates\users\profile_edit.html:197
 msgid "Сохранить изменения"
 msgstr "Save Changes"
 
-#: .\restaurant\templates\restaurant\edit_reservation.html:271
+#: .\restaurant\templates\restaurant\edit_reservation.html:75
 #: .\users\templates\users\profile_edit.html:211
 msgid "Отмена"
 msgstr "Cancel"
@@ -784,13 +791,11 @@ msgstr "No Users"
 msgid "В системе пока не зарегистрировано ни одного пользователя."
 msgstr "No users are registered in the system yet."
 
-#, fuzzy
-#~| msgid "руб."
-#~ msgid "руб./час"
-#~ msgstr "RUB/hour"
+msgid "руб./час"
+msgstr "RUB/hour"
 
-#~ msgid "Редактирование профиля "
-#~ msgstr "Profile Editing "
+msgid "Редактирование профиля "
+msgstr "Profile Editing "
 
-#~ msgid "Личный кабинет"
-#~ msgstr "My Account"
+msgid "Личный кабинет"
+msgstr "My Account"
