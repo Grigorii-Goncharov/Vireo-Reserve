@@ -51,16 +51,28 @@ class BookingView(LoginRequiredMixin, TemplateView):
         # Создаём форму с начальными значениями — они уже заданы в BookingForm
         context["form"] = BookingForm()
 
-        # Добавляем список забронированных столов на сегодня
+        # --- НОВОЕ: Получаем забронированные столы и временные интервалы ---
         today = date.today()
-        reserved_table_ids = TableReservation.objects.filter(
+        reservations_today = TableReservation.objects.filter(
             reservation_date=today,
             status__in=["pending", "confirmed"],
-        ).values_list("tables__id", flat=True)
+        ).select_related().prefetch_related('tables')
 
-        context["reserved_tables_today"] = Table.objects.filter(
-            id__in=reserved_table_ids
-        ).order_by("number")
+        # Собираем информацию о забронированных столах и интервалах
+        reserved_tables_with_intervals = []
+        for res in reservations_today:
+            for table in res.tables.all():
+                start_time = res.reservation_time
+                duration_hours = res.reservation_duration_hours
+                end_time = datetime.combine(today, start_time) + timedelta(hours=duration_hours)
+                reserved_tables_with_intervals.append({
+                    'table': table,
+                    'start_time': start_time,
+                    'end_time': end_time.time(),
+                    'reservation_id': res.id,
+                })
+
+        context["reserved_tables_with_intervals"] = reserved_tables_with_intervals
 
         return context
 

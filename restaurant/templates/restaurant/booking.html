@@ -71,13 +71,16 @@
         </div>
       </div>
 
-      {% if reserved_tables_today %}
+      <!-- Выводим забронированные столы и интервалы -->
+      {% if reserved_tables_with_intervals %}
         <div class="reserved-tables-section">
           <h5><i class="bi bi-exclamation-triangle me-2"></i>{% trans "Забронированные столики на сегодня:" %}</h5>
           <div class="reserved-tables-list">
-            {% for table in reserved_tables_today %}
+            {% for item in reserved_tables_with_intervals %}
               <div class="reserved-table-item">
-                {% blocktrans with number=table.number capacity=table.capacity %}Стол №{{ number }} ({{ capacity }} мест){% endblocktrans %}
+                {% blocktrans with number=item.table.number capacity=item.table.capacity start=item.start_time|time:"H:i" end=item.end_time|time:"H:i" %}
+                  Стол №{{ number }} ({{ capacity }} мест)  {{ start }} – {{ end }}
+                {% endblocktrans %}
               </div>
             {% endfor %}
           </div>
