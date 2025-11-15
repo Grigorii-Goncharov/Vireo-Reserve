@@ -1,0 +1,266 @@
+<!-- restaurant/templates/restaurant/tables.html -->
+{% extends 'restaurant/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Доступные столики" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <style>
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('{% static "media/main_photo.png" %}') center/cover no-repeat fixed;
+    }
+
+    .tables-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 80vh;
+      justify-content: flex-start;
+    }
+
+    .tables-card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 1200px; /* Шире, чтобы вместить сетку */
+      width: 100%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+
+    .tables-header h2 {
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 2rem;
+      font-size: 32px;
+    }
+
+    .filter-form {
+      background-color: #f8fafc;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 2rem;
+      text-align: center;
+      border: 1px solid #cbd5e1;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #0f766e;
+      font-size: 16px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background-color: #ffffff;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #059669;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+    }
+
+    .btn-primary {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #059669, #047857);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+      max-width: 250px;
+      margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #047857, #065f46);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+    }
+
+    .tables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .table-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+    }
+
+    .table-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .table-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table-image-placeholder {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table-body {
+      padding: 1.5rem;
+    }
+
+    .table-title {
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 1rem;
+      font-size: 20px;
+    }
+
+    .table-details {
+      margin-bottom: 1.5rem;
+    }
+
+    .table-details p {
+      margin-bottom: 0.5rem;
+      color: #475569;
+      font-size: 15px;
+    }
+
+    .btn-success {
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .alert {
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .alert-info {
+      background-color: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="tables-container">
+  <div class="tables-card">
+    <div class="tables-header">
+      <h2>{% trans "Доступные столики" %}</h2>
+    </div>
+
+    <!-- Форма выбора даты -->
+    <div class="filter-form">
+      <form method="get">
+        <div class="row justify-content-center g-3">
+          <div class="col-md-6">
+            <label for="date" class="form-label">{% trans "Выберите дату" %}</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{ selected_date|default:'' }}">
+          </div>
+          <div class="col-md-6 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">{% trans "Показать столики" %}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    {% if all_tables_exist %}
+      {% if tables %}
+        <div class="tables-grid">
+          {% for table in tables %}
+            <div class="table-card">
+              {% if table.image %}
+                <img src="{{ table.image.url }}" class="table-image" alt="{% blocktrans with number=table.number %}Фото стола #{{ number }}{% endblocktrans %}">
+              {% else %}
+                <div class="table-image-placeholder">
+                  <span class="text-muted">{% trans "Нет фото" %}</span>
+                </div>
+              {% endif %}
+              <div class="table-body">
+                <h5 class="table-title">{% blocktrans with number=table.number %}Столик №{{ number }}{% endblocktrans %}</h5>
+                <div class="table-details">
+                  <p><i class="bi bi-people"></i> {% blocktrans with capacity=table.capacity %}До {{ capacity }} гостей{% endblocktrans %}</p>
+                  <p><i class="bi bi-currency-ruble"></i> {{ table.price|floatformat:2 }} {% trans "руб." %}</p>
+                </div>
+                <div>
+                  {% if selected_date %}
+                    <a href="{% url 'restaurant:booking' %}?date={{ selected_date }}&table={{ table.id }}" class="btn btn-success">
+                      {% trans "Забронировать" %}
+                    </a>
+                  {% else %}
+                    <a href="{% url 'restaurant:booking' %}?table={{ table.id }}" class="btn btn-success">
+                      {% trans "Забронировать" %}
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info">
+          {% trans "На выбранную дату свободных столиков нет. Попробуйте выбрать другую дату." %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="alert alert-info">
+        {% trans "Нет доступных столов." %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

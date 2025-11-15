@@ -3,21 +3,36 @@
 
 {% block title %}{% trans "Вход" %} | Vireo Reserve{% endblock %}
 
-{% include 'restaurant/includes/header.html' %}
-
 {% block extra_css %}
-<style>
+  <style>
+    /* Переопределение фона */
     body {
-        margin: 0;
-        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                    url('/static/media/main_photo.png') center/cover no-repeat fixed;
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('{% static "media/main_photo.png" %}') center/cover no-repeat fixed !important;
     }
-</style>
-<link rel="stylesheet" href="{% static 'css/auth_common.css' %}">
+
+    /* Новый стиль для контейнера, аналогичный booking.html */
+    .auth-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem; /* Основной отступ */
+      min-height: 80vh; /* Используем 80vh вместо 100vh, чтобы карточка не прилипала к низу */
+      justify-content: flex-start; /* Карточка прижата к верху, а не по центру */
+    }
+
+    /* Опционально: можно увеличить min-height, если хочется больше отступа сверху */
+    /* .auth-container { */
+    /*   min-height: 90vh; */
+    /* } */
+
+  </style>
+  <link rel="stylesheet" href="{% static 'css/auth_common.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center min-vh-100 py-4 py-md-5">
+<!-- Заменяем старый div.container на новый .auth-container -->
+<div class="auth-container">
   <div class="auth-card">
     <div class="card-header">
       <h2>Vireo Reserve</h2>

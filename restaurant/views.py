@@ -116,15 +116,14 @@ class BookingView(LoginRequiredMixin, TemplateView):
             ).filter(
                 # Пересечение интервалов: (start1 < end2) AND (start2 < end1)
                 reservation_time__lt=reservation_end_datetime.time(),
-                # Для вычисления времени окончания существующего бронирования используем F выражение
+                # Для вычисления окончания существующего бронирования используем F выражение
                 # (reservation_time + timedelta(hours=reservation_duration_hours)) > start_time
                 # Это сложнее сделать через ORM, поэтому используем более простой способ:
                 # Ищем брони, у которых время начала < нового_окончания И (время_начала + длительность) > нового_начала
                 # Это можно выразить как:
                 # reservation_time < end_new_time AND (reservation_time + duration) > start_new_time
                 # Выражение (reservation_time + duration) > start_new_time не поддерживается напрямую через F
-                # Поэтому используем фильтрацию по времени начала и предполагаем, что длительность <= 8 часов
-                # Или используем аннотацию для вычисления времени окончания в запросе
+                # Поэтому используем аннотацию для вычисления времени окончания в запросе
             ).annotate(
                 existing_end_time=ExpressionWrapper(
                     Cast(django_models.F('reservation_time'), output_field=django_models.TimeField()) +
@@ -146,12 +145,14 @@ class BookingView(LoginRequiredMixin, TemplateView):
 
             reservation = form.save(commit=False)
             reservation.user = request.user if request.user.is_authenticated else None
+            # Устанавливаем total_amount в 0, так как цена за стол убрана
             reservation.total_amount = 0
             reservation.save()
             reservation.tables.set(selected_tables)
 
-            total = sum(table.price for table in selected_tables) * reservation_duration_hours # Цена за стол * часы
-            reservation.total_amount = total
+            # total_amount больше не рассчитывается, так как цена за стол убрана
+            # total = sum(table.price for table in selected_tables) * reservation_duration_hours # Цена за стол * часы
+            # reservation.total_amount = total
             reservation.save()
 
             messages.success(request, "Ваше бронирование успешно оформлено!")
@@ -351,9 +352,9 @@ def edit_reservation(request, pk):
         reservation.reservation_duration_hours = reservation_duration_hours
         reservation.tables.set(selected_table_ids)
 
-        # Пересчитываем сумму
-        total = sum(Table.objects.get(id=table_id).price for table_id in selected_table_ids) * reservation_duration_hours
-        reservation.total_amount = total
+        # total_amount больше не пересчитывается, так как цена за стол убрана
+        # total = sum(Table.objects.get(id=table_id).price for table_id in selected_table_ids) * reservation_duration_hours
+        # reservation.total_amount = total
 
         reservation.save()
         messages.success(request, "Бронирование успешно обновлено!")

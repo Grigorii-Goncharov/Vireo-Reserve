@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 from django.utils.html import strip_tags
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from django.views import View
+from django.core.paginator import Paginator # Импортируем Paginator
 
 from config.settings import EMAIL_HOST_USER
 from restaurant.models import TableReservation
@@ -90,9 +91,19 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Получаем бронирования текущего пользователя
-        reservations = TableReservation.objects.filter(user=self.request.user).order_by('-created_at')
-        context['reservations'] = reservations
+        # Получаем все бронирования текущего пользователя, отсортированные по дате создания (новые сверху)
+        all_reservations = TableReservation.objects.filter(user=self.request.user).order_by('-created_at')
+
+        # Создаем объект Paginator
+        paginator = Paginator(all_reservations, 5) # 5 броней на страницу
+
+        # Получаем номер страницы из GET-параметра
+        page_number = self.request.GET.get('page')
+        # Получаем объект страницы
+        page_obj = paginator.get_page(page_number)
+
+        # Передаем page_obj в контекст, а не all_reservations
+        context['reservations'] = page_obj
         return context
 
 
@@ -150,3 +161,6 @@ def delete_user(request, pk):
         messages.success(request, f"Пользователь {username} успешно удалён.")
         # return redirect("users:user_list")
         return redirect("users:login")
+    # else:
+    #     messages.error(request, "У вас нет прав для удаления этого пользователя.")
+    #     return redirect("users:profile")

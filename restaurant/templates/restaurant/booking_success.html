@@ -3,27 +3,140 @@
 
 {% block title %}Бронирование подтверждено{% endblock %}
 
-{% block content %}
-<div class="container mt-4">
-  <h1>Бронирование подтверждено!</h1>
-  <p>Спасибо за ваше бронирование, {{ reservation.user.get_full_name|default:reservation.user.username }}!</p>
+{% block extra_css %}
+  <style>
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('{% static "media/main_photo.png" %}') center/cover no-repeat fixed;
+    }
 
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Детали бронирования #{{ reservation.id }}</h5>
-      <p class="card-text"><strong>Дата:</strong> {{ reservation.reservation_date }}</p>
-      <p class="card-text"><strong>Время:</strong> {{ reservation.reservation_time }}</p>
-      <p class="card-text"><strong>Продолжительность:</strong> {{ reservation.reservation_duration_hours }} часов</p>
-      <p class="card-text"><strong>Столики:</strong>
+    .success-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 80vh;
+      justify-content: center;
+    }
+
+    .success-card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+
+    .success-header h1 {
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 1.5rem;
+      font-size: 32px;
+    }
+
+    .success-message p {
+      font-size: 18px;
+      color: #0f766e;
+      margin-bottom: 2rem;
+    }
+
+    .reservation-details {
+      background-color: #f8fafc;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 2rem;
+      text-align: left;
+      border: 1px solid #cbd5e1;
+    }
+
+    .reservation-details h5 {
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 1.5rem;
+      font-size: 22px;
+    }
+
+    .reservation-details p {
+      margin-bottom: 0.75rem;
+      font-size: 16px;
+    }
+
+    .reservation-details strong {
+      color: #0f766e;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      margin: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #047857, #065f46);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #64748b, #475569);
+      color: white;
+      border: none;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #475569, #334155);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(100, 116, 139, 0.35);
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="success-container">
+  <div class="success-card">
+    <div class="success-header">
+      <h1>{% trans "Бронирование подтверждено!" %}</h1>
+    </div>
+
+    <div class="success-message">
+      <p>{% blocktrans with name=reservation.user.get_full_name|default:reservation.user.username %}Спасибо за ваше бронирование, {{ name }}!{% endblocktrans %}</p>
+    </div>
+
+    <div class="reservation-details">
+      <h5>{% blocktrans with id=reservation.id %}Детали бронирования #{{ id }}{% endblocktrans %}</h5>
+      <p><strong>{% trans "Дата:" %}</strong> {{ reservation.reservation_date }}</p>
+      <p><strong>{% trans "Время:" %}</strong> {{ reservation.reservation_time }}</p>
+      <p><strong>{% trans "Продолжительность:" %}</strong> {{ reservation.reservation_duration_hours }} {% trans "часов" %}</p>
+      <p><strong>{% trans "Столики:" %}</strong>
         {% for table in reservation.tables.all %}
-          #{{ table.number }} ({{ table.capacity }} мест){% if not forloop.last %}, {% endif %}
+          #{{ table.number }} ({{ table.capacity }} {% trans "мест" %}){% if not forloop.last %}, {% endif %}
         {% endfor %}
       </p>
-      <p class="card-text"><strong>Сумма:</strong> {{ reservation.total_amount }} руб.</p>
+      <p><strong>{% trans "Сумма:" %}</strong> {{ reservation.total_amount }} {% trans "руб." %}</p>
     </div>
-  </div>
 
-  <a href="{% url 'users:profile' %}" class="btn btn-primary mt-3">Перейти в мой профиль</a>
-  <a href="{% url 'restaurant:home' %}" class="btn btn-secondary mt-3">Вернуться на главную</a>
+    <a href="{% url 'users:profile' %}" class="btn btn-primary">
+      {% trans "Перейти в мой профиль" %}
+    </a>
+    <a href="{% url 'restaurant:home' %}" class="btn btn-secondary">
+      {% trans "Вернуться на главную" %}
+    </a>
+  </div>
 </div>
 {% endblock %}

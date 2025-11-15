@@ -1,99 +1,158 @@
 {% extends "restaurant/base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %} {% trans "Редактирование профиля"%} | Vireo Reserve{% endblock %}
-{% include 'restaurant/includes/header.html' %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="/static/css/profile_edit.css">
-  <!-- Подключите Bootstrap Icons, если не подключены глобально -->
+  <style>
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('{% static "media/main_photo.png" %}') center/cover no-repeat fixed;
+    }
 
+    .edit-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 80vh;
+      justify-content: flex-start; /* Прижимаем к верху */
+    }
 
+    .edit-profile-card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px; /* Соответствует ширине profile-card */
+      width: 100%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
 
+    .card-header h2 {
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 1.5rem;
+      font-size: 28px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #334155;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      transition: border-color 0.3s, box-shadow 0.2s;
+      background: #fff;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus,
+    .input-group textarea:focus {
+      outline: none;
+      border-color: #059669; /* Цвет фокуса из auth_common.css */
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1); /* Цвет фокуса из auth_common.css */
+    }
+
+    .error-text {
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .help-text {
+      color: #64748b;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .non-field-errors {
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Тропические стили для кнопок */
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px; /* Отступ между кнопками */
+      margin-top: 2rem; /* Отступ сверху для блока кнопок */
+    }
+
+    .btn-tropical {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* Кнопка "Сохранить" — тропический стиль */
+    .btn-tropical-save {
+      background: linear-gradient(135deg, #059669, #10b981); /* Зелёный тропический */
+    }
+
+    .btn-tropical-save:hover {
+      background: linear-gradient(135deg, #047857, #065f46);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+    }
+
+    /* Кнопка "Удалить" — тропический стиль */
+    .btn-tropical-delete {
+      background: linear-gradient(135deg, #dc2626, #b91c1c); /* Красный тропический */
+    }
+
+    .btn-tropical-delete:hover {
+      background: linear-gradient(135deg, #991b1b, #7f1d1d);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
+    }
+
+    /* Кнопка "Отмена" — тропический стиль */
+    .btn-tropical-cancel {
+      background: linear-gradient(135deg, #f59e0b, #d97706); /* Жёлтый тропический */
+    }
+
+    .btn-tropical-cancel:hover {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
+    }
+  </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<style>
-
-
-
-/* Тропические стили для кнопок */
-.btn-group {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.btn-group > * {
-  flex: 1;
-  min-width: 0;
-}
-
-/* Кнопка "Сохранить" — тропический стиль */
-.btn-tropical-save {
-  background: linear-gradient(135deg, #059669, #10b981); /* Зелёный тропический */
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  font-weight: 600;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-tropical-save:hover {
-  background: linear-gradient(135deg, #047857, #065f46);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
-}
-
-/* Кнопка "Удалить" — тропический стиль */
-.btn-tropical-delete {
-  background: linear-gradient(135deg, #dc2626, #b91c1c); /* Красный тропический */
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  font-weight: 600;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-tropical-delete:hover {
-  background: linear-gradient(135deg, #991b1b, #7f1d1d);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
-}
-
-/* Кнопка "Отмена" — тропический стиль */
-.btn-tropical-cancel {
-  background: linear-gradient(135deg, #f59e0b, #d97706); /* Жёлтый тропический */
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  font-weight: 600;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-tropical-cancel:hover {
-  background: linear-gradient(135deg, #d97706, #b45309);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
-}
-</style>
 {% endblock %}
 
 {% block content %}
 
-<div class="container d-flex justify-content-center align-items-start min-vh-100 py-4 py-md-5">
+<div class="edit-container">
   <div class="edit-profile-card">
     <div class="card-header">
       <h2><i class="bi bi-person-gear me-2"></i>{% trans "Редактирование профиля" %}</h2>
@@ -132,23 +191,23 @@
         </div>
       {% endfor %}
 
-      <div class="form-actions d-flex flex-column gap-2">
+      <div class="form-actions">
         <!-- Кнопка "Сохранить" -->
-        <button type="submit" class="btn-tropical-save">
+        <button type="submit" class="btn-tropical btn-tropical-save">
           <i class="bi bi-save2 me-1"></i> {% trans "Сохранить изменения" %}
         </button>
 
         <!-- Кнопка "Удалить" (только для суперпользователя, редактирующего другого) -->
         {% if user.pk == user.pk %}
           <a href="{% url 'users:delete_user' form.instance.pk %}"
-             class="btn-tropical-delete"
+             class="btn-tropical btn-tropical-delete"
              onclick="return confirm('{% trans "Вы уверены, что хотите удалить пользователя" %} {{ form.instance.username }}?');">
             <i class="bi bi-trash me-1"></i> {% trans "Удалить пользователя "%}
           </a>
         {% endif %}
 
         <!-- Кнопка "Отмена" -->
-        <a href="{% url 'users:profile' %}" class="btn-tropical-cancel ">
+        <a href="{% url 'users:profile' %}" class="btn-tropical btn-tropical-cancel">
           <i class="bi bi-x-circle me-1"></i> {% trans "Отмена" %}
         </a>
       </div>

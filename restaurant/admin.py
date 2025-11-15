@@ -6,7 +6,7 @@ from .models import Table, TableReservation, Feedback
 
 @admin.register(Table)
 class TableAdmin(admin.ModelAdmin):
-    list_display = ('number', 'capacity', 'price', 'is_active')
+    list_display = ('number', 'capacity', 'is_active')
     list_filter = ('capacity', 'is_active')
     search_fields = ('number',)
     list_editable = ('is_active',)
@@ -20,14 +20,13 @@ class TableReservationAdmin(admin.ModelAdmin):
         'reservation_date',
         'reservation_time',
         'reservation_duration_hours',
-        'total_amount',
         'created_at',
         'status',
     )
     list_filter = ('reservation_date', 'tables', 'status') # 'tables' можно оставить в фильтрах
     search_fields = ('user__first_name', 'user__last_name', 'user__email') # Лучше указать конкретные поля
     filter_horizontal = ('tables',)  # удобный виджет для ManyToMany
-    readonly_fields = ('total_amount', 'created_at', 'updated_at')
+    readonly_fields = ( 'created_at', 'updated_at')
 
     # Кастомный метод для отображения списка столов
     def tables_list(self, obj):
