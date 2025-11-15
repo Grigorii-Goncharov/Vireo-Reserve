@@ -1,0 +1,124 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+              url('../media/main_photo.png') center/cover no-repeat fixed;
+}
+
+.cancel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  min-height: 80vh;
+  justify-content: center;
+}
+
+.cancel-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.cancel-header h1 {
+  font-weight: 700;
+  color: #065f46;
+  margin-bottom: 1.5rem;
+  font-size: 32px;
+}
+
+.cancel-message p {
+  font-size: 18px;
+  color: #0f766e;
+  margin-bottom: 1.5rem;
+}
+
+.reservation-summary {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 2rem;
+  text-align: left;
+  border: 1px solid #cbd5e1;
+}
+
+.reservation-summary h5 {
+  font-weight: 700;
+  color: #065f46;
+  margin-bottom: 1.5rem;
+  font-size: 22px;
+}
+
+.reservation-summary p,
+.reservation-summary ul {
+  margin-bottom: 0.75rem;
+  font-size: 16px;
+}
+
+.reservation-summary strong {
+  color: #0f766e;
+}
+
+.reservation-summary ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.reservation-summary li {
+  padding-left: 1.25rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.reservation-summary li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #059669;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #64748b, #475569);
+  color: white;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #475569, #334155);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(100, 116, 139, 0.35);
+}

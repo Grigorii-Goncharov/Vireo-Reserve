@@ -1,64 +1,56 @@
-/* static/css/profile_edit.css */
-
 body {
-  margin: 0;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-              url('/static/media/main_photo.png') center/cover no-repeat fixed;
-  min-height: 100vh;
-  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+              url('../media/main_photo.png') center/cover no-repeat fixed;
+}
+
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  min-height: 80vh;
+  justify-content: flex-start;
 }
 
 .edit-profile-card {
   background: rgba(255, 255, 255, 0.94);
   border-radius: 20px;
   padding: 40px;
-  max-width: 520px;
+  max-width: 600px;
   width: 100%;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-.card-header {
-  background: linear-gradient(135deg, #059669, #047857);
-  color: white;
   text-align: center;
-  padding: 22px;
-  margin: -40px -40px 32px -40px;
-  border-radius: 20px 20px 0 0;
 }
 
 .card-header h2 {
   font-weight: 700;
-  font-size: 24px;
-  margin: 0;
+  color: #065f46;
+  margin-bottom: 1.5rem;
+  font-size: 28px;
 }
 
 .input-group {
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   text-align: left;
 }
 
 .input-group label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
+  display: block;
+  margin-bottom: 8px;
   font-weight: 600;
   color: #334155;
   font-size: 15px;
-}
-
-.input-group label .text-danger {
-  margin-left: 4px;
-  font-weight: normal;
+  letter-spacing: -0.2px;
 }
 
 .input-group input,
 .input-group select,
 .input-group textarea {
   width: 100%;
-  padding: 14px;
-  font-size: 16px;
+  padding: 10px 12px;
+  font-size: 15px;
   border: 1px solid #cbd5e1;
   border-radius: 12px;
   transition: border-color 0.3s, box-shadow 0.2s;
@@ -69,87 +61,78 @@ body {
 .input-group select:focus,
 .input-group textarea:focus {
   outline: none;
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-}
-
-/* Особый стиль для файла (аватар) */
-.input-group input[type="file"] {
-  padding: 8px;
-  border: 1px dashed #cbd5e1;
-  background: #f8fafc;
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
 }
 
 .error-text {
-  color: #e11d48;
-  font-size: 14px;
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }
 
 .help-text {
-  color: #94a3b8;
-  font-size: 13px;
-  margin-top: 6px;
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }
 
 .non-field-errors {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #b91c1c;
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-bottom: 24px;
-  font-size: 15px;
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
 }
 
-/* Кнопки */
 .form-actions {
   display: flex;
-  gap: 14px;
-  justify-content: flex-end;
-  margin-top: 28px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 2rem;
 }
 
-.btn-cancel {
-  background: #f1f5f9;
-  color: #475569;
-  border: none;
-  padding: 12px 28px;
+.btn-tropical {
+  padding: 12px 24px;
+  font-size: 16px;
   font-weight: 600;
-  border-radius: 12px;
-  transition: background 0.2s;
-}
-
-.btn-cancel:hover {
-  background: #e2e8f0;
-  color: #1e293b;
-}
-
-.btn-save {
-  background: linear-gradient(135deg, #059669, #047857);
   color: white;
   border: none;
-  padding: 12px 28px;
-  font-weight: 600;
   border-radius: 12px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.btn-save:hover {
+.btn-tropical-save {
+  background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.btn-tropical-save:hover {
   background: linear-gradient(135deg, #047857, #065f46);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
 }
 
-@media (max-width: 576px) {
-  .edit-profile-card {
-    padding: 30px 20px;
-    margin: 0 16px;
-  }
-  .form-actions {
-    justify-content: center;
-  }
+.btn-tropical-delete {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.btn-tropical-delete:hover {
+  background: linear-gradient(135deg, #991b1b, #7f1d1d);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
+}
+
+.btn-tropical-cancel {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.btn-tropical-cancel:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
 }

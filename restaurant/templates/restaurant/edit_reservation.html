@@ -1,4 +1,3 @@
-<!-- restaurant/templates/restaurant/edit_reservation.html -->
 {% extends 'restaurant/base.html' %}
 {% load i18n static %}
 
@@ -6,202 +5,7 @@
 
 {% block extra_css %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-  <style>
-    body {
-      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                  url('{% static "media/main_photo.png" %}') center/cover no-repeat fixed;
-    }
-
-    .edit-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 2rem;
-      min-height: 80vh;
-      justify-content: center;
-    }
-
-    .edit-card {
-      background: rgba(255, 255, 255, 0.94);
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 1200px;
-      width: calc(100% - 4rem);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      text-align: center;
-    }
-
-    .edit-header h2 {
-      font-weight: 700;
-      color: #065f46;
-      margin-bottom: 1.5rem;
-      font-size: 28px;
-    }
-
-    .form-row {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    @media (max-width: 768px) {
-      .form-row {
-        flex-direction: column;
-      }
-    }
-
-    .form-group {
-      flex: 1;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #0f766e;
-    }
-
-    .form-control, .form-select {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      background-color: #f8fafc;
-      font-size: 15px;
-      transition: border-color 0.2s;
-    }
-
-    .form-control:focus, .form-select:focus {
-      outline: none;
-      border-color: #059669;
-      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
-    }
-
-    .form-text {
-      color: #64748b;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-    }
-
-    .tables-grid {
-     display: grid;
-     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-     gap: 1rem;
-     margin: 1.5rem 0;
-    }
-
-    .table-card {
-      background-color: #f0fdfa;
-      border: 2px solid #a7f3d0;
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .table-card.unavailable {
-      background-color: #fef2f2;
-      border-color: #fecaca;
-    }
-
-    .table-card.selected {
-      background-color: #e0f2fe;
-      border-color: #7dd3fc;
-    }
-
-    .table-image {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-      border: 1px solid #e2e8f0;
-    }
-
-    .table-checkbox {
-      margin-right: 0.5rem;
-    }
-
-    .btn-primary {
-      padding: 14px;
-      font-size: 17px;
-      font-weight: 600;
-      color: white;
-      background: linear-gradient(135deg, #059669, #047857);
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      letter-spacing: 0.5px;
-      text-decoration: none;
-      display: inline-block;
-      width: 100%;
-      max-width: 250px;
-      margin-top: 10px;
-      margin-bottom: 0;
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #047857, #065f46);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
-    }
-
-    .btn-secondary {
-      padding: 14px;
-      font-size: 17px;
-      font-weight: 600;
-      color: white;
-      background: linear-gradient(135deg, #64748b, #475569);
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      letter-spacing: 0.5px;
-      text-decoration: none;
-      display: inline-block;
-      width: 100%;
-      max-width: 250px;
-      margin-top: 10px;
-      margin-bottom: 0;
-    }
-
-    .btn-secondary:hover {
-      background: linear-gradient(135deg, #475569, #334155);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(100, 116, 139, 0.35);
-    }
-
-    .text-danger {
-      color: #dc2626;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-    }
-
-    .alert {
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .alert-success {
-      background-color: #d1fae5;
-      color: #06544a;
-      border: 1px solid #a7f3d0;
-    }
-
-    .alert-error {
-      background-color: #fee2e2;
-      color: #b91c1c;
-      border: 1px solid #fecaca;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/booking-edit.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -240,7 +44,7 @@
               {% if table.photo %}
                 <img src="{{ table.photo.url }}" alt="{% blocktrans with number=table.number %}Фото стола №{{ number }}{% endblocktrans %}" class="table-image">
               {% else %}
-                <div class="table-image-placeholder" style="background-color: #e2e8f0; border: 1px dashed #cbd5e1; border-radius: 8px; height: 100px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.75rem;">
+                <div class="table-image-placeholder">
                   {% trans "Фото отсутствует" %}
                 </div>
               {% endif %}
@@ -281,12 +85,10 @@
 </div>
 
 <script>
-// Обновляем скрипт для проверки доступности с учетом duration (аналогично в booking.html)
 document.getElementById('reservation_date').addEventListener('change', checkAvailability);
 document.getElementById('reservation_time').addEventListener('change', checkAvailability);
 document.getElementById('reservation_duration_hours').addEventListener('change', checkAvailability);
 
-// Добавляем обработчик для переключения стилей карточек
 document.querySelectorAll('.table-checkbox').forEach(checkbox => {
   checkbox.addEventListener('change', function() {
     const card = this.closest('.table-card');
@@ -295,7 +97,6 @@ document.querySelectorAll('.table-checkbox').forEach(checkbox => {
       card.classList.add('selected');
     } else {
       card.classList.remove('selected');
-      // Стиль доступности будет устанавливаться функцией checkAvailability
     }
   });
 });
@@ -306,47 +107,39 @@ function checkAvailability() {
   const duration = document.getElementById('reservation_duration_hours').value;
 
   if (date && time && duration) {
-    // Используем тот же URL, что и в бронировании
     fetch(`/restaurant/check_availability/?date=${date}&time=${time}&duration=${duration}`)
       .then(response => response.json())
       .then(data => {
         document.querySelectorAll('.table-card').forEach(card => {
           const tableId = parseInt(card.getAttribute('data-table-id'));
           const checkbox = card.querySelector('.table-checkbox');
-
-          // Проверяем, является ли стол выбранным в текущей брони
           const isCurrentReservationTable = card.classList.contains('selected');
 
           if (data.available_table_ids.includes(tableId)) {
             card.classList.remove('unavailable');
             card.classList.add('available');
             checkbox.disabled = false;
-            // Если стол был выбран, не сбрасываем стиль на "selected"
             if (!checkbox.checked) {
               card.classList.remove('selected');
             }
           } else {
-            // Если стол недоступен, но он был выбран в текущей брони, разрешаем его оставить
             if (isCurrentReservationTable) {
               card.classList.remove('available');
-              card.classList.add('selected'); // Оставляем как выбранный
-              checkbox.disabled = false; // И не делаем его недоступным для выбора
+              card.classList.add('selected');
+              checkbox.disabled = false;
             } else {
               card.classList.remove('available', 'selected');
               card.classList.add('unavailable');
               checkbox.disabled = true;
               if (checkbox.checked) {
-                checkbox.checked = false; // Снимаем галочку, если была
+                checkbox.checked = false;
               }
             }
           }
         });
       })
-      .catch(error => {
-        console.error('Ошибка при проверке доступности:', error);
-      });
+      .catch(error => console.error('Ошибка при проверке доступности:', error));
   } else {
-    // Если дата/время/длительность не выбраны, возвращаем все как доступные
     document.querySelectorAll('.table-card').forEach(card => {
       card.classList.remove('unavailable');
       card.classList.add('available');
