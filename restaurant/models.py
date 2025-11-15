@@ -1,20 +1,17 @@
-# restaurant/models.py
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+
 from config import settings
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Table(models.Model):
-    '''Модель карты столиков'''
+    """Модель карты столиков"""
+
     number = models.PositiveIntegerField(unique=True)
     capacity = models.PositiveSmallIntegerField(help_text="Количество мест за столом")
     is_active = models.BooleanField(default=True)
     photo = models.ImageField(
-        upload_to='tables/photos/',
-        blank=True,
-        null=True,
-        verbose_name="Фото стола"
+        upload_to="tables/photos/", blank=True, null=True, verbose_name="Фото стола"
     )
 
     def __str__(self):
@@ -32,13 +29,13 @@ class TableReservation(models.Model):
         ("canceled", "Отменено"),
     ]
 
-    '''Модель заказа столика'''
+    """Модель заказа столика"""
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name="Клиент",
         null=True,
-        blank=True  # Для анонимных бронирований
+        blank=True,  # Для анонимных бронирований
     )
     tables = models.ManyToManyField(Table, verbose_name="Столики")
 
@@ -47,14 +44,14 @@ class TableReservation(models.Model):
     reservation_duration_hours = models.PositiveSmallIntegerField(
         verbose_name="Продолжительность бронирования (часы)",
         validators=[MinValueValidator(1), MaxValueValidator(8)],
-        help_text="Введите продолжительность бронирования в часах (от 1 до 8)"
+        help_text="Введите продолжительность бронирования в часах (от 1 до 8)",
     )
 
     total_amount = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name="Сумма",
-        editable=False  # будет рассчитываться вручную в views.py
+        editable=False,  # будет рассчитываться вручную в views.py
     )
 
     status = models.CharField(max_length=20, choices=STATUS, default="pending")
@@ -74,7 +71,9 @@ class TableReservation(models.Model):
 
 
 class Feedback(models.Model):
-    email = models.EmailField(verbose_name="Email", help_text="Электронная почта клиента")
+    email = models.EmailField(
+        verbose_name="Email", help_text="Электронная почта клиента"
+    )
     message = models.TextField(verbose_name="Сообщение", help_text="Отзыв клиента")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата отправки")
 

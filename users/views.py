@@ -1,21 +1,22 @@
 import secrets
+
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
-from django.shortcuts import redirect, render, get_object_or_404
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.html import strip_tags
-from django.views.generic import CreateView, UpdateView, ListView, DetailView
-from django.views import View
-from django.core.paginator import Paginator # Импортируем Paginator
+from django.views.generic import CreateView, DetailView, UpdateView
 
 from config.settings import EMAIL_HOST_USER
 from restaurant.models import TableReservation
+
 from .forms import CustomUserCreationForm, UserProfileForm
 from .models import User
 from .services import send_telegram_message
@@ -45,11 +46,14 @@ class UserRegisterView(CreateView):
         url = f"http://{host}/users/email-confirm/{token}/"
 
         # Рендерим HTML-письмо
-        html_message = render_to_string('users/email_confirmation.html', {
-            'protocol': 'http',
-            'domain': host,
-            'url': url,
-        })
+        html_message = render_to_string(
+            "users/email_confirmation.html",
+            {
+                "protocol": "http",
+                "domain": host,
+                "url": url,
+            },
+        )
 
         # Текстовая версия (на случай, если клиент не поддерживает HTML)
         plain_message = strip_tags(html_message)
@@ -64,6 +68,7 @@ class UserRegisterView(CreateView):
 
         messages.info(self.request, "Проверьте почту для подтверждения email.")
         return redirect(self.success_url)
+
 
 # Подтверждение регистрации через почту:
 def email_verification(request, token):
@@ -92,18 +97,20 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Получаем все бронирования текущего пользователя, отсортированные по дате создания (новые сверху)
-        all_reservations = TableReservation.objects.filter(user=self.request.user).order_by('-created_at')
+        all_reservations = TableReservation.objects.filter(
+            user=self.request.user
+        ).order_by("-created_at")
 
         # Создаем объект Paginator
-        paginator = Paginator(all_reservations, 5) # 5 броней на страницу
+        paginator = Paginator(all_reservations, 5)  # 5 броней на страницу
 
         # Получаем номер страницы из GET-параметра
-        page_number = self.request.GET.get('page')
+        page_number = self.request.GET.get("page")
         # Получаем объект страницы
         page_obj = paginator.get_page(page_number)
 
         # Передаем page_obj в контекст, а не all_reservations
-        context['reservations'] = page_obj
+        context["reservations"] = page_obj
         return context
 
 
@@ -144,6 +151,7 @@ def toggle_user_active(request, pk):
 
     return redirect("users:user_list")
 
+
 @login_required
 def delete_user(request, pk):
 
@@ -155,8 +163,8 @@ def delete_user(request, pk):
         # Важно: разлогиниваемся ПОСЛЕ удаления, но до редиректа
         logout(request)
 
-    # username = user.username
-    # user.delete()
+        # username = user.username
+        # user.delete()
 
         messages.success(request, f"Пользователь {username} успешно удалён.")
         # return redirect("users:user_list")

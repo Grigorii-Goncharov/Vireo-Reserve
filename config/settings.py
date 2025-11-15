@@ -52,10 +52,10 @@ SIMPLE_JWT = {
 # настройки переключенияЯзыковых настроек сайта
 USE_I18N = True
 USE_L10N = True
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = "ru"
 LANGUAGES = [
-    ('ru', 'Русский'),
-    ('en', 'English'),
+    ("ru", "Русский"),
+    ("en", "English"),
 ]
 
 LOCALE_PATHS = [
@@ -65,7 +65,7 @@ LOCALE_PATHS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'django.middleware.locale.LocaleMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -96,7 +96,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                'django.template.context_processors.media',
+                "django.template.context_processors.media",
             ],
         },
     },
@@ -133,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "Europe/Moscow"
 
@@ -155,9 +155,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTH_USER_MODEL = "users.User"  # ← указываем, что User — из приложения users
 
-LOGIN_REDIRECT_URL = 'users:profile'
-LOGOUT_REDIRECT_URL = 'restaurant:home'
-LOGIN_URL = 'users:register'
+LOGIN_REDIRECT_URL = "users:profile"
+LOGOUT_REDIRECT_URL = "restaurant:home"
+LOGIN_URL = "users:register"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Настройки почты
@@ -214,4 +214,3 @@ CELERY_BEAT_SCHEDULE = {
 
 TELEGRAM_URL = "https://api.telegram.org/bot"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-

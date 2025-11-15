@@ -1,8 +1,9 @@
-# restaurant/urls.py
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import path
+
 from restaurant.apps import RestaurantConfig
+
 from . import views
 
 app_name = RestaurantConfig.name
@@ -17,7 +18,11 @@ urlpatterns = [
     # просмотр профиля пользователя
     path("profile/", views.ProfileView.as_view(), name="profile"),
     # бронирование столика
-    path("booking/success/<int:pk>/", views.BookingSuccessView.as_view(), name="booking_success"),
+    path(
+        "booking/success/<int:pk>/",
+        views.BookingSuccessView.as_view(),
+        name="booking_success",
+    ),
     # отмена бронирования
     path("cancel/<int:pk>/", views.cancel_reservation, name="cancel_reservation"),
     # для проверки доступности столика

@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from users.models import User
 
 
@@ -12,9 +13,14 @@ class UserAdmin(admin.ModelAdmin):
         "is_active",
         "is_staff",
         "is_superuser",
-        "photo"
+        "photo",
     )
-    search_fields = ("get_full_name", "phone", "email", "city",)
+    search_fields = (
+        "get_full_name",
+        "phone",
+        "email",
+        "city",
+    )
 
     # Кастомный метод для отображения полного имени
     def get_full_name(self, obj):
@@ -27,4 +33,3 @@ class UserAdmin(admin.ModelAdmin):
 
     # Заголовок колонки
     get_full_name.short_description = "Полное имя"
-

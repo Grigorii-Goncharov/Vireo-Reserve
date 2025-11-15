@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import EmailValidator, RegexValidator, FileExtensionValidator
+from django.core.validators import (EmailValidator, FileExtensionValidator,
+                                    RegexValidator)
 from django.db import models
 
 
