@@ -176,6 +176,37 @@
       color: #b91c1c;
       border: 1px solid #fecaca;
     }
+
+    /* Стили для списка забронированных столов */
+    .reserved-tables-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: #fffbeb;
+      border-radius: 12px;
+      border: 1px solid #fef3c7;
+    }
+
+    .reserved-tables-section h5 {
+      color: #92400e;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .reserved-tables-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .reserved-table-item {
+      background-color: #fef2f2;
+      color: #b91c1c;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
   </style>
 {% endblock %}
 
@@ -241,6 +272,20 @@
           {% endif %}
         </div>
       </div>
+
+      <!-- Добавляем секцию с забронированными столами на сегодня -->
+      {% if reserved_tables_today %}
+        <div class="reserved-tables-section">
+          <h5><i class="bi bi-exclamation-triangle me-2"></i>{% trans "Забронированные столики на сегодня:" %}</h5>
+          <div class="reserved-tables-list">
+            {% for table in reserved_tables_today %}
+              <div class="reserved-table-item">
+                {% blocktrans with number=table.number %}Стол №{{ number }}{% endblocktrans %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
 
       <button type="submit" class="btn btn-primary">
         <i class="bi bi-calendar-check me-2"></i> {% trans "Забронировать" %}
