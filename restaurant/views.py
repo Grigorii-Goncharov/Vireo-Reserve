@@ -1,4 +1,3 @@
-# restaurant/views.py
 from datetime import date, datetime, time, timedelta
 
 from django.contrib import messages
@@ -43,38 +42,20 @@ class AboutView(TemplateView):
 
 class BookingView(LoginRequiredMixin, TemplateView):
     template_name = "restaurant/booking.html"
-    # перевести на авторизацию благодаря LoginRequiredMixin
     login_url = "users:login"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.filter(is_active=True)
 
-        now = datetime.now()
-        rounded_hour = now.hour
-        rounded_minute = 30 if now.minute >= 30 else 0
-
-        if rounded_minute == 60:
-            rounded_minute = 0
-            rounded_hour += 1
-            if rounded_hour > 23:
-                rounded_hour = 23
-                rounded_minute = 59
-
-        rounded_time = time(hour=rounded_hour, minute=rounded_minute)
-
-        initial_data = {
-            "reservation_date": date.today(),
-            "reservation_time": rounded_time,
-        }
-
-        context["form"] = BookingForm(initial=initial_data)
+        # Создаём форму с начальными значениями — они уже заданы в BookingForm
+        context["form"] = BookingForm()
 
         # Добавляем список забронированных столов на сегодня
         today = date.today()
         reserved_table_ids = TableReservation.objects.filter(
             reservation_date=today,
-            status__in=["pending", "confirmed"],  # Не включаем отменённые
+            status__in=["pending", "confirmed"],
         ).values_list("tables__id", flat=True)
 
         context["reserved_tables_today"] = Table.objects.filter(
@@ -93,17 +74,13 @@ class BookingView(LoginRequiredMixin, TemplateView):
 
             # --- Проверка ограничений времени работы ресторана ---
             start_time = reservation_time
-            # Рассчитываем эффективное время окончания бронирования
-            # Если start_time.hour + duration_hours > 24, то время переносится на следующий день
             effective_end_hour = start_time.hour + reservation_duration_hours
-            # effective_end_minute = start_time.minute
 
-            # Проверяем, не выходит ли время за рамки работы ресторана
             is_valid_time = False
-            if start_time >= time(18, 0):  # Начинается с 18:00
-                if effective_end_hour <= 26:  # 18 + 8 = 26 (02:00 следующего дня)
+            if start_time >= time(18, 0):
+                if effective_end_hour <= 26:
                     is_valid_time = True
-            elif start_time < time(2, 0):  # Начинается в начале следующего дня
+            elif start_time < time(2, 0):
                 if reservation_duration_hours <= (2 - start_time.hour):
                     is_valid_time = True
 
@@ -120,28 +97,16 @@ class BookingView(LoginRequiredMixin, TemplateView):
             reservation_start_datetime = datetime.combine(
                 reservation_date, reservation_time
             )
-            # Используем timedelta для вычисления окончания
             reservation_end_datetime = reservation_start_datetime + timedelta(
                 hours=reservation_duration_hours
             )
 
-            # Найдем существующие бронирования, пересекающиеся по времени с выбранными столами
             conflicting_reservations = (
                 TableReservation.objects.filter(
                     reservation_date=reservation_date, tables__in=selected_tables
                 )
                 .filter(
-                    # Пересечение интервалов: (start1 < end2) AND (start2 < end1)
                     reservation_time__lt=reservation_end_datetime.time(),
-                    # Для вычисления окончания существующего бронирования используем F выражение
-                    # (reservation_time + timedelta(hours=reservation_duration_hours)) > start_time
-                    # Это сложнее сделать через ORM, поэтому используем более простой способ:
-                    # Ищем брони, у которых время начала < нового_окончания b
-                    # (время_начала + длительность)> ового_начала
-                    # Это можно выразить как:
-                    # reservation_time < end_new_time AND (reservation_time + duration) > start_new_time
-                    # Выражение (reservation_time + duration) > start_new_time не поддерживается напрямую через F
-                    # Поэтому используем аннотацию для вычисления времени окончания в запросе
                 )
                 .annotate(
                     existing_end_time=ExpressionWrapper(
@@ -154,10 +119,7 @@ class BookingView(LoginRequiredMixin, TemplateView):
                         output_field=django_models.TimeField(),
                     )
                 )
-                .filter(
-                    # Теперь можем использовать аннотированное поле
-                    existing_end_time__gt=reservation_start_datetime.time()
-                )
+                .filter(existing_end_time__gt=reservation_start_datetime.time())
             )
 
             if conflicting_reservations.exists():
@@ -173,14 +135,9 @@ class BookingView(LoginRequiredMixin, TemplateView):
 
             reservation = form.save(commit=False)
             reservation.user = request.user if request.user.is_authenticated else None
-            # Устанавливаем total_amount в 0, так как цена за стол убрана
             reservation.total_amount = 0
             reservation.save()
             reservation.tables.set(selected_tables)
-
-            # total_amount больше не рассчитывается, так как цена за стол убрана
-            # total = sum(table.price for table in selected_tables) * reservation_duration_hours # Цена за стол * часы
-            # reservation.total_amount = total
             reservation.save()
 
             messages.success(request, "Ваше бронирование успешно оформлено!")
@@ -193,9 +150,6 @@ class BookingView(LoginRequiredMixin, TemplateView):
         context = self.get_context_data()
         context["form"] = form
         return self.render_to_response(context)
-
-
-# --- Представления для аутентифицированных пользователей ---
 
 
 class BookingSuccessView(DetailView):
@@ -227,24 +181,6 @@ class ProfileView(LoginRequiredMixin, ListView):
         return context
 
 
-# КОД С УДАЛЕНИЕМ БРОНИ
-# @login_required
-# def cancel_reservation(request, pk):
-#     reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
-#     if request.method == "POST":
-#         # Устанавливаем статус на 'canceled' перед удалением
-#         reservation.status = 'canceled'
-#         reservation.save() # Сохраняем изменения статуса
-#         reservation.delete() # Удаляем бронь
-#         messages.success(request, "Бронирование успешно отменено.")
-#         return redirect('restaurant:profile')
-#     # Для GET запроса показываем страницу подтверждения (если таковая есть)
-#     # Если подтверждения нет, можно сразу вернуть 405 Method Not Allowed или redirect
-#     # Ниже код для страницы подтверждения
-#     return render(request, 'restaurant/cancel_reservation.html', {'reservation': reservation})
-
-
-# КОД С ОТМЕНОЙ, НО НЕ УДАЛЕНИЕМ
 @login_required
 def cancel_reservation(request, pk):
     reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
@@ -253,8 +189,6 @@ def cancel_reservation(request, pk):
         reservation.save()
         messages.success(request, "Бронирование успешно отменено.")
         return redirect("restaurant:profile")
-    # Для GET запроса показываем страницу подтверждения (если таковая есть)
-    # Ниже код для страницы подтверждения
     return render(
         request, "restaurant/cancel_reservation.html", {"reservation": reservation}
     )
@@ -283,7 +217,7 @@ def check_availability(request):
             is_valid_time = False
 
             if start_time >= time(18, 0):
-                if effective_end_hour <= 26:  # 18 + 8 = 26 (02:00)
+                if effective_end_hour <= 26:
                     is_valid_time = True
             elif start_time < time(2, 0):
                 if reservation_duration_hours <= (2 - start_time.hour):
@@ -294,8 +228,6 @@ def check_availability(request):
 
             all_active_tables = Table.objects.filter(is_active=True)
 
-            # Проверяем пересечения
-            # Используем аннотацию для вычисления времени окончания в существующих бронированиях
             conflicting_reservations = (
                 TableReservation.objects.filter(reservation_date=reservation_date)
                 .annotate(
@@ -336,7 +268,6 @@ def edit_reservation(request, pk):
     reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
 
     if request.method == "POST":
-        # Получаем данные из формы
         reservation_date = request.POST.get("reservation_date")
         reservation_time = request.POST.get("reservation_time")
         reservation_duration_hours = request.POST.get("reservation_duration_hours")
@@ -350,7 +281,6 @@ def edit_reservation(request, pk):
             messages.error(request, "Некорректные данные в форме.")
             return redirect("restaurant:edit_reservation", pk=pk)
 
-        # Проверка ограничений времени работы ресторана (аналогично в BookingView)
         start_time = reservation_time
         effective_end_hour = start_time.hour + reservation_duration_hours
         is_valid_time = False
@@ -369,7 +299,6 @@ def edit_reservation(request, pk):
             )
             return redirect("restaurant:edit_reservation", pk=pk)
 
-        # Проверка доступности (аналогично в BookingView)
         reservation_start_datetime = datetime.combine(
             reservation_date, reservation_time
         )
@@ -382,14 +311,6 @@ def edit_reservation(request, pk):
                 reservation_date=reservation_date, tables__in=selected_table_ids
             )
             .exclude(pk=reservation.pk)
-            .filter(  # Исключаем текущую бронь из проверки
-                reservation_time__lt=reservation_end_datetime.time(),
-                # Используем аннотацию или более простой способ для проверки окончания
-                # Упрощаем проверку: ищем пересечения по времени
-                # (нов_старт < ст_окончание) AND (ст_старт < нов_окончание)
-                # reservation_time < end_new_time AND (reservation_time + duration) > start_new_time
-                # Это сложно через ORM, поэтому используем аннотацию или предварительный расчет
-            )
             .annotate(
                 existing_end_time=ExpressionWrapper(
                     Cast(
@@ -411,18 +332,15 @@ def edit_reservation(request, pk):
             )
             return redirect("restaurant:edit_reservation", pk=pk)
 
-        # Обновляем бронь
         reservation.reservation_date = reservation_date
         reservation.reservation_time = reservation_time
         reservation.reservation_duration_hours = reservation_duration_hours
         reservation.tables.set(selected_table_ids)
-
         reservation.save()
         messages.success(request, "Бронирование успешно обновлено!")
         return redirect("restaurant:profile")
 
-    else:  # GET запрос
-        # Передаем текущие данные в шаблон редактирования
+    else:
         context = {
             "reservation": reservation,
             "tables": Table.objects.filter(is_active=True),

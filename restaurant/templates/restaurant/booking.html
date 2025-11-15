@@ -1,4 +1,3 @@
-<!-- restaurant/templates/restaurant/booking.html -->
 {% extends 'restaurant/base.html' %}
 {% load i18n static %}
 
@@ -253,13 +252,8 @@
               <div class="form-check mb-0">
                 <input class="form-check-input table-checkbox" type="checkbox" name="tables" value="{{ table.id }}" id="table_{{ table.id }}">
                 <label class="form-check-label fw-bold" for="table_{{ table.id }}">
-                  {% blocktrans with number=table.number %}Стол №{{ number }}{% endblocktrans %}
+                  {% blocktrans with number=table.number capacity=table.capacity %}Стол №{{ number }} ({{ capacity }} мест){% endblocktrans %}
                 </label>
-              </div>
-              <div class="table-details mt-1">
-                <small class="text-muted">
-                  <i class="bi bi-people"></i> {{ table.capacity }} {% trans "мест" %}
-                </small>
               </div>
             </div>
           {% empty %}
@@ -280,7 +274,7 @@
           <div class="reserved-tables-list">
             {% for table in reserved_tables_today %}
               <div class="reserved-table-item">
-                {% blocktrans with number=table.number %}Стол №{{ number }}{% endblocktrans %}
+                {% blocktrans with number=table.number capacity=table.capacity %}Стол №{{ number }} ({{ capacity }} мест){% endblocktrans %}
               </div>
             {% endfor %}
           </div>
@@ -362,6 +356,23 @@ function checkAvailability() {
     });
   }
 }
+
+// Установим дату по умолчанию (сегодня) и время (18:00)
+document.addEventListener('DOMContentLoaded', function() {
+  const dateInput = document.getElementById('id_reservation_date');
+  const timeInput = document.getElementById('id_reservation_time');
+
+  // Установим дату на сегодня, если она не задана
+  if (!dateInput.value) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+  }
+
+  // Установим время на 18:00, если оно не задано
+  if (!timeInput.value) {
+    timeInput.value = '18:00';
+  }
+});
 </script>
 
 {% endblock %}

@@ -26,7 +26,6 @@ class BookingForm(forms.ModelForm):
                 attrs={"type": "date", "min": date.today().isoformat()}
             ),
             "reservation_time": forms.TimeInput(attrs={"type": "time"}),
-            # Убираем TimeInput для duration_hours, используем NumberInput
             "reservation_duration_hours": forms.NumberInput(
                 attrs={"type": "number", "min": "1", "max": "8"}
             ),
@@ -38,24 +37,35 @@ class BookingForm(forms.ModelForm):
         if "reservation_date" not in initial:
             initial["reservation_date"] = date.today()
         if "reservation_time" not in initial:
-            now = datetime.now()
-            rounded_time = time(
-                hour=now.hour + (1 if now.minute >= 30 else 0),
-                minute=30 if now.minute < 30 else 0,
-            )
-            if rounded_time.hour > 23:
-                rounded_time = time(23, 59)
-            elif rounded_time.minute == 60:
-                rounded_time = time(hour=rounded_time.hour + 1, minute=0)
-                if rounded_time.hour > 23:
-                    rounded_time = time(23, 59)
-
-            initial["reservation_time"] = rounded_time
+            initial["reservation_time"] = time(18, 0)  # Всегда 18:00 по умолчанию
 
         kwargs["initial"] = initial
         super().__init__(*args, **kwargs)
 
-        # Устанавливаем лейбл для нового поля
         self.fields["reservation_duration_hours"].label = (
             "Продолжительность бронирования (часы)"
         )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        reservation_time = cleaned_data.get("reservation_time")
+        reservation_duration_hours = cleaned_data.get("reservation_duration_hours")
+
+        if reservation_time and reservation_duration_hours is not None:
+            start_time = reservation_time
+            effective_end_hour = start_time.hour + reservation_duration_hours
+
+            is_valid_time = False
+            if start_time >= time(18, 0):
+                if effective_end_hour <= 26:
+                    is_valid_time = True
+            elif start_time < time(2, 0):
+                if reservation_duration_hours <= (2 - start_time.hour):
+                    is_valid_time = True
+
+            if not is_valid_time:
+                raise forms.ValidationError(
+                    "Время бронирования выходит за рамки работы ресторана (18:00 – 02:00)."
+                )
+
+        return cleaned_data
