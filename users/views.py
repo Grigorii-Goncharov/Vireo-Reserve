@@ -24,11 +24,23 @@ from .services import send_telegram_message
 
 # USER CRUD
 class UserRegisterView(CreateView):
+    """
+    Представление для регистрации нового пользователя.
+    При успешной регистрации отправляет письмо для подтверждения email
+    и (опционально) приветственное сообщение в Telegram, если указан chat_id.
+    """
+
     form_class = CustomUserCreationForm
     template_name = "users/register.html"
     success_url = reverse_lazy("users:login")
 
     def form_valid(self, form):
+        """
+        Обработка валидной формы регистрации.
+
+        Создает пользователя с неактивным статусом, генерирует токен подтверждения,
+        отправляет сообщение в Telegram (если возможно) и письмо с подтверждением.
+        """
         user = form.save(commit=False)  # Сохраняем пользователя без логирования
         user.is_active = False  # Деактивируем
         token = secrets.token_hex(16)  # Генерация токена
@@ -72,6 +84,10 @@ class UserRegisterView(CreateView):
 
 # Подтверждение регистрации через почту:
 def email_verification(request, token):
+    """
+    Представление для подтверждения email пользователя по токену.
+    Активирует пользователя, если токен действителен и аккаунт еще не активирован.
+    """
     user = get_object_or_404(User, token=token)
 
     if user.is_active:
@@ -88,13 +104,24 @@ def email_verification(request, token):
 
 
 class UserProfileView(LoginRequiredMixin, DetailView):
+    """
+    Представление для просмотра профиля пользователя.
+    Отображает данные текущего авторизованного пользователя и его
+    историю бронирований с пагинацией.
+    """
+
     template_name = "users/profile.html"
     context_object_name = "user_profile"
 
     def get_object(self, queryset=None):
+        """Возвращает текущего пользователя."""
         return self.request.user
 
     def get_context_data(self, **kwargs):
+        """
+        Добавляет в контекст список бронирований текущего пользователя
+        с пагинацией (5 на страницу).
+        """
         context = super().get_context_data(**kwargs)
         # Получаем все бронирования текущего пользователя, отсортированные по дате создания (новые сверху)
         all_reservations = TableReservation.objects.filter(
@@ -115,20 +142,33 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
 
 class UserLoginView(LoginView):
+    """
+    Представление для входа пользователя в систему.
+    """
+
     template_name = "users/login.html"
 
 
 class UserProfileEditView(LoginRequiredMixin, UpdateView):
+    """
+    Представление для редактирования профиля текущего пользователя.
+    """
+
     form_class = UserProfileForm
     template_name = "users/profile_edit.html"
     success_url = reverse_lazy("users:profile")
 
     def get_object(self, queryset=None):
+        """Возвращает текущего пользователя для редактирования."""
         return self.request.user
 
 
 @login_required
 def toggle_user_active(request, pk):
+    """
+    Представление для переключения статуса активности пользователя (активен/неактивен).
+    Доступно только суперпользователям. Предотвращает деактивацию самого себя.
+    """
     if not request.user.is_superuser:
         raise PermissionDenied("У вас нет прав для изменения статуса пользователя.")
 
@@ -154,7 +194,10 @@ def toggle_user_active(request, pk):
 
 @login_required
 def delete_user(request, pk):
-
+    """
+    Представление для удаления пользователя.
+    Если удаляет сам себя, происходит выход из системы.
+    """
     user = get_object_or_404(User, pk=pk)
     if user.pk == request.user.pk:
         username = request.user.get_full_name() or request.user.username

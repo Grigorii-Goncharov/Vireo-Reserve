@@ -15,9 +15,18 @@ from .models import Feedback, Table, TableReservation
 
 
 class HomeView(TemplateView):
+    """
+    Представление главной страницы сайта ресторана.
+    Обрабатывает отправку обратной связи через POST-запрос.
+    """
+
     template_name = "restaurant/home.html"
 
     def post(self, request, *args, **kwargs):
+        """
+        Обработка POST-запроса для отправки обратной связи.
+        Создает запись Feedback, если переданы email и message.
+        """
         email = request.POST.get("email")
         message = request.POST.get("message")
         if email and message:
@@ -31,20 +40,38 @@ class HomeView(TemplateView):
         return self.render_to_response(self.get_context_data())
 
     def get_context_data(self, **kwargs):
+        """
+        Добавляет дополнительные данные в контекст шаблона.
+        В текущей реализации возвращает пустой контекст.
+        """
         context = super().get_context_data(**kwargs)
         # Можно добавить в контекст, например, список услуг или акции
         return context
 
 
 class AboutView(TemplateView):
+    """
+    Представление страницы 'О нас'.
+    """
+
     template_name = "restaurant/about.html"
 
 
 class BookingView(LoginRequiredMixin, TemplateView):
+    """
+    Представление для бронирования столиков в ресторане.
+    Проверяет доступность столиков и создает новое бронирование.
+    Требует аутентификации пользователя.
+    """
+
     template_name = "restaurant/booking.html"
     login_url = "users:login"
 
     def get_context_data(self, **kwargs):
+        """
+        Добавляет в контекст список активных столиков, форму бронирования
+        и информацию о забронированных столиках на текущий день.
+        """
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.filter(is_active=True)
 
@@ -85,6 +112,10 @@ class BookingView(LoginRequiredMixin, TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
+        """
+        Обработка POST-запроса для создания бронирования.
+        Проверяет корректность данных, доступность столиков и создает бронь.
+        """
         form = BookingForm(request.POST)
         if form.is_valid():
             reservation_date = form.cleaned_data["reservation_date"]
@@ -175,11 +206,19 @@ class BookingView(LoginRequiredMixin, TemplateView):
 
 
 class BookingSuccessView(DetailView):
+    """
+    Представление страницы успешного бронирования.
+    Отображает детали конкретного бронирования, доступного только авторизованному пользователю.
+    """
+
     model = TableReservation
     template_name = "restaurant/booking_success.html"
     context_object_name = "reservation"
 
     def get_queryset(self):
+        """
+        Возвращает QuerySet бронирований, принадлежащих текущему пользователю.
+        """
         if self.request.user.is_authenticated:
             return TableReservation.objects.filter(user=self.request.user)
         else:
@@ -187,17 +226,28 @@ class BookingSuccessView(DetailView):
 
 
 class ProfileView(LoginRequiredMixin, ListView):
+    """
+    Представление профиля пользователя с историей бронирований.
+    Требует аутентификации пользователя. Использует пагинацию.
+    """
+
     model = TableReservation
     template_name = "users/profile.html"
     context_object_name = "reservations"
     paginate_by = 10
 
     def get_queryset(self):
+        """
+        Возвращает QuerySet бронирований текущего пользователя, отсортированных по дате создания.
+        """
         return TableReservation.objects.filter(user=self.request.user).order_by(
             "-created_at"
         )
 
     def get_context_data(self, **kwargs):
+        """
+        Добавляет текущего пользователя в контекст шаблона.
+        """
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
         return context
@@ -205,6 +255,11 @@ class ProfileView(LoginRequiredMixin, ListView):
 
 @login_required
 def cancel_reservation(request, pk):
+    """
+    Представление для отмены бронирования.
+    Позволяет пользователю отменить свое бронирование через POST-запрос.
+    Требует аутентификации и проверяет принадлежность бронирования пользователю.
+    """
     reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
     if request.method == "POST":
         reservation.status = "canceled"
@@ -217,6 +272,11 @@ def cancel_reservation(request, pk):
 
 
 def check_availability(request):
+    """
+    AJAX-представление для проверки доступности столиков на указанное время.
+    Принимает дату, время и продолжительность бронирования,
+    возвращает JSON со списком доступных ID столиков.
+    """
     date_str = request.GET.get("date")
     time_str = request.GET.get("time")
     duration_str = request.GET.get("duration")
@@ -287,6 +347,11 @@ def check_availability(request):
 
 @login_required
 def edit_reservation(request, pk):
+    """
+    Представление для редактирования существующего бронирования.
+    Позволяет пользователю изменить дату, время, продолжительность и столики.
+    Требует аутентификации и проверяет принадлежность бронирования пользователю.
+    """
     reservation = get_object_or_404(TableReservation, pk=pk, user=request.user)
 
     if request.method == "POST":

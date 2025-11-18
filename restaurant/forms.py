@@ -6,6 +6,11 @@ from .models import Table, TableReservation
 
 
 class BookingForm(forms.ModelForm):
+    """
+    Форма для бронирования столиков в ресторане.
+    Включает поля для выбора даты, времени, продолжительности и столиков.
+    Проверяет, что время бронирования соответствует режиму работы ресторана.
+    """
     tables = forms.ModelMultipleChoiceField(
         queryset=Table.objects.filter(is_active=True),
         widget=forms.CheckboxSelectMultiple,
@@ -32,6 +37,10 @@ class BookingForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        """
+        Инициализирует форму, устанавливая значения по умолчанию
+        для даты (сегодня) и времени (18:00).
+        """
         initial = kwargs.get("initial", {})
 
         if "reservation_date" not in initial:
@@ -47,6 +56,11 @@ class BookingForm(forms.ModelForm):
         )
 
     def clean(self):
+        """
+        Дополнительная валидация формы.
+        Проверяет, чтобы время окончания бронирования
+        не выходило за рамки рабочего времени ресторана (18:00 - 02:00).
+        """
         cleaned_data = super().clean()
         reservation_time = cleaned_data.get("reservation_time")
         reservation_duration_hours = cleaned_data.get("reservation_duration_hours")

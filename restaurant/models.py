@@ -5,7 +5,7 @@ from config import settings
 
 
 class Table(models.Model):
-    """Модель карты столиков"""
+    """Модель столика"""
 
     number = models.PositiveIntegerField(unique=True)
     capacity = models.PositiveSmallIntegerField(help_text="Количество мест за столом")
@@ -23,6 +23,8 @@ class Table(models.Model):
 
 
 class TableReservation(models.Model):
+    """Модель бронирования столиков"""
+
     STATUS = [
         ("pending", "Ожидание"),
         ("confirmed", "Подтверждено"),
@@ -74,6 +76,8 @@ class TableReservation(models.Model):
 
 
 class Feedback(models.Model):
+    """Обратная связь"""
+
     email = models.EmailField(
         verbose_name="Email", help_text="Электронная почта клиента"
     )

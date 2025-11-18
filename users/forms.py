@@ -9,6 +9,13 @@ from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
+    """
+    Пользовательская форма для регистрации нового пользователя.
+    Наследуется от UserCreationForm и включает дополнительные поля:
+    first_name, last_name, email, phone, telegram_chat_id, city, photo.
+    Добавляет валидацию номера телефона и email.
+    При сохранении генерирует уникальное имя пользователя (username).
+    """
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -23,6 +30,10 @@ class CustomUserCreationForm(UserCreationForm):
         ]
 
     def __init__(self, *args, **kwargs):
+        """
+        Инициализирует форму и добавляет атрибуты для стилей (Bootstrap)
+        и плейсхолдеры к полям.
+        """
         super().__init__(*args, **kwargs)
         # Добавляем Bootstrap-классы и плейсхолдеры
         self.fields["first_name"].widget.attrs.update(
@@ -49,12 +60,26 @@ class CustomUserCreationForm(UserCreationForm):
         )
 
     def clean_phone(self):
+        """
+        Валидация поля 'phone': проверка, что номер содержит только цифры.
+        Returns:
+            str: Очищенное значение номера телефона.
+        Raises:
+            ValidationError: Если номер содержит недопустимые символы.
+        """
         phone = self.cleaned_data.get("phone")
         if phone and not phone.isdigit():
             raise forms.ValidationError("Номер телефона должен содержать только цифры.")
         return phone
 
     def clean_email(self):
+        """
+        Валидация поля 'email': проверка формата и уникальности.
+        Returns:
+            str: Очищенное значение email.
+        Raises:
+            ValidationError: Если email некорректен или уже используется.
+        """
         email = self.cleaned_data.get("email")
         if email:
             try:
@@ -83,6 +108,12 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    """
+    Форма для редактирования профиля пользователя.
+    Включает поля: first_name, last_name, email, phone, telegram_chat_id, city, photo.
+    Добавляет валидацию номера телефона и email, проверяя уникальность email
+    для других пользователей, кроме текущего.
+    """
 
     class Meta:
         model = User
@@ -97,6 +128,10 @@ class UserProfileForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
+        """
+        Инициализирует форму и добавляет атрибуты для стилей (Bootstrap)
+        и плейсхолдеры к полям.
+        """
         super().__init__(*args, **kwargs)
         # Добавляем Bootstrap-классы и плейсхолдеры
         self.fields["first_name"].widget.attrs.update(
@@ -124,6 +159,13 @@ class UserProfileForm(forms.ModelForm):
         )
 
     def clean_phone(self):
+        """
+        Валидация поля 'phone': проверка, что номер содержит только цифры.
+        Returns:
+            str: Очищенное значение номера телефона.
+        Raises:
+            ValidationError: Если номер содержит недопустимые символы.
+        """
         phone = self.cleaned_data.get("phone")
         if phone and not phone.isdigit():
             raise forms.ValidationError("Номер телефона должен содержать только цифры.")
