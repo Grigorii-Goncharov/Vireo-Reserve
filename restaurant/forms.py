@@ -11,6 +11,7 @@ class BookingForm(forms.ModelForm):
     Включает поля для выбора даты, времени, продолжительности и столиков.
     Проверяет, что время бронирования соответствует режиму работы ресторана.
     """
+
     tables = forms.ModelMultipleChoiceField(
         queryset=Table.objects.filter(is_active=True),
         widget=forms.CheckboxSelectMultiple,
