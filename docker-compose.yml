@@ -1,4 +1,4 @@
-#version: '3.13'
+# Убрана устаревшая строка version
 
 services:
 # ПРОПИСЫВАЕМ DJANGO приложение
@@ -50,7 +50,8 @@ services:
       - "443:443"# если будете настраивать HTTPS
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - static_volume:/static
+      # Изменено: монтируем static_volume в /staticfiles, как в STATIC_ROOT
+      - static_volume:/staticfiles
       - media_volume:/media
     depends_on:
       - web
