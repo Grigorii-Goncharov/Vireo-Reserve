@@ -64,7 +64,10 @@ class TableReservation(models.Model):
         verbose_name_plural = "Бронирования"
 
     def __str__(self):
-        return f"Бронь {self.user.first_name if self.user else 'Аноним'} на {self.reservation_date} в {self.reservation_time}"
+        return (
+            f"Бронь {self.user.first_name if self.user else 'Аноним'} на {self.reservation_date} "
+            f"в {self.reservation_time}"
+        )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

@@ -35,7 +35,15 @@ class TableReservationAdmin(admin.ModelAdmin):
         "user__email",
     )  # Лучше указать конкретные поля
     filter_horizontal = ("tables",)  # удобный виджет для ManyToMany
-    readonly_fields = ("created_at", "updated_at")
+    readonly_fields = (
+        "user",  # Используем стандартное отображение пользователя
+        "tables_list",  # Используем кастомный метод для отображения столов
+        "reservation_date",
+        "reservation_time",
+        "reservation_duration_hours",
+        "created_at",
+        "updated_at",
+    )
 
     # Кастомный метод для отображения списка столов
     def tables_list(self, obj):

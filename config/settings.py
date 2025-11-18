@@ -1,9 +1,7 @@
 import os
-import sys
 from datetime import timedelta
 from pathlib import Path
 
-from celery.schedules import crontab
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,7 +29,6 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_spectacular",
     "django_celery_beat",
-    # 'corsheaders',
     "restaurant",
     "users",
 ]
@@ -176,41 +173,3 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/1",
     }
 }
-
-
-# Настройки Celery
-if "test" in sys.argv:
-    # Настройки для тестов
-    CELERY_TASK_ALWAYS_EAGER = True
-    CELERY_TASK_EAGER_PROPAGATES = True
-    # Используем memory backend вместо Redis
-    CELERY_RESULT_BACKEND = "cache"
-    CELERY_CACHE_BACKEND = "memory"
-else:
-    # Реальные настройки
-    CELERY_BROKER_URL = "redis://localhost:6379/0"
-    CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
-
-
-# Используем eventlet на Windows
-CELERY_WORKER_POOL = "eventlet"
-CELERY_WORKER_POOL_RESTARTS = True
-
-# Опционально: сериализация
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = "Europe/Moscow"
-
-CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-
-# Настройки Celery Beat (планировщик)
-CELERY_BEAT_SCHEDULE = {
-    "check-habits-daily": {
-        "task": "tracker.tasks.check_all_habits",
-        "schedule": crontab(minute=0, hour="*/6"),
-    },
-}
-
-TELEGRAM_URL = "https://api.telegram.org/bot"
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")

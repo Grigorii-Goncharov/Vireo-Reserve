@@ -53,10 +53,14 @@ class BookingView(LoginRequiredMixin, TemplateView):
 
         # --- НОВОЕ: Получаем забронированные столы и временные интервалы ---
         today = date.today()
-        reservations_today = TableReservation.objects.filter(
-            reservation_date=today,
-            status__in=["pending", "confirmed"],
-        ).select_related().prefetch_related('tables')
+        reservations_today = (
+            TableReservation.objects.filter(
+                reservation_date=today,
+                status__in=["pending", "confirmed"],
+            )
+            .select_related()
+            .prefetch_related("tables")
+        )
 
         # Собираем информацию о забронированных столах и интервалах
         reserved_tables_with_intervals = []
@@ -64,13 +68,17 @@ class BookingView(LoginRequiredMixin, TemplateView):
             for table in res.tables.all():
                 start_time = res.reservation_time
                 duration_hours = res.reservation_duration_hours
-                end_time = datetime.combine(today, start_time) + timedelta(hours=duration_hours)
-                reserved_tables_with_intervals.append({
-                    'table': table,
-                    'start_time': start_time,
-                    'end_time': end_time.time(),
-                    'reservation_id': res.id,
-                })
+                end_time = datetime.combine(today, start_time) + timedelta(
+                    hours=duration_hours
+                )
+                reserved_tables_with_intervals.append(
+                    {
+                        "table": table,
+                        "start_time": start_time,
+                        "end_time": end_time.time(),
+                        "reservation_id": res.id,
+                    }
+                )
 
         context["reserved_tables_with_intervals"] = reserved_tables_with_intervals
 
@@ -152,7 +160,9 @@ class BookingView(LoginRequiredMixin, TemplateView):
             reservation.tables.set(selected_tables)
             reservation.save()
 
+            # Направляем письмо при успешной регистрации на почту
             messages.success(request, "Ваше бронирование успешно оформлено!")
+
             return redirect("restaurant:booking_success", pk=reservation.pk)
         else:
             messages.error(
@@ -314,7 +324,7 @@ def edit_reservation(request, pk):
         reservation_start_datetime = datetime.combine(
             reservation_date, reservation_time
         )
-        reservation_end_datetime = reservation_start_datetime + timedelta(
+        reservation_end_datetime = reservation_start_datetime + timedelta(  # noqa: F841
             hours=reservation_duration_hours
         )
 
@@ -350,6 +360,7 @@ def edit_reservation(request, pk):
         reservation.tables.set(selected_table_ids)
         reservation.save()
         messages.success(request, "Бронирование успешно обновлено!")
+
         return redirect("restaurant:profile")
 
     else:
