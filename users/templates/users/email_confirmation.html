@@ -1,0 +1,143 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Подтверждение email" %} — Vireo Reserve</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('https://images.unsplash.com/photo-1507529158062-4e81a7c3d319?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .email-container {
+      background: rgba(250, 186, 83, 0.94); /* Цвет #FABA53 с прозрачностью */
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(71, 0, 104, 0.6); /* Цвет #470068 с прозрачностью */
+      text-align: center;
+      margin: 20px; /* Отступы от краёв экрана */
+      position: relative;
+      overflow: hidden; /* Обрезаем внутреннюю линию по границе */
+    }
+
+    /* Внутренняя линия */
+    .email-container::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border: 3px solid #470068;
+      border-radius: 15px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .email-content {
+      position: relative;
+      z-index: 2; /* Поверх внутренней линии */
+    }
+
+    .email-logo {
+      width: 200px;
+      display: block;
+      margin: 0 auto 20px;
+    }
+
+    .email-header {
+      color: #470068;
+      font-family: 'Georgia', serif;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 0;
+      text-align: center;
+      text-shadow: 0.5px 0 0 currentColor, -0.5px 0 0 currentColor;
+    }
+
+    .email-text {
+      color: #470068;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .email-text:last-of-type {
+      margin-bottom: 10px;
+    }
+
+    .confirm-button {
+      display: inline-block;
+      background-color: #470068;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      margin: 10px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .confirm-button:hover {
+      background-color: #3a0055; /* Темнее при наведении */
+      transform: translateY(-1px);
+    }
+
+    .email-footer {
+      color: #666;
+      font-size: 14px;
+      font-style: italic;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="email-content">
+      <!-- ЛОГОТИП -->
+      <img src="{{ protocol }}://{{ domain }}{% static 'media/logo_mail.png' %}"
+           alt="Vireo Reserve"
+           class="email-logo">
+
+      <h2 class="email-header">{% trans "Подтверждение email" %}</h2>
+
+      <p class="email-text">
+        {% trans "Привет! Спасибо за регистрацию в ресторане \"Vireo Reserve\"." %}
+      </p>
+
+      <p class="email-text">
+        {% trans "Для завершения регистрации перейдите по ссылке:" %}
+      </p>
+
+      <!-- КЛИКАБЕЛЬНАЯ ССЫЛКА -->
+      <a href="{{ url }}" class="confirm-button">
+        {% trans "Подтвердить email" %}
+      </a>
+
+      <p class="email-text">
+        {% trans "Если вы не регистрировались — просто проигнорируйте это письмо." %}
+      </p>
+
+      <p class="email-footer">
+        {% trans "Это автоматическое сообщение. Пожалуйста, не отвечайте на него." %}
+      </p>
+    </div>
+  </div>
+</body>
+</html>

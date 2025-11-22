@@ -1,0 +1,247 @@
+{% extends "restaurant/base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Управление пользователями"%} | Vireo Reserve{% endblock %}
+
+{% block extra_css %}
+  <style>
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('{% static "media/main_photo.png" %}') center/cover no-repeat fixed !important;
+    }
+
+    .management-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 80vh;
+      justify-content: flex-start; /* Прижимаем к верху */
+    }
+
+    .management-card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 1200px; /* Шире для таблицы */
+      width: 100%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+
+    .page-header h2 {
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 1.5rem;
+      font-size: 28px;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto; /* Для прокрутки таблицы на маленьких экранах */
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 0;
+    }
+
+    .table thead th {
+      background-color: #f1f5f9;
+      color: #0f766e;
+      font-weight: 600;
+      padding: 12px;
+      text-align: left;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .table tbody td {
+      padding: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: middle;
+    }
+
+    .table tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .user-info {
+      font-weight: 600;
+      color: #0f766e;
+    }
+
+    .user-email {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-view {
+      background-color: #f1f5f9;
+      color: #0f766e;
+      border-color: #cbd5e1;
+    }
+
+    .btn-view:hover {
+      background-color: #e2e8f0;
+      color: #065f46;
+    }
+
+    .btn-block {
+      background-color: #fee2e2;
+      color: #b91c1c;
+      border-color: #fecaca;
+    }
+
+    .btn-block:hover {
+      background-color: #fecaca;
+    }
+
+    .btn-unblock {
+      background-color: #d1fae5;
+      color: #06544a;
+      border-color: #a7f3d0;
+    }
+
+    .btn-unblock:hover {
+      background-color: #a7f3d0;
+    }
+
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-active {
+      background-color: #d1fae5;
+      color: #06544a;
+    }
+
+    .status-inactive {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #64748b;
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 16px;
+      color: #cbd5e1;
+    }
+
+    .empty-state h4 {
+      color: #0f766e;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block content %}
+<div class="management-container">
+  <div class="management-card">
+    <div class="page-header">
+      <h2>{% trans "Управление пользователями" %}</h2>
+    </div>
+
+    {% if users %}
+      <div class="table-container">
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead>
+              <tr>
+                <th>{% trans "Пользователь" %}</th>
+                <th>{% trans "Клиенты" %}</th>
+                <th>{% trans "Сообщения" %}</th>
+                <th>{% trans "Рассылки" %}</th>
+                <th>{% trans "Статус" %}</th>
+                <th>{% trans "Действие" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+              <tr>
+                <td>
+                  <div class="user-info">{{ user.username }}</div>
+                  <div class="user-email">{{ user.email }}</div>
+                </td>
+
+                <!-- Клиенты -->
+                <td>
+                  <a href="{% url 'mailservices:user_mailing_list' user_id=user.pk %}" class="action-btn btn-view">
+                    <i class="bi bi-people"></i> {{ user.sendings.count }}
+                  </a>
+                </td>
+
+                <!-- Сообщения -->
+                <td>
+                  <a href="{% url 'mailservices:user_mailing_list' user_id=user.pk %}" class="action-btn btn-view">
+                    <i class="bi bi-chat-dots"></i> {{ user.sendings.count }}
+                  </a>
+                </td>
+
+                <!-- Рассылки -->
+                <td>
+                  <a href="{% url 'mailservices:user_mailing_list' user_id=user.pk %}" class="action-btn btn-view">
+                    <i class="bi bi-envelope"></i> {{ user.sendings.count }}
+                  </a>
+                </td>
+
+                <!-- Статус -->
+                <td>
+                  {% if user.is_active %}
+                    <span class="status-badge status-active">{% trans "Активен" %}</span>
+                  {% else %}
+                    <span class="status-badge status-inactive">{% trans "Заблокирован" %}</span>
+                  {% endif %}
+                </td>
+
+                <!-- Действие -->
+                <td>
+                  <form method="post" action="{% url 'users:toggle_user_active' user.pk %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn {% if user.is_active %}btn-block{% else %}btn-unblock{% endif %}">
+                      {% if user.is_active %}
+                        <i class="bi bi-lock"></i> {% trans "Заблокировать" %}
+                      {% else %}
+                        <i class="bi bi-unlock"></i> {% trans "Разблокировать" %}
+                      {% endif %}
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <i class="bi bi-people"></i>
+        <h4>{% trans "Нет пользователей" %}</h4>
+        <p class="text-muted">{% trans "В системе пока не зарегистрировано ни одного пользователя." %}</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

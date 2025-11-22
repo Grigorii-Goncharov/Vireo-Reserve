@@ -1,0 +1,126 @@
+{% extends "restaurant/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans "Профиль" %} | Vireo Reserve{% endblock %}
+
+{% block extra_css %}
+  <style>
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('/static/media/main_photo.png') center/cover no-repeat fixed;
+    }
+
+    /* Увеличиваем ширину карточки с бронированиями */
+    .reservations-section {
+      max-width: 600px; /* Соответствует ширине profile-card */
+      width: 100%;
+    }
+
+    /* Для случая, когда бронирований нет */
+    .no-reservations {
+      max-width: 600px;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="/static/css/profile.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+  <!-- Карточка профиля -->
+  <div class="profile-card">
+    <div class="profile-header">
+      <h3>{% trans "Профиль пользователя" %}</h3>
+    </div>
+
+    <!-- Блок с аватаркой -->
+    <div class="profile-avatar text-center mb-3">
+      {% if user_profile.photo %}
+        <img src="{{ user_profile.photo.url }}" alt="{% blocktrans with name=user_profile.first_name|default:user_profile.username %}Аватар {{ name }}{% endblocktrans %}" class="rounded-circle border border-2" style="width: 120px; height: 120px; object-fit: cover;">
+      {% else %}
+        <!-- Заглушка: можно использовать любое изображение по умолчанию -->
+        <img src="{% static 'media/avatar_placeholder.jpg' %}" alt="{% trans "Аватар по умолчанию" %}" class="rounded-circle border border-2" style="width: 120px; height: 120px; object-fit: cover;">
+      {% endif %}
+    </div>
+
+    <div class="profile-body">
+      <div class="profile-info">
+        <p><strong>{% trans "Email" %}:</strong> {{ user_profile.email }}</p>
+        <p><strong>{% trans "Имя" %}:</strong> {{ user_profile.first_name|default:"—"|capfirst }} {% if not user_profile.first_name %}({% trans "не указано" %}){% endif %}</p>
+        <p><strong>{% trans "Фамилия" %}:</strong> {{ user_profile.last_name|default:"—"|capfirst }} {% if not user_profile.last_name %}({% trans "не указана" %}){% endif %}</p>
+        <p><strong>{% trans "Телефон" %}:</strong> {{ user_profile.phone|default:"—"|capfirst }} {% if not user_profile.phone %}({% trans "не указан" %}){% endif %}</p>
+        <p><strong>{% trans "Город" %}:</strong> {{ user_profile.city|default:"—"|capfirst }} {% if not user_profile.city %}({% trans "не указан" %}){% endif %}</p>
+      </div>
+
+      <div class="profile-actions">
+        <a href="{% url 'users:profile_edit' %}" class="btn btn-primary">
+          <i class="bi bi-pencil me-1"></i> {% trans "Редактировать профиль" %}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- История бронирований (если есть) -->
+  {% if reservations %}
+  <div class="reservations-section" style="max-width: 100%; width: 100%; padding: 30px; box-sizing: border-box;">
+    <h4 style="color: #065f46; font-weight: 700; margin-bottom: 1.5rem; font-size: 24px; text-align: center;">{% trans "Ваши бронирования" %}</h4>
+    <div class="table-responsive" style="overflow-x: auto;">
+      <table class="table table-striped" style="width: 100%; border-collapse: collapse;">
+        <thead style="background-color: #f1f5f9; color: #0f766e; font-weight: 600;">
+          <tr>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Дата" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Время" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Продолжительность" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Столики" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Сумма" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Статус" %}</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">{% trans "Действия" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reservation in reservations %}
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 12px;">{{ reservation.reservation_date }}</td>
+            <td style="padding: 12px;">{{ reservation.reservation_time }}</td>
+            <td style="padding: 12px;">{{ reservation.reservation_duration_hours }} {% trans "часов" %}</td>
+            <td style="padding: 12px;">
+              {% for table in reservation.tables.all %}
+                {{ table.number }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+            <td style="padding: 12px;">{{ reservation.total_amount }} {% trans "руб." %}</td>
+            <td style="padding: 12px;">{{ reservation.get_status_display }}</td>
+            <td style="padding: 12px;">
+              <!-- Кнопка редактирования -->
+              <a href="{% url 'restaurant:edit_reservation' reservation.pk %}"
+                 class="btn btn-sm btn-outline-warning"
+                 title="{% trans 'Редактировать бронирование' %}"
+                 style="padding: 6px 12px; border-radius: 8px; font-weight: 500; transition: all 0.2s; text-decoration: none; display: inline-block; margin-right: 5px; background-color: transparent; color: #d97706; border: 1px solid #fbbf24;">
+                {% trans "Редактировать" %}
+              </a>
+              <!-- Кнопка отмены с подтверждением -->
+              <a href="{% url 'restaurant:cancel_reservation' reservation.pk %}"
+                 class="btn btn-sm btn-outline-danger"
+                 title="{% trans 'Отменить бронирование' %}"
+                 onclick="return confirm('{% trans "Вы уверены, что хотите отменить это бронирование?" %}');"
+                 style="padding: 6px 12px; border-radius: 8px; font-weight: 500; transition: all 0.2s; text-decoration: none; display: inline-block; background-color: transparent; color: #e11d48; border: 1px solid #fecaca;">
+                {% trans "Отменить" %}
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="no-reservations">
+    <p>{% trans "У вас пока нет бронирований." %}</p>
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

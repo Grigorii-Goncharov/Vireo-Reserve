@@ -1,0 +1,801 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-15 16:56+0300\n"
+"PO-Revision-Date: 2025-11-15 15:46+0300\n"
+"Last-Translator: YOU <your.email@example.com>\n"
+"Language-Team: English <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\restaurant\templates\restaurant\about.html:4
+#: .\restaurant\templates\restaurant\about.html:23
+#: .\restaurant\templates\restaurant\includes\inc_header.html:16
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:16
+msgid "О ресторане"
+msgstr "About Us"
+
+#: .\restaurant\templates\restaurant\about.html:24
+msgid "Тропический рай, вдохновлённый легендарной бухтой Майя"
+msgstr "A tropical paradise inspired by the legendary Maya Bay"
+
+#: .\restaurant\templates\restaurant\about.html:36
+msgid "История ресторана"
+msgstr "History of the Restaurant"
+
+#: .\restaurant\templates\restaurant\about.html:38
+msgid ""
+"Vireo Reserve был открыт в 2018 году на острове Пхи-Пхи в Таиланде. Наше "
+"заведение стало данью уважения культовому фильму «Пляж» и уникальному "
+"природному наследию бухты Майя."
+msgstr ""
+"Vireo Reserve was opened in 2018 on Phi Phi Island in Thailand. Our "
+"establishment pays tribute to the iconic film 'The Beach' and the unique "
+"natural heritage of Maya Bay."
+
+#: .\restaurant\templates\restaurant\about.html:41
+msgid ""
+"С самого начала мы стремились создать не просто ресторан, а место силы — где "
+"гости могут насладиться уединением, красотой природы и вкусом, "
+"приготовленным с любовью."
+msgstr ""
+"From the very beginning, we aimed to create not just a restaurant, but a "
+"place of power — where guests can enjoy solitude, natural beauty, and "
+"flavors prepared with love."
+
+#: .\restaurant\templates\restaurant\about.html:53
+msgid "Миссия и ценности"
+msgstr "Mission and Values"
+
+#: .\restaurant\templates\restaurant\about.html:54
+msgid ""
+"Мы верим, что еда — это не только питание, но и эмоции, воспоминания и "
+"уважение к природе."
+msgstr ""
+"We believe that food is not only nourishment, but also emotions, memories, "
+"and respect for nature."
+
+#: .\restaurant\templates\restaurant\about.html:58
+msgid "Экологичность"
+msgstr "Sustainability"
+
+#: .\restaurant\templates\restaurant\about.html:58
+msgid ""
+"Минимизируем отходы, используем биоразлагаемую посуду и локальные продукты."
+msgstr ""
+"We minimize waste, use biodegradable tableware, and source local ingredients."
+
+#: .\restaurant\templates\restaurant\about.html:62
+msgid "Аутентичность"
+msgstr "Authenticity"
+
+#: .\restaurant\templates\restaurant\about.html:62
+msgid "Блюда готовятся по традиционным тайским рецептам с авторским подходом."
+msgstr ""
+"Our dishes are prepared using traditional Thai recipes with a creative twist."
+
+#: .\restaurant\templates\restaurant\about.html:66
+msgid "Гостеприимство"
+msgstr "Hospitality"
+
+#: .\restaurant\templates\restaurant\about.html:66
+msgid ""
+"Каждый гость — как член семьи. Мы заботимся о каждом моменте вашего визита."
+msgstr "Every guest is like family. We care about every moment of your visit."
+
+#: .\restaurant\templates\restaurant\about.html:71
+msgid "Миссия ресторана"
+msgstr "Restaurant Mission"
+
+#: .\restaurant\templates\restaurant\about.html:80
+msgid "Наша команда"
+msgstr "Our Team"
+
+#: .\restaurant\templates\restaurant\about.html:84
+#: .\restaurant\templates\restaurant\about.html:86
+msgid "Шеф-повар"
+msgstr "Head Chef"
+
+#: .\restaurant\templates\restaurant\about.html:87
+msgid "15 лет в гастрономии, работал в Мишленовских ресторанах Европы и Азии."
+msgstr ""
+"15 years in gastronomy, with experience in Michelin-starred restaurants "
+"across Europe and Asia."
+
+#: .\restaurant\templates\restaurant\about.html:92
+msgid "Сомелье"
+msgstr "Sommelier"
+
+#: .\restaurant\templates\restaurant\about.html:94
+msgid "Сомелье и менеджер"
+msgstr "Sommelier & Manager"
+
+#: .\restaurant\templates\restaurant\about.html:95
+msgid ""
+"Эксперт по тайским винам и тропическим коктейлям. Создаёт уникальные "
+"гастрономические пары."
+msgstr ""
+"An expert in Thai wines and tropical cocktails, crafting unique food and "
+"drink pairings."
+
+#: .\restaurant\templates\restaurant\about.html:100
+#: .\restaurant\templates\restaurant\about.html:102
+msgid "Основатель"
+msgstr "Founder"
+
+#: .\restaurant\templates\restaurant\about.html:103
+msgid "Путешественник и энтузиаст устойчивого туризма. Вдохновлён красотой "
+msgstr "A traveler and sustainable tourism enthusiast, inspired by beauty."
+
+#: .\restaurant\templates\restaurant\booking.html:4
+#: .\restaurant\templates\restaurant\booking.html:15
+#: .\restaurant\templates\restaurant\home.html:24
+msgid "Забронировать столик"
+msgstr "Book a Table"
+
+#: .\restaurant\templates\restaurant\booking.html:23
+#: .\restaurant\templates\restaurant\booking_success.html:23
+#: .\restaurant\templates\restaurant\edit_reservation.html:23
+msgid "Дата:"
+msgstr "Date:"
+
+#: .\restaurant\templates\restaurant\booking.html:28
+#: .\restaurant\templates\restaurant\booking_success.html:24
+#: .\restaurant\templates\restaurant\edit_reservation.html:28
+msgid "Время:"
+msgstr "Time:"
+
+#: .\restaurant\templates\restaurant\booking.html:33
+#: .\restaurant\templates\restaurant\edit_reservation.html:33
+msgid "Продолжительность (часы):"
+msgstr "Duration (hours):"
+
+#: .\restaurant\templates\restaurant\booking.html:35
+#: .\restaurant\templates\restaurant\edit_reservation.html:35
+msgid "Введите количество часов (от 1 до 8)"
+msgstr "Enter the number of hours (from 1 to 8)"
+
+#: .\restaurant\templates\restaurant\booking.html:40
+msgid "Выбор столика:"
+msgstr "Table Selection:"
+
+#: .\restaurant\templates\restaurant\booking.html:45
+#: .\restaurant\templates\restaurant\edit_reservation.html:45
+#, python-format
+msgid "Фото стола №%(number)s"
+msgstr "Photo of Table #%(number)s"
+
+#: .\restaurant\templates\restaurant\booking.html:48
+#: .\restaurant\templates\restaurant\edit_reservation.html:48
+msgid "Фото отсутствует"
+msgstr "No photo available"
+
+#: .\restaurant\templates\restaurant\booking.html:54
+#: .\restaurant\templates\restaurant\edit_reservation.html:54
+#, python-format
+msgid "Стол №%(number)s"
+msgstr "Table #%(number)s"
+
+#: .\restaurant\templates\restaurant\booking.html:59
+#: .\restaurant\templates\restaurant\booking_success.html:28
+#: .\restaurant\templates\restaurant\edit_reservation.html:59
+msgid "мест"
+msgstr "seats"
+
+#: .\restaurant\templates\restaurant\booking.html:65
+msgid "Нет доступных столов на выбранное время."
+msgstr "No tables available for the selected time."
+
+#: .\restaurant\templates\restaurant\booking.html:76
+msgid "Забронированные столики на сегодня:"
+msgstr "Tables booked today:"
+
+#: .\restaurant\templates\restaurant\booking.html:80
+#, python-format
+msgid "Стол №%(number)s (%(capacity)s мест)"
+msgstr "Table #%(number)s (%(capacity)s seats)"
+
+#: .\restaurant\templates\restaurant\booking.html:88
+msgid "Забронировать"
+msgstr "Book"
+
+#: .\restaurant\templates\restaurant\booking_success.html:4
+msgid "Бронирование подтверждено"
+msgstr "Reservation Confirmed"
+
+#: .\restaurant\templates\restaurant\booking_success.html:14
+msgid "Бронирование подтверждено!"
+msgstr "Reservation Confirmed!"
+
+#: .\restaurant\templates\restaurant\booking_success.html:18
+#, python-format
+msgid "Спасибо за ваше бронирование, %(name)s!"
+msgstr "Thank you for your reservation, %(name)s!"
+
+#: .\restaurant\templates\restaurant\booking_success.html:22
+#, python-format
+msgid "Детали бронирования #%(id)s"
+msgstr "Reservation Details #%(id)s"
+
+#: .\restaurant\templates\restaurant\booking_success.html:25
+msgid "Продолжительность:"
+msgstr "Duration:"
+
+#: .\restaurant\templates\restaurant\booking_success.html:25
+#: .\users\templates\users\profile.html:87
+msgid "часов"
+msgstr "hours"
+
+#: .\restaurant\templates\restaurant\booking_success.html:26
+msgid "Столики:"
+msgstr "Tables:"
+
+#: .\restaurant\templates\restaurant\booking_success.html:31
+#: .\restaurant\templates\restaurant\cancel_reservation.html:33
+msgid "Сумма:"
+msgstr "Amount:"
+
+#: .\restaurant\templates\restaurant\booking_success.html:31
+#: .\restaurant\templates\restaurant\cancel_reservation.html:33
+#: .\users\templates\users\profile.html:93
+msgid "руб."
+msgstr "RUB"
+
+#: .\restaurant\templates\restaurant\booking_success.html:35
+msgid "Перейти в мой профиль"
+msgstr "Go to My Profile"
+
+#: .\restaurant\templates\restaurant\booking_success.html:38
+msgid "Вернуться на главную"
+msgstr "Return to Home"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:4
+#: .\users\templates\users\profile.html:106
+msgid "Отменить бронирование"
+msgstr "Cancel Reservation"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:14
+msgid "Подтверждение отмены"
+msgstr "Cancellation Confirmation"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:19
+#, python-format
+msgid ""
+"\n"
+"          Вы уверены, что хотите отменить бронирование столиков на "
+"<strong>%(date)s</strong> в <strong>%(time)s</strong>?\n"
+"        "
+msgstr ""
+"\n"
+"          Are you sure you want to cancel the table reservation for "
+"<strong>%(date)s</strong> at <strong>%(time)s</strong>?\n"
+"        "
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:26
+msgid "Информация о бронировании"
+msgstr "Reservation Information"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:27
+msgid "Забронированные столы:"
+msgstr "Reserved Tables:"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:30
+#, python-format
+msgid "Стол #%(number)s (%(capacity)s мест)"
+msgstr "Table #%(number)s (%(capacity)s seats)"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:40
+msgid "Да, отменить"
+msgstr "Yes, cancel"
+
+#: .\restaurant\templates\restaurant\cancel_reservation.html:44
+msgid "Назад"
+msgstr "Back"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:4
+#: .\users\templates\users\profile.html:99
+msgid "Редактировать бронирование"
+msgstr "Edit Reservation"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:15
+#, python-format
+msgid "Редактировать бронирование №%(id)s"
+msgstr "Edit Reservation #%(id)s"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:40
+msgid "Доступные столики:"
+msgstr "Available tables:"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:65
+msgid "Нет доступных столов."
+msgstr "No tables available."
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:72
+#: .\users\templates\users\profile_edit.html:197
+msgid "Сохранить изменения"
+msgstr "Save Changes"
+
+#: .\restaurant\templates\restaurant\edit_reservation.html:75
+#: .\users\templates\users\profile_edit.html:211
+msgid "Отмена"
+msgstr "Cancel"
+
+#: .\restaurant\templates\restaurant\home.html:4
+msgid "Vireo Reserve — Бронирование столиков с видом на бухту"
+msgstr "Vireo Reserve — Table Reservations with a View of the Bay"
+
+#: .\restaurant\templates\restaurant\home.html:22
+msgid "Ужин с видом на бухту Phi-Phi"
+msgstr "Dinner with a View of Phi Phi Bay"
+
+#: .\restaurant\templates\restaurant\home.html:23
+msgid "Изысканная кухня, тропическая атмосфера и незабываемые впечатления"
+msgstr "Exquisite cuisine, tropical ambiance, and unforgettable experiences"
+
+#: .\restaurant\templates\restaurant\home.html:33
+msgid "Описание ресторана"
+msgstr "Restaurant Description"
+
+#: .\restaurant\templates\restaurant\home.html:35
+msgid ""
+"Vireo Reserve — это уникальное место на острове Phi Phi, вдохновлённое "
+"знаменитым фильмом «Пляж». Мы предлагаем гостям не просто ужин, а полное "
+"погружение в атмосферу тропического рая."
+msgstr ""
+"Vireo Reserve is a unique venue on Phi Phi Island, inspired by the famous "
+"film 'The Beach'. We offer guests not just dinner, but a full immersion into "
+"a tropical paradise."
+
+#: .\restaurant\templates\restaurant\home.html:38
+msgid "Свежайшие морепродукты и тайская кухня"
+msgstr "Fresh seafood and authentic Thai cuisine"
+
+#: .\restaurant\templates\restaurant\home.html:39
+msgid "Экологичные практики и локальные ингредиенты"
+msgstr "Eco-friendly practices and locally sourced ingredients"
+
+#: .\restaurant\templates\restaurant\home.html:40
+msgid "Вид на бухту с любого столика"
+msgstr "Bay views from every table"
+
+#: .\restaurant\templates\restaurant\home.html:44
+msgid "Интерьер ресторана"
+msgstr "Restaurant Interior"
+
+#: .\restaurant\templates\restaurant\home.html:53
+msgid "Наши услуги"
+msgstr "Our Services"
+
+#: .\restaurant\templates\restaurant\home.html:58
+#: .\restaurant\templates\restaurant\home.html:60
+msgid "Романтический ужин"
+msgstr "Romantic Dinner"
+
+#: .\restaurant\templates\restaurant\home.html:61
+msgid ""
+"Идеальный вечер для двоих с закатом в видом на бухту с красивыми пляжами."
+msgstr ""
+"The perfect evening for two, with a sunset overlooking the bay and its "
+"beautiful beaches."
+
+#: .\restaurant\templates\restaurant\home.html:69
+#: .\restaurant\templates\restaurant\home.html:71
+msgid "Празднования"
+msgstr "Celebrations"
+
+#: .\restaurant\templates\restaurant\home.html:72
+msgid "Организуем дни рождения, свадьбы и корпоративы."
+msgstr "We organize birthdays, weddings, and corporate events."
+
+#: .\restaurant\templates\restaurant\home.html:80
+#: .\restaurant\templates\restaurant\home.html:82
+msgid "Завтраки у океана"
+msgstr "Oceanfront Breakfasts"
+
+#: .\restaurant\templates\restaurant\home.html:83
+msgid "Начните день с экзотических фруктов и ароматного кофе."
+msgstr "Start your day with exotic fruits and aromatic coffee."
+
+#: .\restaurant\templates\restaurant\home.html:133
+msgid "Контакты"
+msgstr "Contact"
+
+#: .\restaurant\templates\restaurant\home.html:134
+msgid "Адрес"
+msgstr "Address"
+
+#: .\restaurant\templates\restaurant\home.html:134
+msgid "Таиланд"
+msgstr "Thailand"
+
+#: .\restaurant\templates\restaurant\home.html:135
+#: .\users\templates\users\profile.html:53
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\restaurant\templates\restaurant\home.html:136
+#: .\users\templates\users\profile.html:50
+msgid "Email"
+msgstr "Email"
+
+#: .\restaurant\templates\restaurant\home.html:148
+msgid "Обратная связь"
+msgstr "Feedback"
+
+#: .\restaurant\templates\restaurant\home.html:152
+msgid "Ваш email"
+msgstr "Your email"
+
+#: .\restaurant\templates\restaurant\home.html:155
+msgid "Сообщение"
+msgstr "Message"
+
+#: .\restaurant\templates\restaurant\home.html:157
+msgid "Отправить"
+msgstr "Send"
+
+#: .\restaurant\templates\restaurant\includes\inc_footer.html:5
+msgid "Все права защищены."
+msgstr "All rights reserved."
+
+#: .\restaurant\templates\restaurant\includes\inc_footer.html:6
+msgid "Время работы: Ежедневно с 18:00 до 02:00"
+msgstr "Opening Hours: Daily from 18:00 to 02:00"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:13
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:13
+msgid "Главная"
+msgstr "Home"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:19
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:19
+msgid "Бронирование"
+msgstr "Reservation"
+
+#: .\restaurant\templates\restaurant\includes\inc_header.html:25
+msgid "Авторизация"
+msgstr "Authorisation"
+
+#: .\restaurant\templates\restaurant\includes\inc_header_auth.html:27
+msgid "  || Выход"
+msgstr "  || Logout"
+
+#: .\users\templates\users\email_confirmation.html:7
+#: .\users\templates\users\email_confirmation.html:118
+msgid "Подтверждение email"
+msgstr "Email Confirmation"
+
+#: .\users\templates\users\email_confirmation.html:121
+msgid "Привет! Спасибо за регистрацию в ресторане \\"
+msgstr "Hello! Thank you for registering at the restaurant \\"
+
+#: .\users\templates\users\email_confirmation.html:125
+msgid "Для завершения регистрации перейдите по ссылке:"
+msgstr "To complete registration, click the following link:"
+
+#: .\users\templates\users\email_confirmation.html:130
+msgid "Подтвердить email"
+msgstr "Confirm Email"
+
+#: .\users\templates\users\email_confirmation.html:134
+msgid "Если вы не регистрировались — просто проигнорируйте это письмо."
+msgstr "If you did not register, simply ignore this email."
+
+#: .\users\templates\users\email_confirmation.html:138
+msgid "Это автоматическое сообщение. Пожалуйста, не отвечайте на него."
+msgstr "This is an automated message. Please do not reply to it."
+
+#: .\users\templates\users\login.html:4
+msgid "Вход"
+msgstr "Login"
+
+#: .\users\templates\users\login.html:39
+msgid "Войдите в свой аккаунт"
+msgstr "Log into your account"
+
+#: .\users\templates\users\login.html:54
+#: .\users\templates\users\password_reset.html:50
+msgid "Ваша почта"
+msgstr "Your email"
+
+#: .\users\templates\users\login.html:58
+msgid "Пароль"
+msgstr "Password"
+
+#: .\users\templates\users\login.html:62
+#: .\users\templates\users\password_reset_complete.html:79
+#: .\users\templates\users\register.html:108
+msgid "Войти"
+msgstr "Log In"
+
+#: .\users\templates\users\login.html:65
+msgid "или"
+msgstr "or"
+
+#: .\users\templates\users\login.html:68
+#: .\users\templates\users\register.html:3
+#: .\users\templates\users\register.html:60
+msgid "Создать аккаунт"
+msgstr "Create Account"
+
+#: .\users\templates\users\login.html:70
+msgid "Забыли пароль?"
+msgstr "Forgot password?"
+
+#: .\users\templates\users\login.html:74
+msgid "Остров Phi-Phi, Таиланд"
+msgstr "Phi Phi Island, Thailand"
+
+#: .\users\templates\users\password_reset.html:3
+#: .\users\templates\users\password_reset.html:43
+#: .\users\templates\users\password_reset_email.html:116
+msgid "Восстановление пароля"
+msgstr "Password Recovery"
+
+#: .\users\templates\users\password_reset.html:44
+msgid "Введите вашу электронную почту, и мы вышлем инструкции"
+msgstr "Enter your email and we will send instructions"
+
+#: .\users\templates\users\password_reset.html:54
+msgid "Отправить инструкции"
+msgstr "Send Instructions"
+
+#: .\users\templates\users\password_reset.html:58
+msgid "← Назад к входу"
+msgstr "← Back to Login"
+
+#: .\users\templates\users\password_reset_complete.html:3
+#: .\users\templates\users\password_reset_complete.html:77
+msgid "Пароль успешно изменен"
+msgstr "Password changed successfully"
+
+#: .\users\templates\users\password_reset_complete.html:78
+msgid "Вы можете теперь войти в систему с новым паролем."
+msgstr "You can now log in with your new password."
+
+#: .\users\templates\users\password_reset_confirm.html:3
+#: .\users\templates\users\password_reset_confirm.html:119
+msgid "Создание нового пароля"
+msgstr "Creating a New Password"
+
+#: .\users\templates\users\password_reset_confirm.html:154
+msgid "Сохранить новый пароль"
+msgstr "Save New Password"
+
+#: .\users\templates\users\password_reset_done.html:3
+msgid "Письмо отправлено"
+msgstr "Email Sent"
+
+#: .\users\templates\users\password_reset_done.html:78
+msgid "Проверьте вашу почту"
+msgstr "Check Your Email"
+
+#: .\users\templates\users\password_reset_done.html:79
+msgid ""
+"На указанный email было отправлено письмо с инструкциями по восстановлению "
+"пароля."
+msgstr ""
+"An email with instructions for password recovery has been sent to the "
+"specified email address."
+
+#: .\users\templates\users\password_reset_done.html:82
+msgid "← Вернуться к входу"
+msgstr "← Return to Login"
+
+#: .\users\templates\users\password_reset_email.html:7
+msgid "Сброс пароля"
+msgstr "Password Reset"
+
+#: .\users\templates\users\password_reset_email.html:112
+msgid "Остров Пхи-Пхи, Таиланд"
+msgstr "Phi Phi Island, Thailand"
+
+#: .\users\templates\users\password_reset_email.html:118
+msgid ""
+"Кто-то запросил сброс пароля для аккаунта, связанного с этим email-адресом."
+msgstr ""
+"Someone requested a password reset for an account associated with this email "
+"address."
+
+#: .\users\templates\users\password_reset_email.html:120
+msgid "Для сброса пароля перейдите по следующей ссылке:"
+msgstr "To reset your password, click the following link:"
+
+#: .\users\templates\users\password_reset_email.html:124
+msgid "Сбросить пароль"
+msgstr "Reset Password"
+
+#: .\users\templates\users\password_reset_email.html:127
+msgid "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо."
+msgstr "If you did not request a password reset, simply ignore this email."
+
+#: .\users\templates\users\password_reset_email.html:131
+msgid "Это автоматическое сообщение от"
+msgstr "This is an automated message from"
+
+#: .\users\templates\users\password_reset_email.html:132
+msgid "Пожалуйста, не отвечайте на него."
+msgstr "Please do not reply to it."
+
+#: .\users\templates\users\profile.html:4
+msgid "Профиль"
+msgstr "Profile"
+
+#: .\users\templates\users\profile.html:35
+msgid "Профиль пользователя"
+msgstr "User Profile"
+
+#: .\users\templates\users\profile.html:41
+#, python-format
+msgid "Аватар %(name)s"
+msgstr "%(name)s's Avatar"
+
+#: .\users\templates\users\profile.html:44
+msgid "Аватар по умолчанию"
+msgstr "Default Avatar"
+
+#: .\users\templates\users\profile.html:51
+msgid "Имя"
+msgstr "First Name"
+
+#: .\users\templates\users\profile.html:51
+msgid "не указано"
+msgstr "not specified"
+
+#: .\users\templates\users\profile.html:52
+msgid "Фамилия"
+msgstr "Last Name"
+
+#: .\users\templates\users\profile.html:52
+msgid "не указана"
+msgstr "not specified"
+
+#: .\users\templates\users\profile.html:53
+#: .\users\templates\users\profile.html:54
+msgid "не указан"
+msgstr "not specified"
+
+#: .\users\templates\users\profile.html:54
+msgid "Город"
+msgstr "City"
+
+#: .\users\templates\users\profile.html:59
+msgid "Редактировать профиль"
+msgstr "Edit Profile"
+
+#: .\users\templates\users\profile.html:68
+msgid "Ваши бронирования"
+msgstr "Your Reservations"
+
+#: .\users\templates\users\profile.html:73
+msgid "Дата"
+msgstr "Date"
+
+#: .\users\templates\users\profile.html:74
+msgid "Время"
+msgstr "Time"
+
+#: .\users\templates\users\profile.html:75
+msgid "Продолжительность"
+msgstr "Duration"
+
+#: .\users\templates\users\profile.html:76
+msgid "Столики"
+msgstr "Tables"
+
+#: .\users\templates\users\profile.html:77
+msgid "Сумма"
+msgstr "Amount"
+
+#: .\users\templates\users\profile.html:78
+#: .\users\templates\users\user_list.html:177
+msgid "Статус"
+msgstr "Status"
+
+#: .\users\templates\users\profile.html:79
+msgid "Действия"
+msgstr "Actions"
+
+#: .\users\templates\users\profile.html:101
+msgid "Редактировать"
+msgstr "Edit"
+
+#: .\users\templates\users\profile.html:107
+msgid "Вы уверены, что хотите отменить это бронирование?"
+msgstr "Are you sure you want to cancel this reservation?"
+
+#: .\users\templates\users\profile.html:109
+msgid "Отменить"
+msgstr "Cancel"
+
+#: .\users\templates\users\profile.html:120
+msgid "У вас пока нет бронирований."
+msgstr "You have no reservations yet."
+
+#: .\users\templates\users\profile_edit.html:3
+#: .\users\templates\users\profile_edit.html:158
+msgid "Редактирование профиля"
+msgstr "Profile Editing"
+
+#: .\users\templates\users\profile_edit.html:204
+msgid "Вы уверены, что хотите удалить пользователя"
+msgstr "Are you sure you want to delete the user"
+
+#: .\users\templates\users\profile_edit.html:205
+msgid "Удалить пользователя "
+msgstr "Delete User "
+
+#: .\users\templates\users\register.html:103
+msgid "Зарегистрироваться"
+msgstr "Register"
+
+#: .\users\templates\users\register.html:108
+msgid "Уже есть аккаунт?"
+msgstr "Already have an account?"
+
+#: .\users\templates\users\user_list.html:3
+#: .\users\templates\users\user_list.html:164
+msgid "Управление пользователями"
+msgstr "User Management"
+
+#: .\users\templates\users\user_list.html:173
+msgid "Пользователь"
+msgstr "User"
+
+#: .\users\templates\users\user_list.html:174
+msgid "Клиенты"
+msgstr "Customers"
+
+#: .\users\templates\users\user_list.html:175
+msgid "Сообщения"
+msgstr "Messages"
+
+#: .\users\templates\users\user_list.html:176
+msgid "Рассылки"
+msgstr "Newsletters"
+
+#: .\users\templates\users\user_list.html:178
+msgid "Действие"
+msgstr "Action"
+
+#: .\users\templates\users\user_list.html:213
+msgid "Активен"
+msgstr "Active"
+
+#: .\users\templates\users\user_list.html:215
+msgid "Заблокирован"
+msgstr "Blocked"
+
+#: .\users\templates\users\user_list.html:225
+msgid "Заблокировать"
+msgstr "Block"
+
+#: .\users\templates\users\user_list.html:227
+msgid "Разблокировать"
+msgstr "Unblock"
+
+#: .\users\templates\users\user_list.html:241
+msgid "Нет пользователей"
+msgstr "No Users"
+
+#: .\users\templates\users\user_list.html:242
+msgid "В системе пока не зарегистрировано ни одного пользователя."
+msgstr "No users are registered in the system yet."
+
+msgid "руб./час"
+msgstr "RUB/hour"
+
+msgid "Редактирование профиля "
+msgstr "Profile Editing "
+
+msgid "Личный кабинет"
+msgstr "My Account"

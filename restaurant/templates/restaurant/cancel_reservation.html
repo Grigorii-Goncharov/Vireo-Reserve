@@ -1,0 +1,49 @@
+{% extends 'restaurant/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Отменить бронирование" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/booking-cancel.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cancel-container">
+  <div class="cancel-card">
+    <div class="cancel-header">
+      <h1>{% trans "Подтверждение отмены" %}</h1>
+    </div>
+
+    <div class="cancel-message">
+      <p>
+        {% blocktrans with date=reservation.reservation_date time=reservation.reservation_time %}
+          Вы уверены, что хотите отменить бронирование столиков на <strong>{{ date }}</strong> в <strong>{{ time }}</strong>?
+        {% endblocktrans %}
+      </p>
+    </div>
+
+    <div class="reservation-summary">
+      <h5>{% trans "Информация о бронировании" %}</h5>
+      <p><strong>{% trans "Забронированные столы:" %}</strong></p>
+      <ul>
+        {% for table in reservation.tables.all %}
+          <li>{% blocktrans with number=table.number capacity=table.capacity %}Стол #{{ number }} ({{ capacity }} мест){% endblocktrans %}</li>
+        {% endfor %}
+      </ul>
+      <p><strong>{% trans "Сумма:" %}</strong> {{ reservation.total_amount }} {% trans "руб." %}</p>
+    </div>
+
+    <div class="form-actions">
+      <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+          {% trans "Да, отменить" %}
+        </button>
+      </form>
+      <a href="{% url 'users:profile' %}" class="btn btn-secondary">
+        {% trans "Назад" %}
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

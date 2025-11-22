@@ -1,0 +1,164 @@
+{% extends 'restaurant/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Vireo Reserve — Бронирование столиков с видом на бухту" %}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section
+  class="text-center text-white"
+  style="
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static 'media/main_photo.png' %}');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <div class="container">
+    <h1 class="display-4 fw-bold">{% trans "Ужин с видом на бухту Phi-Phi" %}</h1>
+    <p class="lead">{% trans "Изысканная кухня, тропическая атмосфера и незабываемые впечатления" %}</p>
+    <a href="{% url 'restaurant:booking' %}" class="btn btn-light btn-lg mt-3">{% trans "Забронировать столик" %}</a>
+  </div>
+</section>
+
+<!-- О ресторане -->
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>{% trans "Описание ресторана" %}</h2>
+        <p>
+          {% trans "Vireo Reserve — это уникальное место на острове Phi Phi, вдохновлённое знаменитым фильмом «Пляж». Мы предлагаем гостям не просто ужин, а полное погружение в атмосферу тропического рая." %}
+        </p>
+        <ul>
+          <li>{% trans "Свежайшие морепродукты и тайская кухня" %}</li>
+          <li>{% trans "Экологичные практики и локальные ингредиенты" %}</li>
+          <li>{% trans "Вид на бухту с любого столика" %}</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <img src="{% static 'media/Second_photo.png' %}" alt="{% trans "Интерьер ресторана" %}" class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Услуги -->
+<section class="py-5">
+  <div class="container text-center">
+    <h2 class="mb-4 text-black">{% trans "Наши услуги" %}</h2>
+    <div class="row g-4">
+      <!-- Карточка 1 -->
+      <div class="col-md-4">
+        <div class="service-card">
+          <img src="{% static 'media/01.jpg' %}" class="card-img" alt="{% trans "Романтический ужин" %}">
+          <div class="card-overlay">
+            <h5>{% trans "Романтический ужин" %}</h5>
+            <p>{% trans "Идеальный вечер для двоих с закатом в видом на бухту с красивыми пляжами." %}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 2 -->
+      <div class="col-md-4">
+        <div class="service-card">
+          <img src="{% static 'media/03.jpg' %}" class="card-img" alt="{% trans "Празднования" %}">
+          <div class="card-overlay">
+            <h5>{% trans "Празднования" %}</h5>
+            <p>{% trans "Организуем дни рождения, свадьбы и корпоративы." %}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 3 -->
+      <div class="col-md-4">
+        <div class="service-card">
+          <img src="{% static 'media/02.jpg' %}" class="card-img" alt="{% trans "Завтраки у океана" %}">
+          <div class="card-overlay">
+            <h5>{% trans "Завтраки у океана" %}</h5>
+            <p>{% trans "Начните день с экзотических фруктов и ароматного кофе." %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-card {
+    position: relative;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .card-overlay h5 {
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-overlay p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+  }
+</style>
+
+<!-- Обратная связь -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>{% trans "Контакты" %}</h3>
+        <p><strong>{% trans "Адрес" %}:</strong> Maya Bay, Ko Phi Phi Don, {% trans "Таиланд" %}</p>
+        <p><strong>{% trans "Телефон" %}:</strong> +66 123 456 789</p>
+        <p><strong>{% trans "Email" %}:</strong> info@resortbistro.th</p>
+      </div>
+      <div class="col-md-6">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <h3>{% trans "Обратная связь" %}</h3>
+        <form method="post" action="#">
+          {% csrf_token %}
+          <div class="mb-3">
+            <input type="email" class="form-control" name="email" placeholder="{% trans "Ваш email" %}" required>
+          </div>
+          <div class="mb-3">
+            <textarea class="form-control" name="message" rows="3" placeholder="{% trans "Сообщение" %}" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-outline-dark">{% trans "Отправить" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

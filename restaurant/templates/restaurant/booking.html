@@ -1,0 +1,172 @@
+{% extends 'restaurant/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Забронировать столик" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'css/booking.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="booking-container">
+  <div class="booking-card">
+    <div class="booking-header">
+      <h2><i class="bi bi-calendar-plus me-2"></i> {% trans "Забронировать столик" %}</h2>
+    </div>
+
+    <form method="post" id="booking-form">
+      {% csrf_token %}
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="id_reservation_date">{% trans "Дата:" %}</label>
+          <input type="date" name="reservation_date" class="form-control" id="id_reservation_date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="id_reservation_time">{% trans "Время:" %}</label>
+          <input type="time" name="reservation_time" class="form-control" id="id_reservation_time" required>
+        </div>
+
+        <div class="form-group">
+          <label for="id_reservation_duration_hours">{% trans "Продолжительность (часы):" %}</label>
+          <input type="number" name="reservation_duration_hours" class="form-control" id="id_reservation_duration_hours" min="1" max="8" required>
+          <div class="form-text">{% trans "Введите количество часов (от 1 до 8)" %}</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <h5>{% trans "Выбор столика:" %}</h5>
+        <div class="tables-grid" id="tables-container">
+          {% for table in tables %}
+            <div class="table-card available" data-table-id="{{ table.id }}">
+              {% if table.photo %}
+                <img src="{{ table.photo.url }}" alt="{% blocktrans with number=table.number %}Фото стола №{{ number }}{% endblocktrans %}" class="table-image">
+              {% else %}
+                <div class="table-image-placeholder">
+                  {% trans "Фото отсутствует" %}
+                </div>
+              {% endif %}
+              <div class="form-check mb-0">
+                <input class="form-check-input table-checkbox" type="checkbox" name="tables" value="{{ table.id }}" id="table_{{ table.id }}">
+                <label class="form-check-label fw-bold" for="table_{{ table.id }}">
+                  {% blocktrans with number=table.number %}Стол №{{ number }}{% endblocktrans %}
+                </label>
+              </div>
+              <div class="table-details mt-1">
+                <small class="text-muted">
+                  <i class="bi bi-people"></i> {{ table.capacity }} {% trans "мест" %}
+                </small>
+              </div>
+            </div>
+          {% empty %}
+            <div class="col-12">
+              <p class="text-muted">{% trans "Нет доступных столов на выбранное время." %}</p>
+            </div>
+          {% endfor %}
+          {% if form.tables.errors %}
+            <div class="text-danger">{{ form.tables.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Выводим забронированные столы и интервалы -->
+      {% if reserved_tables_with_intervals %}
+        <div class="reserved-tables-section">
+          <h5><i class="bi bi-exclamation-triangle me-2"></i>{% trans "Забронированные столики на сегодня:" %}</h5>
+          <div class="reserved-tables-list">
+            {% for item in reserved_tables_with_intervals %}
+              <div class="reserved-table-item">
+                {% blocktrans with number=item.table.number capacity=item.table.capacity start=item.start_time|time:"H:i" end=item.end_time|time:"H:i" %}
+                  Стол №{{ number }} ({{ capacity }} мест)  {{ start }} – {{ end }}
+                {% endblocktrans %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-calendar-check me-2"></i> {% trans "Забронировать" %}
+      </button>
+    </form>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+document.getElementById('id_reservation_date').addEventListener('change', checkAvailability);
+document.getElementById('id_reservation_time').addEventListener('change', checkAvailability);
+document.getElementById('id_reservation_duration_hours').addEventListener('change', checkAvailability);
+
+document.querySelectorAll('.table-checkbox').forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    const card = this.closest('.table-card');
+    if (this.checked) {
+      card.classList.add('selected');
+    } else {
+      card.classList.remove('selected');
+    }
+  });
+});
+
+function checkAvailability() {
+  const date = document.getElementById('id_reservation_date').value;
+  const time = document.getElementById('id_reservation_time').value;
+  const duration = document.getElementById('id_reservation_duration_hours').value;
+
+  if (date && time && duration) {
+    fetch(`/restaurant/check_availability/?date=${date}&time=${time}&duration=${duration}`)
+      .then(response => response.json())
+      .then(data => {
+        document.querySelectorAll('.table-card').forEach(card => {
+          const tableId = parseInt(card.getAttribute('data-table-id'));
+          const checkbox = card.querySelector('.table-checkbox');
+
+          if (data.available_table_ids.includes(tableId)) {
+            card.classList.remove('unavailable');
+            card.classList.add('available');
+            checkbox.disabled = false;
+            if (!checkbox.checked) {
+              card.classList.remove('selected');
+            }
+          } else {
+            card.classList.remove('available', 'selected');
+            card.classList.add('unavailable');
+            checkbox.disabled = true;
+            checkbox.checked = false;
+          }
+        });
+      })
+      .catch(error => console.error('Ошибка при проверке доступности:', error));
+  } else {
+    document.querySelectorAll('.table-card').forEach(card => {
+      card.classList.remove('unavailable');
+      card.classList.add('available');
+      const checkbox = card.querySelector('.table-checkbox');
+      checkbox.disabled = false;
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const dateInput = document.getElementById('id_reservation_date');
+  const timeInput = document.getElementById('id_reservation_time');
+
+  if (!dateInput.value) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+  }
+  if (!timeInput.value) {
+    timeInput.value = '18:00';
+  }
+});
+</script>
+
+{% endblock %}

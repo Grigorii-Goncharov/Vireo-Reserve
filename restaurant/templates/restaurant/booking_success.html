@@ -1,0 +1,42 @@
+{% extends 'restaurant/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Бронирование подтверждено" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/booking-success.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="success-container">
+  <div class="success-card">
+    <div class="success-header">
+      <h1>{% trans "Бронирование подтверждено!" %}</h1>
+    </div>
+
+    <div class="success-message">
+      <p>{% blocktrans with name=reservation.user.get_full_name|default:reservation.user.username %}Спасибо за ваше бронирование, {{ name }}!{% endblocktrans %}</p>
+    </div>
+
+    <div class="reservation-details">
+      <h5>{% blocktrans with id=reservation.id %}Детали бронирования #{{ id }}{% endblocktrans %}</h5>
+      <p><strong>{% trans "Дата:" %}</strong> {{ reservation.reservation_date }}</p>
+      <p><strong>{% trans "Время:" %}</strong> {{ reservation.reservation_time }}</p>
+      <p><strong>{% trans "Продолжительность:" %}</strong> {{ reservation.reservation_duration_hours }} {% trans "часов" %}</p>
+      <p><strong>{% trans "Столики:" %}</strong>
+        {% for table in reservation.tables.all %}
+          #{{ table.number }} ({{ table.capacity }} {% trans "мест" %}){% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+      <p><strong>{% trans "Сумма:" %}</strong> {{ reservation.total_amount }} {% trans "руб." %}</p>
+    </div>
+
+    <a href="{% url 'users:profile' %}" class="btn btn-primary">
+      {% trans "Перейти в мой профиль" %}
+    </a>
+    <a href="{% url 'restaurant:home' %}" class="btn btn-secondary">
+      {% trans "Вернуться на главную" %}
+    </a>
+  </div>
+</div>
+{% endblock %}

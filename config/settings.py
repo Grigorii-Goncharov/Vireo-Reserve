@@ -1,9 +1,7 @@
 import os
-import sys
 from datetime import timedelta
 from pathlib import Path
 
-from celery.schedules import crontab
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,7 +29,6 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_spectacular",
     "django_celery_beat",
-    # 'corsheaders',
     "restaurant",
     "users",
 ]
@@ -49,16 +46,28 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+# настройки переключенияЯзыковых настроек сайта
+USE_I18N = True
+USE_L10N = True
+LANGUAGE_CODE = "ru"
+LANGUAGES = [
+    ("ru", "Русский"),
+    ("en", "English"),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # 'corsheaders.middleware.CorsMiddleware',
 ]
 
 # CORS_ALLOWED_ORIGINS = [
@@ -84,6 +93,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.media",
             ],
         },
     },
@@ -142,9 +152,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTH_USER_MODEL = "users.User"  # ← указываем, что User — из приложения users
 
-# LOGIN_REDIRECT_URL = 'users:profile'
-# LOGOUT_REDIRECT_URL = 'catalog:home'
-# LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = "users:profile"
+LOGOUT_REDIRECT_URL = "restaurant:home"
+LOGIN_URL = "users:register"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Настройки почты
@@ -163,96 +173,3 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/1",
     }
 }
-
-# для теста
-# Настройки для тестирования, через SQ-lite включая CI/CD
-# if "test" in sys.argv:
-#     ALLOWED_HOSTS = ["testserver", "localhost", "127.0.0.1"]
-#
-#     # Дополнительные настройки для тестов
-#     PASSWORD_HASHERS = [
-#         "django.contrib.auth.hashers.MD5PasswordHasher",  # Быстрее для тестов
-#     ]
-#
-#     # 🗃 База данных - для тестов стоковая
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": BASE_DIR / "db.sqlite3",
-#         }
-#     }
-#
-#     LANGUAGE_CODE = "ru-ru"
-#     TIME_ZONE = "UTC"
-#     USE_I18N = True
-#     USE_TZ = True
-#
-#     # 📦 Статика
-#     STATIC_URL = "/static/"
-#     STATICFILES_DIRS = []
-#
-#     # 📧 Email
-#     EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
-#
-#     # ПРОИЗВОЛЬНЫЙ КЛЮЧ ДЛЯ ТЕСТОВ
-#     SECRET_KEY = "ci-test-secret-key-unsafe-but-ok"
-#     DEBUG = True
-#     ROOT_URLCONF = "config.urls"
-#
-#     # 🔑 Указываем, что кастомная модель User — основная
-#     AUTH_USER_MODEL = "users.User"
-#
-#     # 🖼 TEMPLATES — обязательно для админки
-#     TEMPLATES = [
-#         {
-#             "BACKEND": "django.template.backends.django.DjangoTemplates",
-#             "DIRS": [],
-#             "APP_DIRS": True,
-#             "OPTIONS": {
-#                 "context_processors": [
-#                     "django.template.context_processors.debug",
-#                     "django.template.context_processors.request",
-#                     "django.contrib.auth.context_processors.auth",
-#                     "django.contrib.messages.context_processors.messages",
-#                 ],
-#             },
-#         },
-#     ]
-
-
-# Настройки Celery
-if "test" in sys.argv:
-    # Настройки для тестов
-    CELERY_TASK_ALWAYS_EAGER = True
-    CELERY_TASK_EAGER_PROPAGATES = True
-    # Используем memory backend вместо Redis
-    CELERY_RESULT_BACKEND = "cache"
-    CELERY_CACHE_BACKEND = "memory"
-else:
-    # Реальные настройки
-    CELERY_BROKER_URL = "redis://localhost:6379/0"
-    CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
-
-
-# Используем eventlet на Windows
-CELERY_WORKER_POOL = "eventlet"
-CELERY_WORKER_POOL_RESTARTS = True
-
-# Опционально: сериализация
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = "Europe/Moscow"
-
-CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-
-# Настройки Celery Beat (планировщик)
-CELERY_BEAT_SCHEDULE = {
-    "check-habits-daily": {
-        "task": "tracker.tasks.check_all_habits",
-        "schedule": crontab(minute=0, hour="*/6"),
-    },
-}
-
-TELEGRAM_URL = "https://api.telegram.org/bot"
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")

@@ -1,0 +1,99 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+              url('../media/main_photo.png') center/cover no-repeat fixed;
+}
+
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  min-height: 80vh;
+  justify-content: center;
+}
+
+.success-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.success-header h1 {
+  font-weight: 700;
+  color: #065f46;
+  margin-bottom: 1.5rem;
+  font-size: 32px;
+}
+
+.success-message p {
+  font-size: 18px;
+  color: #0f766e;
+  margin-bottom: 2rem;
+}
+
+.reservation-details {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 2rem;
+  text-align: left;
+  border: 1px solid #cbd5e1;
+}
+
+.reservation-details h5 {
+  font-weight: 700;
+  color: #065f46;
+  margin-bottom: 1.5rem;
+  font-size: 22px;
+}
+
+.reservation-details p {
+  margin-bottom: 0.75rem;
+  font-size: 16px;
+}
+
+.reservation-details strong {
+  color: #0f766e;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #047857, #065f46);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #64748b, #475569);
+  color: white;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #475569, #334155);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(100, 116, 139, 0.35);
+}

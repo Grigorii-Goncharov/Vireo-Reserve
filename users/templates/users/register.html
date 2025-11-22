@@ -1,0 +1,113 @@
+{% extends "restaurant/base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Создать аккаунт" %}| Vireo Reserve{% endblock %}
+
+{% block extra_css %}
+  <style>
+    /* Переопределение фона */
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                  url('{% static "media/main_photo.png" %}') center/cover no-repeat fixed !important;
+    }
+
+    /* Новый стиль для контейнера, аналогичный login.html и booking.html */
+    .register-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem; /* Основной отступ */
+      min-height: 80vh; /* Используем 80vh вместо 100vh */
+      justify-content: flex-start; /* Карточка прижата к верху */
+    }
+
+    /* Опционально: стили для сообщений, если они должны быть центрированы */
+    .messages-container {
+      width: 100%;
+      max-width: 460px; /* Соответствует ширине карточки */
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem; /* Отступ между сообщениями и карточкой */
+    }
+
+  </style>
+  <!-- Подключаем auth_common.css вместо register.css для согласованности -->
+  <link rel="stylesheet" href="{% static 'css/auth_common.css' %}">
+  <!-- Подключите Bootstrap Icons, если не подключены глобально -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <!-- Если register.css содержит уникальные стили, которые нельзя вынести в auth_common.css -->
+  <!-- <link rel="stylesheet" href="{% static 'css/register.css' %}"> -->
+{% endblock %}
+
+{% block content %}
+
+<!-- Заменяем старый div.container на новый .register-container -->
+<div class="register-container">
+  <!-- Сообщения отображаются ровно над формой, центрированы -->
+  {% if messages %}
+    <div class="messages-container">
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Карточка регистрации -->
+  <div class="auth-card"> <!-- Используем общий класс из auth_common.css -->
+    <div class="card-header">
+      <h2>{% trans "Создать аккаунт" %}</h2>
+      <!-- Убрана строка <p> из auth_common.css, добавьте её при необходимости -->
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="non-field-errors">
+          <i class="bi bi-exclamation-triangle-fill me-1"></i>
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      {% for field in form %}
+        <div class="input-group">
+          <div class="d-flex align-items-start">
+            <label for="{{ field.id_for_label }}" class="me-3">
+              {{ field.label }}
+              {% if field.field.required %}
+                <span class="text-danger">*</span>
+              {% endif %}
+            </label>
+            <div>
+              {{ field }}
+            </div>
+          </div>
+
+          {% if field.errors %}
+            <div class="error-text">
+              <i class="bi bi-exclamation-circle me-1"></i>
+              {{ field.errors|first }}
+            </div>
+          {% endif %}
+
+          {% if field.help_text %}
+            <small class="help-text">{{ field.help_text|safe }}</small>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <!-- Кнопка использует стиль из auth_common.css -->
+      <button type="submit" class="btn-auth"> <!-- Изменили класс на btn-auth -->
+        {% trans "Зарегистрироваться" %}
+      </button>
+    </form>
+
+    <div class="login-link">
+      {% trans "Уже есть аккаунт?" %} <a href="{% url 'users:login' %}">{% trans "Войти" %}</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,211 @@
+/* static/css/auth_common.css */
+
+body {
+  margin: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+              url('../media/main_photo.png') center/cover no-repeat fixed; /* Путь к изображению из CSS файла */
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.card-header h2 {
+  font-weight: 700;
+  color: #065f46;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+.card-header p {
+  color: #64748b;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+.input-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #334155;
+  font-size: 15px;
+  letter-spacing: -0.2px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  transition: border-color 0.3s, box-shadow 0.2s;
+  background: #fff;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #059669, #047857);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.btn-auth:hover {
+  background: linear-gradient(135deg, #047857, #065f46);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 28px 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.divider::before {
+  margin-right: 12px;
+}
+.divider::after {
+  margin-left: 12px;
+}
+
+.links {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 15px;
+}
+
+.links a {
+  color: #0d9488;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 8px;
+}
+
+.links a:hover {
+  text-decoration: underline;
+  color: #065f46;
+}
+
+.back-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.back-link a {
+  color: #0d9488;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-link a:hover {
+  text-decoration: underline;
+  color: #065f46;
+}
+
+.footer-note {
+  text-align: center;
+  margin-top: 30px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.alert {
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 576px) {
+  .auth-card {
+    padding: 30px 20px;
+    margin: 0 16px;
+  }
+}
+
+/* --- Уникальные стили для страницы подтверждения сброса пароля --- */
+
+.success-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.success-card i {
+  font-size: 48px;
+  color: #10b981;
+  margin-bottom: 20px;
+}
+
+.success-card h2 {
+  font-weight: 700;
+  color: #065f46;
+  font-size: 26px;
+  margin-bottom: 16px;
+}
+
+.success-card p {
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.back-link {
+  display: inline-block;
+  color: #0d9488;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #065f46;
+  text-decoration: underline;
+}
